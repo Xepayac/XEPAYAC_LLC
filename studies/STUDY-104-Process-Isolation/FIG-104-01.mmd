@@ -1,0 +1,34 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_04_isolation.mmd -o FIG_04_isolation.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 4 - Process Isolation via Graph-Only Communication (Pillar 3)
+%% Reference Numerals: 400-480
+%% Claims Supported: claim_1, claim_5, claim_14
+%% View Type: System Architecture Diagram
+%% Key Insight: Multiple X marks show what is BLOCKED; single path through file system shows what is ALLOWED
+
+flowchart TB
+    subgraph OS["400: OPERATING SYSTEM"]
+        subgraph P1["410: Process A (PID 1234)"]
+            M1["430: Memory Space A"]
+            LLM1["Agent A Code"]
+        end
+        
+        subgraph P2["420: Process B (PID 5678)"]
+            M2["440: Memory Space B"]
+            LLM2["Agent B Code"]
+        end
+        
+        FS["450: FILE SYSTEM<br/>graph.json"]
+    end
+    
+    P1 -.->|"460: File I/O<br/>(ALLOWED)"| FS
+    P2 -.->|"460: File I/O<br/>(ALLOWED)"| FS
+    
+    M1 ---|"470: ❌ NO SHARED MEMORY"| M2
+    LLM1 ---|"480: ❌ NO DIRECT CALLS"| LLM2
+    
+    style P1 fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style P2 fill:#e8eaf6,stroke:#283593,stroke-width:2px
+    style FS fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style OS fill:#fafafa,stroke:#424242

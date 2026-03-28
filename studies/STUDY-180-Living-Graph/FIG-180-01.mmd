@@ -1,0 +1,44 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryBorderColor': '#0288d1'}}}%%
+flowchart TB
+    subgraph Q1["Query 1: Who are competitors?"]
+        Q1_IN[/"Human Question"/]
+        Q1_TOOL["TRUGS Crawler"]
+        Q1_OUT[("TRUG v1<br/>3 nodes")]
+    end
+    
+    subgraph Q2["Query 2: How do they charge?"]
+        Q2_IN[/"Human Question"/]
+        Q2_TOOL["TRUGS Crawler"]
+        Q2_MERGE["Merge"]
+        Q2_OUT[("TRUG v2<br/>5 nodes")]
+    end
+    
+    subgraph Q3["Query 3: What features?"]
+        Q3_IN[/"Human Question"/]
+        Q3_TOOL["TRUGS Crawler"]
+        Q3_MERGE["Merge"]
+        Q3_OUT[("TRUG v3<br/>7 nodes")]
+    end
+    
+    Q1_IN --> Q1_TOOL
+    Q1_TOOL -->|"Discovers:<br/>A, B, C"| Q1_OUT
+    
+    Q2_IN --> Q2_TOOL
+    Q2_TOOL -->|"Discovers:<br/>A*, T1, T2"| Q2_MERGE
+    Q1_OUT -->|"Existing"| Q2_MERGE
+    Q2_MERGE -->|"Skip A*<br/>Add T1, T2"| Q2_OUT
+    
+    Q3_IN --> Q3_TOOL
+    Q3_TOOL -->|"Discovers:<br/>B*, F1, F2"| Q3_MERGE
+    Q2_OUT -->|"Existing"| Q3_MERGE
+    Q3_MERGE -->|"Skip B*<br/>Add F1, F2"| Q3_OUT
+    
+    style Q1_OUT fill:#c8e6c9
+    style Q2_OUT fill:#c8e6c9
+    style Q3_OUT fill:#a5d6a7
+    
+    %% Legend
+    subgraph Legend
+        L1["* = Duplicate (skipped)"]
+        L2["TRUG grows: 3 → 5 → 7"]
+    end

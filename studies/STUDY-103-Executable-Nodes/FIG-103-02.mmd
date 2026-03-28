@@ -1,0 +1,46 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_09_node_schema.mmd -o FIG_09_node_schema.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 9 - Node Data Structure Schema
+%% Reference Numerals: 900-960
+%% Claims Supported: claim_1, claim_3, claim_6
+%% View Type: Data Structure Diagram
+%% Key Insight: Complete field specification enables unambiguous implementation
+
+classDiagram
+    class NodeObject {
+        <<900: Node Object>>
+        +910: id : UUID_v4
+        +920: type : NodeType
+        +930: created_by : agent_id
+        +940: created_at : ISO_8601
+        +950: data : DataPayload
+        +960: metadata : MetadataObject
+    }
+    
+    class NodeType {
+        <<920: Enumeration>>
+        AGENT
+        DATA
+        TASK
+        RESULT
+        COMPOSITE
+    }
+    
+    class DataPayload {
+        <<950: Payload Container>>
+        +content : any
+        +schema : string
+        +version : string
+    }
+    
+    class MetadataObject {
+        <<960: Metadata Container>>
+        +modification_history : array
+        +access_control : AccessRules
+        +provenance : ProvenanceChain
+    }
+    
+    NodeObject --> NodeType : type
+    NodeObject --> DataPayload : data
+    NodeObject --> MetadataObject : metadata

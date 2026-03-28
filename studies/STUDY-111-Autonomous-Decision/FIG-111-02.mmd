@@ -1,0 +1,43 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#0288d1'}}}%%
+flowchart TB
+    subgraph HW["Hardware Execution Environment"]
+        subgraph PROCS["Separate OS Processes"]
+            ORCH["Orchestrator Agent<br/>(Distinct Process)"]
+            
+            subgraph WORKERS["Worker LLM Agents"]
+                W1["LLM Agent 1<br/>Role: Analyst"]
+                W2["LLM Agent 2<br/>Role: Coder"]
+                W3["LLM Agent 3<br/>Role: Reviewer"]
+            end
+        end
+        
+        subgraph FS["File System"]
+            OG["Orchestration Graph<br/>(Serialized File)"]
+        end
+    end
+    
+    ORCH -->|"1. Traverse graph<br/>select agent by role"| OG
+    OG -->|"2. Task delegation"| ORCH
+    ORCH -->|"3. Delegate task"| W1
+    ORCH -->|"3. Delegate task"| W2
+    ORCH -->|"3. Delegate task"| W3
+    
+    W1 -->|"4. Modify graph<br/>(within permitted)"| OG
+    W2 -->|"4. Modify graph<br/>(within permitted)"| OG
+    W3 -->|"4. Modify graph<br/>(within permitted)"| OG
+    
+    subgraph CONSTRAINTS["Permitted Modifications"]
+        C1["Role: Analyst<br/>Can: create analysis nodes"]
+        C2["Role: Coder<br/>Can: create code nodes"]
+        C3["Role: Reviewer<br/>Can: create review nodes"]
+    end
+    
+    OG -.-> CONSTRAINTS
+    
+    style HW fill:#f5f5f5,stroke:#424242
+    style PROCS fill:#e3f2fd,stroke:#1976d2
+    style WORKERS fill:#fff3e0,stroke:#f57c00
+    style FS fill:#e8f5e9,stroke:#388e3c
+    style OG fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style ORCH fill:#bbdefb,stroke:#1976d2,stroke-width:3px
+    style CONSTRAINTS fill:#f3e5f5,stroke:#7b1fa2

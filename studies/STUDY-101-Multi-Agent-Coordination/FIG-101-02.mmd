@@ -1,0 +1,37 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_11_execution_protocol.mmd -o FIG_11_execution_protocol.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 11 - Turn-Based Execution Protocol
+%% Reference Numerals: 1100-1180
+%% Claims Supported: claim_10, claim_12, claim_13
+%% View Type: Flowchart
+%% Key Insight: Lock-read-process-write-unlock ensures atomic graph operations
+
+flowchart TD
+    START(["1100: Agent Turn Start"])
+    LOCK["1110: 1. Acquire File Lock"]
+    READ["1120: 2. Read Graph File"]
+    DECIDE{"1130: Has Work?"}
+    COMPUTE["1140: 3. Perform Computation<br/>(LLM inference, data processing)"]
+    MODIFY["1150: 4. Modify Graph<br/>(add nodes, create edges)"]
+    WRITE["1160: 5. Write Graph File<br/>(atomic operation)"]
+    RELEASE["1170: 6. Release File Lock"]
+    END(["1180: Agent Turn Complete"])
+    
+    START --> LOCK
+    LOCK --> READ
+    READ --> DECIDE
+    DECIDE -->|"Yes"| COMPUTE
+    DECIDE -->|"No"| RELEASE
+    COMPUTE --> MODIFY
+    MODIFY --> WRITE
+    WRITE --> RELEASE
+    RELEASE --> END
+    
+    style START fill:#c8e6c9,stroke:#2e7d32
+    style END fill:#c8e6c9,stroke:#2e7d32
+    style LOCK fill:#ffecb3,stroke:#ff8f00
+    style WRITE fill:#ffecb3,stroke:#ff8f00
+    style RELEASE fill:#ffecb3,stroke:#ff8f00
+    style COMPUTE fill:#e3f2fd,stroke:#1565c0
+    style MODIFY fill:#e3f2fd,stroke:#1565c0

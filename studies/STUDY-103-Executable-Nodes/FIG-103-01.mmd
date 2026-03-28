@@ -1,0 +1,33 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_03_executable_spec.mmd -o FIG_03_executable_spec.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 3 - Graph Structure as Executable Specification (Pillar 2)
+%% Reference Numerals: 300-350
+%% Claims Supported: claim_1, claim_3, claim_4, claim_6
+%% View Type: Comparison Diagram
+%% Key Insight: Side-by-side proves graph topology = execution behavior
+
+flowchart LR
+    subgraph LEFT["300: GRAPH STRUCTURE (JSON)"]
+        N1["330: Node<br/>id: 'researcher'<br/>type: AGENT"]
+        N2["340: Node<br/>id: 'writer'<br/>type: AGENT"]
+        E1["350: Edge<br/>source: researcher<br/>target: writer<br/>relation: PROVIDES"]
+        N1 --> E1
+        E1 --> N2
+    end
+    
+    ARROW["320: DEFINES /<br/>COMPILES TO"]
+    
+    subgraph RIGHT["310: EXECUTION BEHAVIOR"]
+        direction TB
+        EX1["Researcher Agent<br/>Executes First"]
+        EX2["Output Passed<br/>via Graph"]
+        EX3["Writer Agent<br/>Receives Input"]
+        EX1 --> EX2 --> EX3
+    end
+    
+    LEFT --> ARROW --> RIGHT
+    
+    style ARROW fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style LEFT fill:#e8f5e9,stroke:#2e7d32
+    style RIGHT fill:#e3f2fd,stroke:#1565c0

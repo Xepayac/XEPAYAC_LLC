@@ -1,0 +1,22 @@
+---
+title: "FIG. 57-02: Subgraph Encapsulation"
+patent: EGS-57
+---
+graph LR
+    subgraph "Parent Scope"
+        A[Parent Node]
+        
+        subgraph "Child Scope"
+            B[Child Node 1]
+            C[Child Node 2]
+            D[Internal Edge]
+        end
+        
+        E[Interface Node]
+    end
+    
+    A -->|"references"| E
+    E -->|"delegates to"| B
+    B --> D --> C
+    
+    style E fill:#f9f,stroke:#333

@@ -1,0 +1,21 @@
+---
+title: "FIG. 71-02: Structured Output Parsing"
+patent: EGS-71
+---
+flowchart LR
+    A["LLM Response JSON"] --> B[Parse JSON]
+    B --> C{Valid Structure?}
+    C -->|"Yes"| D[Extract Mutations Array]
+    C -->|"No"| E[Parse Error]
+    
+    D --> F[For Each Mutation]
+    F --> G{Parse Type}
+    
+    G -->|"ADD_NODE"| H[MutationInstruction]
+    G -->|"ADD_EDGE"| H
+    G -->|"UPDATE_NODE"| H
+    G -->|"DELETE_NODE"| H
+    G -->|"DELETE_EDGE"| H
+    G -->|"Unknown"| I[Type Error]
+    
+    H --> J[Mutation Queue]

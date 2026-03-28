@@ -1,0 +1,25 @@
+---
+title: "FIG. 71-03: Validation and Rollback"
+patent: EGS-71
+---
+flowchart TB
+    A[Mutation Batch] --> B[Create Checkpoint]
+    B --> C[Apply Mutation 1]
+    
+    C --> D{Validation Pass?}
+    D -->|"Yes"| E[Apply Mutation 2]
+    D -->|"No"| F[Rollback to Checkpoint]
+    
+    E --> G{Validation Pass?}
+    G -->|"Yes"| H[Apply Mutation N]
+    G -->|"No"| F
+    
+    H --> I{All Complete?}
+    I -->|"Yes"| J[Commit Changes]
+    I -->|"No"| K[Continue]
+    K --> C
+    
+    F --> L[Restore Previous State]
+    L --> M[Return Error Details]
+    
+    J --> N[Updated Graph State]

@@ -1,0 +1,30 @@
+---
+title: "FIG. 72-01: File Coordination Architecture"
+patent: EGS-72
+---
+graph TB
+    subgraph "100 - Process A"
+        A1[Read State]
+        A2[Compute]
+        A3[Write State]
+    end
+    
+    subgraph "110 - Shared File System"
+        B1[state_a.json]
+        B2[state_b.json]
+        B3[coordination/]
+    end
+    
+    subgraph "120 - Process B"
+        C1[Read State]
+        C2[Compute]
+        C3[Write State]
+    end
+    
+    A1 --> A2 --> A3
+    C1 --> C2 --> C3
+    
+    A3 -->|"write"| B1
+    B1 -->|"read"| C1
+    C3 -->|"write"| B2
+    B2 -->|"read"| A1

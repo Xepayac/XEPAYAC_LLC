@@ -1,0 +1,30 @@
+---
+title: "FIG. 66-01: Topological Access Control Architecture"
+patent: EGS-66
+---
+graph TB
+    subgraph "100 - Access Control Layer"
+        A[Permission Evaluator]
+        B[Visibility Filter]
+        C[Policy Engine]
+    end
+    
+    subgraph "110 - Graph Structure"
+        D[Public Nodes]
+        E[Private Nodes]
+        F[Restricted Edges]
+    end
+    
+    subgraph "120 - Agent Context"
+        G[Agent Identity]
+        H[Role Assignment]
+        I[Scope Boundaries]
+    end
+    
+    G --> A
+    H --> A
+    A --> B
+    C --> A
+    B --> D
+    B -.->|"filtered"| E
+    I --> B

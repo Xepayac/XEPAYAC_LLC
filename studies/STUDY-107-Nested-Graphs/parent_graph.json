@@ -1,0 +1,55 @@
+{
+  "id": "parent_workflow",
+  "metadata": {
+    "description": "Top-level workflow with subgraph references",
+    "created": "2025-12-27"
+  },
+  "nodes": [
+    {
+      "id": "task_start",
+      "type": "TASK",
+      "data": {"description": "Initialize workflow"},
+      "metadata": {}
+    },
+    {
+      "id": "data_pipeline",
+      "type": "SUBGRAPH",
+      "data": {"description": "Data processing pipeline"},
+      "metadata": {},
+      "subgraph_ref": "child_workflow.json"
+    },
+    {
+      "id": "validation_suite",
+      "type": "SUBGRAPH", 
+      "data": {"description": "Validation checks"},
+      "metadata": {},
+      "subgraph_ref": "child_validation.json"
+    },
+    {
+      "id": "task_end",
+      "type": "TASK",
+      "data": {"description": "Finalize workflow"},
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "task_start",
+      "to_id": "data_pipeline",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    },
+    {
+      "from_id": "data_pipeline",
+      "to_id": "validation_suite",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    },
+    {
+      "from_id": "validation_suite",
+      "to_id": "task_end",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    }
+  ]
+}

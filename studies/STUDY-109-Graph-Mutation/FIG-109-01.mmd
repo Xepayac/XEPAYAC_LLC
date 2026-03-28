@@ -1,0 +1,33 @@
+---
+title: "FIG. 71-01: Mutation Architecture"
+patent: EGS-71
+---
+graph TB
+    subgraph "100 - LLM Output"
+        A[Structured Response]
+        B[Mutation Instructions]
+    end
+    
+    subgraph "110 - Mutation Engine"
+        C[Parser]
+        D[Validator]
+        E[Executor]
+        F[Rollback Manager]
+    end
+    
+    subgraph "120 - Graph State"
+        G[Current State]
+        H[Checkpoint]
+        I[Updated State]
+    end
+    
+    A --> C
+    C --> B
+    B --> D
+    D -->|"valid"| E
+    D -->|"invalid"| J[Reject]
+    G --> H
+    E --> G
+    G --> I
+    F --> H
+    F -.->|"restore"| G

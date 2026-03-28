@@ -1,0 +1,43 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_12_process_lifecycle.mmd -o FIG_12_process_lifecycle.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 12 - Process Spawn and Lifecycle
+%% Reference Numerals: 1200-1270
+%% Claims Supported: claim_1, claim_5, claim_14
+%% View Type: Sequence Diagram
+%% Key Insight: Operating system creates isolated process with separate memory space
+
+sequenceDiagram
+    participant EX as 1200: Executor<br/>(PID 1000)
+    participant OS as 1210: Operating System
+    participant A as 1220: Agent A
+    participant B as Agent B
+    
+    Note over EX: Executor loads graph.json
+    
+    rect rgb(230, 245, 255)
+        Note over EX,A: 1230: Process Creation
+        EX->>OS: subprocess.Popen(['agent_a'])
+        OS->>OS: 1240: fork() + exec()
+        OS-->>EX: 1250: return PID 1234
+        activate A
+        Note over A: 1260: Agent executes<br/>in isolated memory
+    end
+    
+    rect rgb(230, 255, 230)
+        EX->>OS: subprocess.Popen(['agent_b'])
+        OS->>OS: fork() + exec()
+        OS-->>EX: return PID 5678
+        activate B
+    end
+    
+    Note over A,B: Agents communicate ONLY via graph file
+    
+    A--xB: ❌ No direct communication
+    
+    rect rgb(255, 235, 235)
+        Note over EX,B: 1270: Lifecycle Management
+        EX->>OS: process.terminate()
+        deactivate A
+        deactivate B
+    end

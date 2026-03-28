@@ -1,0 +1,23 @@
+---
+title: "FIG. 66-02: Permission Propagation"
+patent: EGS-66
+---
+graph LR
+    subgraph "Permission Flow"
+        A[Root: ADMIN] -->|"inherits"| B[Child: READ]
+        B -->|"inherits"| C[Grandchild: READ]
+        A -->|"explicit"| D[Sibling: WRITE]
+        D -->|"inherits"| E[Nephew: WRITE]
+    end
+    
+    subgraph "Visibility Boundary"
+        F[Private Subgraph]
+        G[Hidden Node]
+    end
+    
+    B -.->|"blocked"| F
+    D -->|"granted"| F
+    F --> G
+    
+    style F fill:#fdd
+    style G fill:#fdd

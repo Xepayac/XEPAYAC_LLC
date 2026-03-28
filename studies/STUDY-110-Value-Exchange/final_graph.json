@@ -1,0 +1,480 @@
+{
+  "nodes": [
+    {
+      "id": "auth-system",
+      "type": "CONCEPT",
+      "data": {
+        "description": "User authentication system that verifies user identity and manages access"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040563+00:00",
+        "modified_at": "2025-12-18T16:28:09.040563+00:00"
+      }
+    },
+    {
+      "id": "credential-validation",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Validate user credentials (username/password) against stored data"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040599+00:00",
+        "modified_at": "2025-12-18T16:28:09.040599+00:00"
+      }
+    },
+    {
+      "id": "session-management",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Create and maintain user sessions after successful authentication"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040613+00:00",
+        "modified_at": "2025-12-18T16:28:09.040613+00:00"
+      }
+    },
+    {
+      "id": "password-hashing",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Use bcrypt or similar strong hashing algorithm for password storage"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040622+00:00",
+        "modified_at": "2025-12-18T16:28:09.040622+00:00"
+      }
+    },
+    {
+      "id": "user-datastore",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Database or storage system containing user credentials and profile data"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040629+00:00",
+        "modified_at": "2025-12-18T16:28:09.040629+00:00"
+      }
+    },
+    {
+      "id": "security-first",
+      "type": "PATTERN",
+      "data": {
+        "description": "Prioritize security over convenience in authentication design decisions"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040635+00:00",
+        "modified_at": "2025-12-18T16:28:09.040635+00:00"
+      }
+    },
+    {
+      "id": "logout-mechanism",
+      "type": "BEHAVIOR",
+      "data": {
+        "description": "Allow users to explicitly end their session and invalidate session tokens"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975621+00:00",
+        "modified_at": "2025-12-18T16:28:17.975621+00:00"
+      }
+    },
+    {
+      "id": "rate-limiting",
+      "type": "BEHAVIOR",
+      "data": {
+        "description": "Limit authentication attempts to prevent brute force attacks"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975646+00:00",
+        "modified_at": "2025-12-18T16:28:17.975646+00:00"
+      }
+    },
+    {
+      "id": "input-validation",
+      "type": "BEHAVIOR",
+      "data": {
+        "description": "Sanitize and validate all user inputs to prevent injection attacks"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975653+00:00",
+        "modified_at": "2025-12-18T16:28:17.975653+00:00"
+      }
+    },
+    {
+      "id": "session-timeout",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Sessions automatically expire after predetermined period of inactivity"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975668+00:00",
+        "modified_at": "2025-12-18T16:28:17.975668+00:00"
+      }
+    },
+    {
+      "id": "error-handling",
+      "type": "BEHAVIOR",
+      "data": {
+        "description": "Handle authentication failures gracefully with appropriate error messages without revealing system details"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224802+00:00",
+        "modified_at": "2025-12-18T16:28:28.224802+00:00"
+      }
+    },
+    {
+      "id": "user-registration",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Process for creating new user accounts with proper validation and credential setup"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224833+00:00",
+        "modified_at": "2025-12-18T16:28:28.224833+00:00"
+      }
+    },
+    {
+      "id": "password-policy",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Enforce minimum password complexity requirements (length, character types, common password checks)"
+      },
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224844+00:00",
+        "modified_at": "2025-12-18T16:28:28.224844+00:00"
+      }
+    },
+    {
+      "id": "auth-strategy-decision",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Choose between stateful session-based authentication or stateless token-based (JWT) authentication"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851194+00:00",
+        "modified_at": "2025-12-18T16:28:38.851194+00:00"
+      }
+    },
+    {
+      "id": "multi-factor-auth",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Optional second authentication factor (SMS, TOTP, email) for enhanced security"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851218+00:00",
+        "modified_at": "2025-12-18T16:28:38.851218+00:00"
+      }
+    },
+    {
+      "id": "account-lockout",
+      "type": "BEHAVIOR",
+      "data": {
+        "description": "Temporarily lock user accounts after consecutive failed authentication attempts"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851225+00:00",
+        "modified_at": "2025-12-18T16:28:38.851225+00:00"
+      }
+    },
+    {
+      "id": "security-monitoring",
+      "type": "CONCEPT",
+      "data": {
+        "description": "Log and monitor authentication events for suspicious activity and security analysis"
+      },
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851234+00:00",
+        "modified_at": "2025-12-18T16:28:38.851234+00:00"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "auth-system",
+      "to_id": "credential-validation",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040650+00:00"
+      }
+    },
+    {
+      "from_id": "auth-system",
+      "to_id": "session-management",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040667+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "user-datastore",
+      "relation": "REQUIRES",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040677+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "password-hashing",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040685+00:00"
+      }
+    },
+    {
+      "from_id": "password-hashing",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040698+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "session-management",
+      "relation": "LEADS_TO",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:09.040706+00:00"
+      }
+    },
+    {
+      "from_id": "session-management",
+      "to_id": "logout-mechanism",
+      "relation": "REQUIRES",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975682+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "rate-limiting",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975693+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "input-validation",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975702+00:00"
+      }
+    },
+    {
+      "from_id": "session-management",
+      "to_id": "session-timeout",
+      "relation": "REQUIRES",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975715+00:00"
+      }
+    },
+    {
+      "from_id": "rate-limiting",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975723+00:00"
+      }
+    },
+    {
+      "from_id": "logout-mechanism",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:17.975731+00:00"
+      }
+    },
+    {
+      "from_id": "credential-validation",
+      "to_id": "error-handling",
+      "relation": "REQUIRES",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224860+00:00"
+      }
+    },
+    {
+      "from_id": "user-registration",
+      "to_id": "password-hashing",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224871+00:00"
+      }
+    },
+    {
+      "from_id": "user-registration",
+      "to_id": "user-datastore",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224890+00:00"
+      }
+    },
+    {
+      "from_id": "password-policy",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224899+00:00"
+      }
+    },
+    {
+      "from_id": "user-registration",
+      "to_id": "password-policy",
+      "relation": "REQUIRES",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224906+00:00"
+      }
+    },
+    {
+      "from_id": "input-validation",
+      "to_id": "rate-limiting",
+      "relation": "SUPPORTS",
+      "weight": 0.6,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224914+00:00"
+      }
+    },
+    {
+      "from_id": "error-handling",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Alpha",
+        "created_at": "2025-12-18T16:28:28.224922+00:00"
+      }
+    },
+    {
+      "from_id": "auth-system",
+      "to_id": "auth-strategy-decision",
+      "relation": "REQUIRES",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851270+00:00"
+      }
+    },
+    {
+      "from_id": "auth-strategy-decision",
+      "to_id": "session-management",
+      "relation": "LEADS_TO",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851283+00:00"
+      }
+    },
+    {
+      "from_id": "auth-system",
+      "to_id": "multi-factor-auth",
+      "relation": "SUPPORTS",
+      "weight": 0.6,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851292+00:00"
+      }
+    },
+    {
+      "from_id": "multi-factor-auth",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.9,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851300+00:00"
+      }
+    },
+    {
+      "from_id": "rate-limiting",
+      "to_id": "account-lockout",
+      "relation": "LEADS_TO",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851308+00:00"
+      }
+    },
+    {
+      "from_id": "account-lockout",
+      "to_id": "security-first",
+      "relation": "SUPPORTS",
+      "weight": 0.8,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851323+00:00"
+      }
+    },
+    {
+      "from_id": "auth-system",
+      "to_id": "security-monitoring",
+      "relation": "REQUIRES",
+      "weight": 0.7,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851331+00:00"
+      }
+    },
+    {
+      "from_id": "error-handling",
+      "to_id": "security-monitoring",
+      "relation": "SUPPORTS",
+      "weight": 0.6,
+      "metadata": {
+        "created_by": "Beta",
+        "created_at": "2025-12-18T16:28:38.851344+00:00"
+      }
+    }
+  ]
+}

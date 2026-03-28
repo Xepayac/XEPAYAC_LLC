@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "node_id": "supply_apples",
+      "node_type": "supply",
+      "product": "apples",
+      "quantity": 100,
+      "min_price": 1.0,
+      "contributed_by": "Apple Farm Co",
+      "data_source": "seller_private_inventory"
+    },
+    {
+      "node_id": "demand_buyer_a",
+      "node_type": "demand",
+      "product": "apples",
+      "quantity": 60,
+      "max_price": 1.5,
+      "contributed_by": "Grocery Chain Alpha",
+      "data_source": "buyer_a_private_orders"
+    },
+    {
+      "node_id": "demand_buyer_b",
+      "node_type": "demand",
+      "product": "apples",
+      "quantity": 80,
+      "max_price": 1.2,
+      "contributed_by": "Restaurant Group Beta",
+      "data_source": "buyer_b_private_orders"
+    },
+    {
+      "node_id": "allocation_1",
+      "node_type": "allocation",
+      "seller": "Apple Farm Co",
+      "buyer": "Grocery Chain Alpha",
+      "quantity": 60,
+      "price": 1.0,
+      "contributed_by": "Optimizer",
+      "reasoning": "Allocated 60 units @ $1.0/unit"
+    },
+    {
+      "node_id": "allocation_2",
+      "node_type": "allocation",
+      "seller": "Apple Farm Co",
+      "buyer": "Restaurant Group Beta",
+      "quantity": 40,
+      "price": 1.0,
+      "contributed_by": "Optimizer",
+      "reasoning": "Allocated 40 units @ $1.0/unit"
+    }
+  ],
+  "edges": [
+    {
+      "source": "supply_apples",
+      "target": "allocation_1",
+      "edge_type": "supplies",
+      "label": "60 units"
+    },
+    {
+      "source": "allocation_1",
+      "target": "demand_buyer_a",
+      "edge_type": "fulfills",
+      "label": "60 units @ $1.0"
+    },
+    {
+      "source": "supply_apples",
+      "target": "allocation_2",
+      "edge_type": "supplies",
+      "label": "40 units"
+    },
+    {
+      "source": "allocation_2",
+      "target": "demand_buyer_b",
+      "edge_type": "fulfills",
+      "label": "40 units @ $1.0"
+    }
+  ],
+  "execution_log": [
+    {
+      "action": "add_supply",
+      "node_id": "supply_apples",
+      "contributed_by": "Apple Farm Co"
+    },
+    {
+      "action": "add_demand",
+      "node_id": "demand_buyer_a",
+      "contributed_by": "Grocery Chain Alpha"
+    },
+    {
+      "action": "add_demand",
+      "node_id": "demand_buyer_b",
+      "contributed_by": "Restaurant Group Beta"
+    },
+    {
+      "action": "add_allocation",
+      "node_id": "allocation_1",
+      "contributed_by": "Optimizer"
+    },
+    {
+      "action": "add_allocation",
+      "node_id": "allocation_2",
+      "contributed_by": "Optimizer"
+    }
+  ]
+}

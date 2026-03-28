@@ -1,0 +1,33 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fff3e0', 'primaryBorderColor': '#ff9800'}}}%%
+flowchart LR
+    subgraph Provenance["Provenance Chain"]
+        direction TB
+        
+        Q["RESEARCH_QUERY<br/>Who are competitors?"]
+        T["TOOL_EXECUTION<br/>trugs_crawler_001"]
+        E1["COMPANY<br/>Perplexity AI"]
+        E2["COMPANY<br/>You.com"]
+        E3["PRICING_TIER<br/>Pro $20/mo"]
+        A["RESEARCH_ANSWER<br/>Found 3 competitors..."]
+    end
+    
+    Q -->|"TRIGGERS"| T
+    T -->|"PRODUCES"| E1
+    T -->|"PRODUCES"| E2
+    T -->|"PRODUCES"| E3
+    E1 -->|"SYNTHESIZES_TO"| A
+    E2 -->|"SYNTHESIZES_TO"| A
+    E3 -->|"SYNTHESIZES_TO"| A
+    A -->|"RESPONDS_TO"| Q
+    
+    subgraph Entity["Entity Relationships"]
+        E1 -->|"HAS_TIER"| E3
+        E1 -->|"COMPETES_WITH"| E2
+    end
+    
+    style Q fill:#e3f2fd
+    style T fill:#fff9c4
+    style E1 fill:#c8e6c9
+    style E2 fill:#c8e6c9
+    style E3 fill:#f3e5f5
+    style A fill:#ffecb3

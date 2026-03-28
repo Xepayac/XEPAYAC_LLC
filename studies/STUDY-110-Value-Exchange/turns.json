@@ -1,0 +1,190 @@
+[
+  {
+    "llm_name": "Alpha",
+    "model": "claude-sonnet-4-20250514",
+    "nodes_added": [
+      "auth-system",
+      "credential-validation",
+      "session-management",
+      "password-hashing",
+      "user-datastore",
+      "security-first"
+    ],
+    "edges_added": [
+      [
+        "auth-system",
+        "credential-validation",
+        "REQUIRES"
+      ],
+      [
+        "auth-system",
+        "session-management",
+        "REQUIRES"
+      ],
+      [
+        "credential-validation",
+        "user-datastore",
+        "REQUIRES"
+      ],
+      [
+        "credential-validation",
+        "password-hashing",
+        "REQUIRES"
+      ],
+      [
+        "password-hashing",
+        "security-first",
+        "SUPPORTS"
+      ],
+      [
+        "credential-validation",
+        "session-management",
+        "LEADS_TO"
+      ]
+    ],
+    "raw_response": "{\n    \"reasoning\": \"Starting with an empty graph for a user authentication system. I need to establish the core foundational components first. I'll begin with the main authentication concept, key security decisions, and primary tasks. The authentication concept is central, so other elements will have strong relationships to it.\",\n    \"nodes\": [\n        {\"id\": \"auth-system\", \"type\": \"CONCEPT\", \"data\": {\"description\": \"User authentication system that verifies user identity and manages access\"}},\n        {\"id\": \"credential-validation\", \"type\": \"TASK\", \"data\": {\"description\": \"Validate user credentials (username/password) against stored data\"}},\n        {\"id\": \"session-management\", \"type\": \"TASK\", \"data\": {\"description\": \"Create and maintain user sessions after successful authentication\"}},\n        {\"id\": \"password-hashing\", \"type\": \"DECISION\", \"data\": {\"description\": \"Use bcrypt or similar strong hashing algorithm for password storage\"}},\n        {\"id\": \"user-datastore\", \"type\": \"CONCEPT\", \"data\": {\"description\": \"Database or storage system containing user credentials and profile data\"}},\n        {\"id\": \"security-first\", \"type\": \"PATTERN\", \"data\": {\"description\": \"Prioritize security over convenience in authentication design decisions\"}}\n    ],\n    \"edges\": [\n        {\"from_id\": \"auth-system\", \"to_id\": \"credential-validation\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"auth-system\", \"to_id\": \"session-management\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"credential-validation\", \"to_id\": \"user-datastore\", \"relation\": \"REQUIRES\", \"weight\": 0.8},\n        {\"from_id\": \"credential-validation\", \"to_id\": \"password-hashing\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"password-hashing\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.8},\n        {\"from_id\": \"credential-validation\", \"to_id\": \"session-management\", \"relation\": \"LEADS_TO\", \"weight\": 0.8}\n    ]\n}"
+  },
+  {
+    "llm_name": "Beta",
+    "model": "claude-sonnet-4-20250514",
+    "nodes_added": [
+      "logout-mechanism",
+      "rate-limiting",
+      "input-validation",
+      "session-timeout"
+    ],
+    "edges_added": [
+      [
+        "session-management",
+        "logout-mechanism",
+        "REQUIRES"
+      ],
+      [
+        "credential-validation",
+        "rate-limiting",
+        "REQUIRES"
+      ],
+      [
+        "credential-validation",
+        "input-validation",
+        "REQUIRES"
+      ],
+      [
+        "session-management",
+        "session-timeout",
+        "REQUIRES"
+      ],
+      [
+        "rate-limiting",
+        "security-first",
+        "SUPPORTS"
+      ],
+      [
+        "logout-mechanism",
+        "security-first",
+        "SUPPORTS"
+      ]
+    ],
+    "raw_response": "{\n    \"reasoning\": \"The current graph has solid foundational concepts but lacks implementation decisions and behavioral patterns that are critical for a working authentication system. I'm adding key missing components: logout functionality (essential for session security), rate limiting (prevents brute force attacks), input validation (prevents injection attacks), and a crucial decision about session timeout. I'm also connecting these to existing nodes to show their relationships and dependencies.\",\n    \"nodes\": [\n        {\"id\": \"logout-mechanism\", \"type\": \"BEHAVIOR\", \"data\": {\"description\": \"Allow users to explicitly end their session and invalidate session tokens\"}},\n        {\"id\": \"rate-limiting\", \"type\": \"BEHAVIOR\", \"data\": {\"description\": \"Limit authentication attempts to prevent brute force attacks\"}},\n        {\"id\": \"input-validation\", \"type\": \"BEHAVIOR\", \"data\": {\"description\": \"Sanitize and validate all user inputs to prevent injection attacks\"}},\n        {\"id\": \"session-timeout\", \"type\": \"DECISION\", \"data\": {\"description\": \"Sessions automatically expire after predetermined period of inactivity\"}}\n    ],\n    \"edges\": [\n        {\"from_id\": \"session-management\", \"to_id\": \"logout-mechanism\", \"relation\": \"REQUIRES\", \"weight\": 0.8},\n        {\"from_id\": \"credential-validation\", \"to_id\": \"rate-limiting\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"credential-validation\", \"to_id\": \"input-validation\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"session-management\", \"to_id\": \"session-timeout\", \"relation\": \"REQUIRES\", \"weight\": 0.7},\n        {\"from_id\": \"rate-limiting\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.9},\n        {\"from_id\": \"logout-mechanism\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.7}\n    ]\n}"
+  },
+  {
+    "llm_name": "Alpha",
+    "model": "claude-sonnet-4-20250514",
+    "nodes_added": [
+      "error-handling",
+      "user-registration",
+      "password-policy"
+    ],
+    "edges_added": [
+      [
+        "credential-validation",
+        "error-handling",
+        "REQUIRES"
+      ],
+      [
+        "user-registration",
+        "password-hashing",
+        "REQUIRES"
+      ],
+      [
+        "user-registration",
+        "user-datastore",
+        "REQUIRES"
+      ],
+      [
+        "password-policy",
+        "security-first",
+        "SUPPORTS"
+      ],
+      [
+        "user-registration",
+        "password-policy",
+        "REQUIRES"
+      ],
+      [
+        "input-validation",
+        "rate-limiting",
+        "SUPPORTS"
+      ],
+      [
+        "error-handling",
+        "security-first",
+        "SUPPORTS"
+      ]
+    ],
+    "raw_response": "{\n    \"reasoning\": \"The current graph has solid security foundations but lacks key operational components. I'm adding error handling for failed authentication attempts, a user registration process since we have credential validation but no way to create users, and a critical security decision about password complexity. I'm also connecting existing components that should interact - input validation should support rate limiting, and session timeout should conflict with overly long sessions for security.\",\n    \"nodes\": [\n        {\"id\": \"error-handling\", \"type\": \"BEHAVIOR\", \"data\": {\"description\": \"Handle authentication failures gracefully with appropriate error messages without revealing system details\"}},\n        {\"id\": \"user-registration\", \"type\": \"TASK\", \"data\": {\"description\": \"Process for creating new user accounts with proper validation and credential setup\"}},\n        {\"id\": \"password-policy\", \"type\": \"DECISION\", \"data\": {\"description\": \"Enforce minimum password complexity requirements (length, character types, common password checks)\"}}\n    ],\n    \"edges\": [\n        {\"from_id\": \"credential-validation\", \"to_id\": \"error-handling\", \"relation\": \"REQUIRES\", \"weight\": 0.8},\n        {\"from_id\": \"user-registration\", \"to_id\": \"password-hashing\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"user-registration\", \"to_id\": \"user-datastore\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"password-policy\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.8},\n        {\"from_id\": \"user-registration\", \"to_id\": \"password-policy\", \"relation\": \"REQUIRES\", \"weight\": 0.7},\n        {\"from_id\": \"input-validation\", \"to_id\": \"rate-limiting\", \"relation\": \"SUPPORTS\", \"weight\": 0.6},\n        {\"from_id\": \"error-handling\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.7}\n    ]\n}"
+  },
+  {
+    "llm_name": "Beta",
+    "model": "claude-sonnet-4-20250514",
+    "nodes_added": [
+      "auth-strategy-decision",
+      "multi-factor-auth",
+      "account-lockout",
+      "security-monitoring"
+    ],
+    "edges_added": [
+      [
+        "auth-system",
+        "auth-strategy-decision",
+        "REQUIRES"
+      ],
+      [
+        "auth-strategy-decision",
+        "session-management",
+        "LEADS_TO"
+      ],
+      [
+        "auth-system",
+        "multi-factor-auth",
+        "SUPPORTS"
+      ],
+      [
+        "multi-factor-auth",
+        "security-first",
+        "SUPPORTS"
+      ],
+      [
+        "rate-limiting",
+        "account-lockout",
+        "LEADS_TO"
+      ],
+      [
+        "account-lockout",
+        "security-first",
+        "SUPPORTS"
+      ],
+      [
+        "auth-system",
+        "security-monitoring",
+        "REQUIRES"
+      ],
+      [
+        "error-handling",
+        "security-monitoring",
+        "SUPPORTS"
+      ]
+    ],
+    "raw_response": "{\n    \"reasoning\": \"The authentication system has good security foundations but is missing key implementation decisions and components. I need to add: 1) A critical decision about token vs session-based auth, 2) Multi-factor authentication for enhanced security, 3) Account lockout behavior to complement rate limiting, and 4) A monitoring task for security events. These additions address scalability, enhanced security, and operational concerns.\",\n    \"nodes\": [\n        {\"id\": \"auth-strategy-decision\", \"type\": \"DECISION\", \"data\": {\"description\": \"Choose between stateful session-based authentication or stateless token-based (JWT) authentication\"}},\n        {\"id\": \"multi-factor-auth\", \"type\": \"CONCEPT\", \"data\": {\"description\": \"Optional second authentication factor (SMS, TOTP, email) for enhanced security\"}},\n        {\"id\": \"account-lockout\", \"type\": \"BEHAVIOR\", \"data\": {\"description\": \"Temporarily lock user accounts after consecutive failed authentication attempts\"}},\n        {\"id\": \"security-monitoring\", \"type\": \"TASK\", \"data\": {\"description\": \"Log and monitor authentication events for suspicious activity and security analysis\"}}\n    ],\n    \"edges\": [\n        {\"from_id\": \"auth-system\", \"to_id\": \"auth-strategy-decision\", \"relation\": \"REQUIRES\", \"weight\": 0.9},\n        {\"from_id\": \"auth-strategy-decision\", \"to_id\": \"session-management\", \"relation\": \"LEADS_TO\", \"weight\": 0.8},\n        {\"from_id\": \"auth-system\", \"to_id\": \"multi-factor-auth\", \"relation\": \"SUPPORTS\", \"weight\": 0.6},\n        {\"from_id\": \"multi-factor-auth\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.9},\n        {\"from_id\": \"rate-limiting\", \"to_id\": \"account-lockout\", \"relation\": \"LEADS_TO\", \"weight\": 0.7},\n        {\"from_id\": \"account-lockout\", \"to_id\": \"security-first\", \"relation\": \"SUPPORTS\", \"weight\": 0.8},\n        {\"from_id\": \"auth-system\", \"to_id\": \"security-monitoring\", \"relation\": \"REQUIRES\", \"weight\": 0.7},\n        {\"from_id\": \"error-handling\", \"to_id\": \"security-monitoring\", \"relation\": \"SUPPORTS\", \"weight\": 0.6}\n    ]\n}"
+  }
+]

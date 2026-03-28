@@ -1,0 +1,60 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#0288d1'}}}%%
+flowchart TB
+    subgraph GRAPH["Orchestration Graph"]
+        subgraph L1["Level 1: Primary Orchestration"]
+            MAIN["Main Orchestrator"]
+            T1["Complex Task A"]
+            T2["Complex Task B"]
+            
+            MAIN --> T1
+            MAIN --> T2
+        end
+        
+        subgraph L2["Level 2: Sub-Orchestration"]
+            SUB1["Sub-Orchestrator<br/>(Agent for Task A)"]
+            ST1["Subtask A.1"]
+            ST2["Subtask A.2"]
+            ST3["Subtask A.3"]
+            
+            T1 -->|"decomposes<br/>to"| SUB1
+            SUB1 --> ST1
+            SUB1 --> ST2
+            SUB1 --> ST3
+            ST1 --> ST2
+            ST2 --> ST3
+        end
+        
+        subgraph L3["Level 3: Sub-Sub-Orchestration"]
+            SUB2["Sub-Sub-Orchestrator<br/>(Agent for Subtask A.2)"]
+            SST1["Sub-subtask A.2.1"]
+            SST2["Sub-subtask A.2.2"]
+            
+            ST2 -->|"decomposes<br/>to"| SUB2
+            SUB2 --> SST1
+            SUB2 --> SST2
+            SST1 --> SST2
+        end
+    end
+    
+    subgraph AGENTS["LLM Agent Processes"]
+        A_MAIN["Main Orchestrator<br/>Process"]
+        A_SUB1["Sub-Orchestrator<br/>Process"]
+        A_SUB2["Sub-Sub-Orchestrator<br/>Process"]
+        A_WORKER["Worker Agent<br/>Processes"]
+    end
+    
+    A_MAIN -.->|"delegates"| A_SUB1
+    A_SUB1 -.->|"delegates"| A_SUB2
+    A_SUB2 -.->|"delegates"| A_WORKER
+    
+    NOTE["Multi-level hierarchical orchestration<br/>achieved through recursive delegation.<br/>Each level operates within<br/>permitted modifications."]
+    
+    style GRAPH fill:#f5f5f5,stroke:#424242
+    style L1 fill:#e3f2fd,stroke:#1976d2
+    style L2 fill:#fff3e0,stroke:#f57c00
+    style L3 fill:#f3e5f5,stroke:#7b1fa2
+    style AGENTS fill:#e8f5e9,stroke:#388e3c
+    style MAIN fill:#bbdefb,stroke:#1976d2,stroke-width:3px
+    style SUB1 fill:#ffe0b2,stroke:#f57c00,stroke-width:2px
+    style SUB2 fill:#e1bee7,stroke:#7b1fa2,stroke-width:2px
+    style NOTE fill:#fffde7,stroke:#fbc02d

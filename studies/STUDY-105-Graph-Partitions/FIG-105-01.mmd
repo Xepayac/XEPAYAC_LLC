@@ -1,0 +1,29 @@
+---
+title: "FIG. 65-01: Graph Replication Architecture"
+patent: EGS-65
+---
+graph TB
+    subgraph "100 - Primary Node"
+        A[Graph State]
+        B[Replication Controller]
+        C[Conflict Resolver]
+    end
+    
+    subgraph "110 - Replica Node 1"
+        D[Graph State Copy]
+        E[Sync Agent]
+    end
+    
+    subgraph "120 - Replica Node 2"
+        F[Graph State Copy]
+        G[Sync Agent]
+    end
+    
+    B <-->|"sync"| E
+    B <-->|"sync"| G
+    E <-->|"peer sync"| G
+    
+    A --> B
+    C --> A
+    D --> E
+    F --> G

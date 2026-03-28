@@ -1,0 +1,42 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#388e3c'}}}%%
+flowchart TB
+    subgraph GRAPH["Unified Graph Substrate"]
+        subgraph PRINCIPALS["Principal Nodes"]
+            PA["Principal: Agent_A"]
+            PB["Principal: Agent_B"]
+            PC["Principal: Agent_C"]
+        end
+        
+        subgraph RESOURCES["Resource Nodes"]
+            R1["Resource: database"]
+            R2["Resource: config"]
+            R3["Resource: output"]
+            R4["Resource: secrets"]
+        end
+        
+        subgraph PERMS["Permission Edges"]
+            PA -->|"permission"| R1
+            PA -->|"permission"| R2
+            R2 -->|"permission"| R3
+            PB -->|"permission"| R2
+            PB -->|"permission"| R3
+            PC -->|"permission"| R3
+        end
+    end
+    
+    subgraph ACCESS["Access Authorization"]
+        direction LR
+        CHECK1["Agent_A → R3?<br/>Path: A→R2→R3 ✅"]
+        CHECK2["Agent_C → R1?<br/>No path ❌"]
+        CHECK3["Agent_B → R4?<br/>No path ❌"]
+    end
+    
+    NOTE["Access authorized ONLY IF<br/>path exists from principal<br/>to resource through permission edges"]
+    
+    style GRAPH fill:#f5f5f5,stroke:#424242
+    style PRINCIPALS fill:#e3f2fd,stroke:#1976d2
+    style RESOURCES fill:#fff3e0,stroke:#f57c00
+    style PERMS fill:#e8f5e9,stroke:#388e3c
+    style ACCESS fill:#f3e5f5,stroke:#7b1fa2
+    style R4 fill:#ffcdd2,stroke:#c62828
+    style NOTE fill:#fffde7,stroke:#fbc02d

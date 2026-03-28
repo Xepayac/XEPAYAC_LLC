@@ -1,0 +1,41 @@
+{
+  "id": "data_pipeline",
+  "metadata": {
+    "description": "Reusable data processing pipeline",
+    "created": "2025-12-27"
+  },
+  "nodes": [
+    {
+      "id": "fetch_data",
+      "type": "TASK",
+      "data": {"description": "Fetch data from source"},
+      "metadata": {}
+    },
+    {
+      "id": "transform_data",
+      "type": "TASK",
+      "data": {"description": "Transform and clean data"},
+      "metadata": {}
+    },
+    {
+      "id": "store_data",
+      "type": "TASK",
+      "data": {"description": "Store processed data"},
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "fetch_data",
+      "to_id": "transform_data",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    },
+    {
+      "from_id": "transform_data",
+      "to_id": "store_data",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_14_workflow_example.mmd -o FIG_14_workflow_example.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 14 - Research-Write Workflow Example
+%% Reference Numerals: 1400-1480
+%% Claims Supported: claim_1, claim_2, claim_10
+%% View Type: Workflow Diagram
+%% Key Insight: Graph topology defines workflow; agents communicate via graph only
+
+flowchart TB
+    subgraph WORKFLOW["Multi-Agent Coordination Example"]
+        TASK(["1400: TASK Node<br/>Research quantum computing"])
+        
+        RESEARCHER(("1410: Researcher<br/>(Agent)"))
+        
+        RESEARCH["1420: RESULT Node<br/>Research findings"]
+        
+        WRITER(("1430: Writer<br/>(Agent)"))
+        
+        DRAFT["1440: RESULT Node<br/>Draft document"]
+        
+        REVIEWER(("1450: Reviewer<br/>(Agent)"))
+        
+        FINAL["1460: RESULT Node<br/>Final document"]
+    end
+    
+    TASK -->|"ASSIGNS"| RESEARCHER
+    RESEARCHER -->|"1470: PROVIDES"| RESEARCH
+    RESEARCH -->|"Input via graph"| WRITER
+    WRITER -->|"1480: PROVIDES"| DRAFT
+    DRAFT -->|"Input via graph"| REVIEWER
+    REVIEWER -->|"PROVIDES"| FINAL
+    
+    RESEARCHER -.->|"❌ No direct"| WRITER
+    WRITER -.->|"❌ No direct"| REVIEWER
+    
+    NOTE["All communication via graph.json<br/>Agents never interact directly"]
+    
+    style TASK fill:#bbdefb,stroke:#1565c0
+    style RESEARCH fill:#c8e6c9,stroke:#2e7d32
+    style DRAFT fill:#c8e6c9,stroke:#2e7d32
+    style FINAL fill:#a5d6a7,stroke:#1b5e20,stroke-width:3px
+    style RESEARCHER fill:#fff3e0,stroke:#e65100
+    style WRITER fill:#fff3e0,stroke:#e65100
+    style REVIEWER fill:#fff3e0,stroke:#e65100

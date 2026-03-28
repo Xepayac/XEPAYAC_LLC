@@ -1,0 +1,21 @@
+---
+title: "FIG. 72-02: Atomic Write Protocol"
+patent: EGS-72
+---
+flowchart LR
+    A[New State Data] --> B[Create Temp File]
+    B --> C[Write to Temp]
+    C --> D{Write Complete?}
+    D -->|"Yes"| E[Atomic Rename]
+    D -->|"No"| F[Retry/Fail]
+    
+    E --> G[Target File Updated]
+    G --> H[Other Processes See New State]
+    
+    subgraph "Atomicity Guarantee"
+        I[temp.json.tmp] -->|"rename()"| J[state.json]
+        K["Readers see either:"]
+        L["- Old complete state"]
+        M["- New complete state"]
+        N["Never partial state"]
+    end

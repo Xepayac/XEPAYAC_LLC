@@ -1,0 +1,29 @@
+{
+  "id": "validation_suite",
+  "metadata": {
+    "description": "Reusable validation checks",
+    "created": "2025-12-27"
+  },
+  "nodes": [
+    {
+      "id": "validate_schema",
+      "type": "TASK",
+      "data": {"description": "Validate data schema"},
+      "metadata": {}
+    },
+    {
+      "id": "validate_constraints",
+      "type": "TASK",
+      "data": {"description": "Validate business constraints"},
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "validate_schema",
+      "to_id": "validate_constraints",
+      "relation": "LEADS_TO",
+      "weight": 1.0
+    }
+  ]
+}

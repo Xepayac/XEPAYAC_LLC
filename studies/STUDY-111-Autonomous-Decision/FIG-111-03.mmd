@@ -1,0 +1,48 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#0288d1'}}}%%
+flowchart TB
+    subgraph FLOW["Orchestration Flow"]
+        START["Complex Task<br/>Received"]
+        
+        ORCH["Orchestrator Agent"]
+        
+        START --> ORCH
+        
+        ORCH -->|"1. Traverse<br/>graph"| MATCH["Match task<br/>to role"]
+        
+        MATCH -->|"Role found"| DELEGATE["Delegate to<br/>LLM Agent"]
+        MATCH -->|"No capable<br/>agent"| ESCALATE["Create<br/>Escalation Node"]
+        
+        DELEGATE --> EXECUTE["Agent executes<br/>task"]
+        EXECUTE --> MODIFY["Agent modifies<br/>graph"]
+        MODIFY --> NEXT["Next task<br/>delegation"]
+        
+        subgraph HUMAN["Human-in-the-Loop"]
+            ESCALATE --> NOTIFY["Notify Human<br/>Operator"]
+            NOTIFY --> HINPUT["Human provides<br/>input"]
+            HINPUT --> HMOD["Human modifies<br/>graph"]
+            HMOD --> RESUME["Orchestrator<br/>resumes"]
+        end
+        
+        RESUME --> NEXT
+    end
+    
+    subgraph GRAPH["Orchestration Graph"]
+        TASK1["Task Node"]
+        TASK2["Task Node"]
+        ESC["Escalation Node<br/>reason: exceeds capabilities"]
+        
+        TASK1 --> TASK2
+        TASK2 -.-> ESC
+    end
+    
+    ESCALATE -.->|"creates"| ESC
+    
+    NOTE["Human modifications affect<br/>subsequent orchestration behavior<br/>without code redeployment"]
+    
+    style FLOW fill:#f5f5f5,stroke:#424242
+    style HUMAN fill:#fff3e0,stroke:#f57c00
+    style GRAPH fill:#e8f5e9,stroke:#388e3c
+    style ORCH fill:#bbdefb,stroke:#1976d2,stroke-width:3px
+    style ESC fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style HINPUT fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style NOTE fill:#fffde7,stroke:#fbc02d

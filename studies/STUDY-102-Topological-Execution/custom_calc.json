@@ -1,0 +1,13 @@
+{
+  "nodes": [
+    {"id": "x", "type": "OPERAND", "data": {"value": 42}},
+    {"id": "y", "type": "OPERAND", "data": {"value": 8}},
+    {"id": "multiply", "type": "OPERATION", "data": {"operation": "multiply"}},
+    {"id": "result", "type": "RESULT", "data": {}}
+  ],
+  "edges": [
+    {"from_id": "multiply", "to_id": "x", "relation": "REQUIRES", "weight": 1.0},
+    {"from_id": "multiply", "to_id": "y", "relation": "REQUIRES", "weight": 1.0},
+    {"from_id": "result", "to_id": "multiply", "relation": "REQUIRES", "weight": 1.0}
+  ]
+}

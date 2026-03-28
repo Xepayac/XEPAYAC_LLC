@@ -1,0 +1,40 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#c62828'}}}%%
+flowchart TB
+    subgraph OS["Operating System (Memory Isolation Enforced)"]
+        subgraph P1["Process 1 (PID: 1001)"]
+            A1["Agent A"]
+            M1["Isolated<br/>Memory Space"]
+        end
+        
+        subgraph P2["Process 2 (PID: 1002)"]
+            A2["Agent B"]
+            M2["Isolated<br/>Memory Space"]
+        end
+        
+        subgraph P3["Process 3 (PID: 1003)"]
+            A3["Agent C"]
+            M3["Isolated<br/>Memory Space"]
+        end
+    end
+    
+    subgraph FS["File System"]
+        GRAPH["Unified Graph Substrate<br/>(Serialized File)"]
+    end
+    
+    A1 -->|"Read/Write"| GRAPH
+    A2 -->|"Read/Write"| GRAPH
+    A3 -->|"Read/Write"| GRAPH
+    
+    P1 -.-x|"NO Direct<br/>Communication"| P2
+    P2 -.-x|"NO Direct<br/>Communication"| P3
+    P1 -.-x|"NO Memory<br/>Access"| P3
+    
+    NOTE["Agents communicate EXCLUSIVELY<br/>through the graph substrate.<br/>No direct inter-process communication."]
+    
+    style OS fill:#f5f5f5,stroke:#424242
+    style P1 fill:#e3f2fd,stroke:#1976d2
+    style P2 fill:#fff3e0,stroke:#f57c00
+    style P3 fill:#f3e5f5,stroke:#7b1fa2
+    style FS fill:#e8f5e9,stroke:#388e3c
+    style GRAPH fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style NOTE fill:#ffebee,stroke:#c62828

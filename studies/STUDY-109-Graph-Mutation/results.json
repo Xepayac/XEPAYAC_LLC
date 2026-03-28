@@ -1,0 +1,10 @@
+{
+  "study": "STUDY-95",
+  "patent": "EGS-71",
+  "tests": {
+    "valid_mutations": "PASS",
+    "invalid_mutations": "PASS (correctly rejected)",
+    "atomic_rollback": "PASS"
+  },
+  "status": "PASS"
+}

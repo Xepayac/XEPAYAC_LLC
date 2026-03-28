@@ -1,0 +1,31 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_02_communication.mmd -o FIG_02_communication.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 2 - Graph as Sole Communication Channel (Pillar 1)
+%% Reference Numerals: 200-260
+%% Claims Supported: claim_1, claim_2, claim_5
+%% View Type: Sequence Diagram
+%% Key Insight: Explicit X showing NO direct arrow between agents proves sole-channel claim
+
+sequenceDiagram
+    participant A as 200: Agent A<br/>(Process PID 1234)
+    participant G as 210: graph.json<br/>(Serialized File)
+    participant B as 220: Agent B<br/>(Process PID 5678)
+    
+    Note over A,B: 260: Standard File I/O Operations
+    
+    rect rgb(200, 230, 255)
+        A->>G: 230: write_node(research_result)
+        Note right of G: Node persisted to file
+    end
+    
+    rect rgb(200, 255, 200)
+        G->>B: 240: read_node() → research_result
+        Note left of G: Node read from file
+    end
+    
+    Note over A,B: 250: ❌ NO DIRECT COMMUNICATION ❌
+    
+    A--xB: BLOCKED: No direct messages
+    A--xB: BLOCKED: No shared memory
+    A--xB: BLOCKED: No API calls

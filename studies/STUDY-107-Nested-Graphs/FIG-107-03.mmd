@@ -1,0 +1,18 @@
+---
+title: "FIG. 57-03: Scope Resolution Protocol"
+patent: EGS-57
+---
+flowchart TB
+    A[Node Reference: parent.child.node] --> B{Parse Scope Path}
+    B --> C[Resolve Parent]
+    C --> D{Parent Exists?}
+    D -->|Yes| E[Enter Child Scope]
+    D -->|No| F[Error: Invalid Path]
+    E --> G{Child Exists?}
+    G -->|Yes| H[Resolve Node]
+    G -->|No| I[Error: Node Not Found]
+    H --> J[Return Scoped Node ID]
+    
+    J --> K[ScopedNodeId]
+    K --> L[scope: parent.child]
+    K --> M[node_id: node]

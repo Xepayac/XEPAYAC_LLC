@@ -1,0 +1,32 @@
+---
+title: "FIG. 66-03: Visibility Boundaries"
+patent: EGS-66
+---
+graph TB
+    subgraph "Agent A View"
+        A1[Visible Node 1]
+        A2[Visible Node 2]
+        A3[Visible Edge]
+    end
+    
+    subgraph "Agent B View"
+        B1[Visible Node 1]
+        B2[Different Node 3]
+        B3[Private Edge]
+    end
+    
+    subgraph "Full Graph Reality"
+        C1[Node 1]
+        C2[Node 2]
+        C3[Node 3]
+        C4[Hidden Node 4]
+        C1 --> C2
+        C1 --> C3
+        C2 --> C4
+        C3 --> C4
+    end
+    
+    C1 -.->|"visible to both"| A1
+    C1 -.->|"visible to both"| B1
+    C2 -.->|"visible to A"| A2
+    C3 -.->|"visible to B"| B2

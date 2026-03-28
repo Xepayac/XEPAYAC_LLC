@@ -1,0 +1,42 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#0288d1'}}}%%
+flowchart TB
+    subgraph PARENT["Parent Graph Structure"]
+        P1["Node P1"]
+        P2["Node P2"]
+        P3["Node P3"]
+        
+        subgraph NESTED["Nested Graph Structure"]
+            IF_IN["Interface Node<br/>(Input)"]
+            N1["Nested Node 1"]
+            N2["Nested Node 2"]
+            N3["Nested Node 3"]
+            IF_OUT["Interface Node<br/>(Output)"]
+            
+            IF_IN --> N1
+            N1 --> N2
+            N2 --> N3
+            N3 --> IF_OUT
+        end
+        
+        P1 --> P2
+        P2 -->|"via interface"| IF_IN
+        IF_OUT -->|"via interface"| P3
+    end
+    
+    subgraph AGENT["Computational Agent"]
+        direction LR
+        TRAV1["Traverse<br/>Parent"]
+        TRAV2["Traverse<br/>Nested<br/>(Independent)"]
+    end
+    
+    TRAV1 -.-> PARENT
+    TRAV2 -.-> NESTED
+    
+    NOTE["Communication between nested<br/>and parent occurs EXCLUSIVELY<br/>through interface nodes"]
+    
+    style PARENT fill:#e3f2fd,stroke:#1976d2
+    style NESTED fill:#fff3e0,stroke:#f57c00
+    style IF_IN fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style IF_OUT fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style AGENT fill:#f3e5f5,stroke:#7b1fa2
+    style NOTE fill:#fffde7,stroke:#fbc02d

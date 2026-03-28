@@ -1,0 +1,64 @@
+{
+  "study": "STUDY-87",
+  "test": "state_reconstruction",
+  "final_graph_nodes": 17,
+  "final_graph_edges": 27,
+  "total_turns": 4,
+  "all_reconstructions_successful": true,
+  "turn_results": [
+    {
+      "turn": 0,
+      "nodes_match": true,
+      "edges_match": true,
+      "expected_node_count": 6,
+      "actual_node_count": 6,
+      "expected_edge_count": 6,
+      "actual_edge_count": 6,
+      "missing_nodes": [],
+      "extra_nodes": [],
+      "success": true
+    },
+    {
+      "turn": 1,
+      "nodes_match": true,
+      "edges_match": true,
+      "expected_node_count": 10,
+      "actual_node_count": 10,
+      "expected_edge_count": 12,
+      "actual_edge_count": 12,
+      "missing_nodes": [],
+      "extra_nodes": [],
+      "success": true
+    },
+    {
+      "turn": 2,
+      "nodes_match": true,
+      "edges_match": true,
+      "expected_node_count": 13,
+      "actual_node_count": 13,
+      "expected_edge_count": 19,
+      "actual_edge_count": 19,
+      "missing_nodes": [],
+      "extra_nodes": [],
+      "success": true
+    },
+    {
+      "turn": 3,
+      "nodes_match": true,
+      "edges_match": true,
+      "expected_node_count": 17,
+      "actual_node_count": 17,
+      "expected_edge_count": 27,
+      "actual_edge_count": 27,
+      "missing_nodes": [],
+      "extra_nodes": [],
+      "success": true
+    }
+  ],
+  "claims_demonstrated": [
+    "Claim 6: Provenance metadata embedded in graph",
+    "Claim 9: State reconstruction from metadata",
+    "Claim 13: No external logging required"
+  ],
+  "key_insight": "Single artifact (graph.json) contains complete history"
+}

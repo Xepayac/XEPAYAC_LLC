@@ -1,0 +1,29 @@
+---
+title: "FIG. 57-01: Hierarchical Graph Structure"
+patent: EGS-57
+---
+graph TB
+    subgraph "100 - Parent Graph"
+        A[Root Node]
+        B[Task Node]
+        C[Decision Node]
+        
+        subgraph "110 - Subgraph: Workflow A"
+            D[Step 1]
+            E[Step 2]
+            F[Step 3]
+        end
+        
+        subgraph "120 - Subgraph: Validation"
+            G[Check Input]
+            H[Validate Schema]
+            I[Return Result]
+        end
+    end
+    
+    A --> B
+    A --> C
+    B --> 110
+    C --> 120
+    D --> E --> F
+    G --> H --> I

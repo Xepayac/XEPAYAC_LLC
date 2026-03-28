@@ -1,0 +1,40 @@
+%% ***CONVERT TO SVG***: mmdc -i FIG_05_audit.mmd -o FIG_05_audit.svg -b white
+%% See FIGURE_INDEX.md for full conversion instructions
+%%
+%% FIG. 5 - Graph as Complete Audit Record (Pillar 4)
+%% Reference Numerals: 500-570
+%% Claims Supported: claim_7, claim_8, claim_9
+%% View Type: Comparison Diagram
+%% Key Insight: Visual contrast - tangled mess on left vs single clean artifact on right
+
+flowchart LR
+    subgraph TRAD["500: TRADITIONAL SYSTEMS"]
+        direction TB
+        L1["510: App Log 1"]
+        L2["520: Database Log"]
+        L3["530: System Log"]
+        L4["Agent 1 Output"]
+        L5["Agent 2 Output"]
+        
+        C["540: ⚠️ CORRELATOR<br/>Required to<br/>Reconstruct"]
+        
+        L1 --> C
+        L2 --> C
+        L3 --> C
+        L4 --> C
+        L5 --> C
+    end
+    
+    subgraph INV["550: THIS INVENTION"]
+        direction TB
+        G["560: graph.json<br/><br/>✅ Complete History<br/>✅ Embedded Provenance<br/>✅ No Correlation Needed"]
+    end
+    
+    NOTE["570: SINGLE ARTIFACT = COMPLETE HISTORY"]
+    
+    INV --> NOTE
+    
+    style TRAD fill:#ffebee,stroke:#c62828
+    style INV fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style G fill:#c8e6c9,stroke:#1b5e20
+    style NOTE fill:#fff3e0,stroke:#e65100

@@ -1,0 +1,22 @@
+---
+title: "FIG. 65-02: Sync Protocol Flow"
+patent: EGS-65
+---
+sequenceDiagram
+    participant P as Primary
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    
+    P->>R1: Push Delta
+    P->>R2: Push Delta
+    R1->>R1: Apply Changes
+    R2->>R2: Apply Changes
+    R1->>P: ACK + Vector Clock
+    R2->>P: ACK + Vector Clock
+    P->>P: Update Sync State
+    
+    Note over P,R2: Conflict Detection
+    R1->>P: Conflicting Update
+    P->>P: Resolve Conflict
+    P->>R1: Merged State
+    P->>R2: Merged State
