@@ -1,6 +1,6 @@
-"""Node, NodeMetadata, and NodeType for EGS.
+"""Node, NodeMetadata, and NodeType for SGS.
 
-Based on PATENT/LAB/STUDIES/STUDY-106-Serialization/egs.py
+Based on PATENT/LAB/STUDIES/STUDY-106-Serialization/sgs.py
 Converted to Pydantic v2.
 """
 
@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 
 
 class NodeType(Enum):
-    """Types of nodes in the EGS."""
+    """Types of nodes in the SGS."""
 
     CONCEPT = "CONCEPT"      # Domain entity (abstract ideas)
     PATTERN = "PATTERN"      # Structural template (reusable structures)
@@ -38,7 +38,7 @@ class NodeMetadata(BaseModel):
 
 
 class Node(BaseModel):
-    """A node in the executable graph substrate."""
+    """A node in the superseding graph substrate."""
 
     id: str = Field(..., description="Unique identifier")
     type: NodeType = Field(..., description="Node type")

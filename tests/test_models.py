@@ -1,11 +1,11 @@
-"""Tests for EGS models (Node, Edge, Constraint)."""
+"""Tests for SGS models (Node, Edge, Constraint)."""
 
 from datetime import datetime, timezone
 
 import pytest
 from pydantic import ValidationError
 
-from egs.models import (
+from sgs.models import (
     Node, NodeMetadata, NodeType,
     Edge, EdgeMetadata,
     Constraint, ConstraintType

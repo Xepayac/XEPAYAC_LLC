@@ -2,7 +2,7 @@
 """
 Demo: LLM-Directed Graph Mutation
 
-Demonstrates EGS-71 patent claims:
+Demonstrates SGS-71 patent claims:
 - Structured output parsing
 - Mutation validation
 - Atomic rollback on failure
@@ -183,12 +183,12 @@ def main():
     print("✅ Mutation protocol - ADD, UPDATE, DELETE for nodes and edges")
     print("✅ Atomic rollback - failed batch restores previous state")
     print()
-    print("Evidence supports EGS-71 patent claims.")
+    print("Evidence supports SGS-71 patent claims.")
     
     # Save results
     output = {
         "study": "STUDY-95",
-        "patent": "EGS-71",
+        "patent": "SGS-71",
         "tests": {
             "valid_mutations": "PASS",
             "invalid_mutations": "PASS (correctly rejected)",

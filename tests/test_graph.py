@@ -1,4 +1,4 @@
-"""Tests for EGS graph operations."""
+"""Tests for SGS graph operations."""
 
 import json
 import tempfile
@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from egs.graph import EGS
-from egs.models import (
+from sgs.graph import SGS
+from sgs.models import (
     Node, NodeMetadata, NodeType,
     Edge, EdgeMetadata,
     Constraint, ConstraintType
@@ -47,7 +47,7 @@ def sample_node(sample_metadata):
 @pytest.fixture
 def sample_graph(sample_metadata, sample_edge_metadata):
     """Create a sample graph for testing."""
-    graph = EGS()
+    graph = SGS()
     
     # Add nodes
     node1 = Node(
@@ -78,21 +78,21 @@ def sample_graph(sample_metadata, sample_edge_metadata):
     return graph
 
 
-class TestEGSBasics:
-    """Tests for basic EGS operations."""
+class TestSGSBasics:
+    """Tests for basic SGS operations."""
     
     def test_create_empty_graph(self):
         """Test creating an empty graph."""
-        graph = EGS()
+        graph = SGS()
         assert len(graph.nodes) == 0
         assert len(graph.edges) == 0
         assert len(graph.constraints) == 0
-        assert repr(graph) == "EGS(nodes=0, edges=0, constraints=0)"
+        assert repr(graph) == "SGS(nodes=0, edges=0, constraints=0)"
     
     def test_create_graph_with_metadata(self):
         """Test creating a graph with metadata."""
         metadata = {"version": "0.1.0", "author": "test"}
-        graph = EGS(metadata=metadata)
+        graph = SGS(metadata=metadata)
         assert graph.metadata == metadata
 
 
@@ -101,14 +101,14 @@ class TestNodeOperations:
     
     def test_add_node(self, sample_node):
         """Test adding a node to the graph."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(sample_node)
         assert len(graph.nodes) == 1
         assert "node-1" in graph.nodes
     
     def test_add_duplicate_node(self, sample_node):
         """Test that adding a duplicate node raises an error."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(sample_node)
         
         # Try to add the same node again
@@ -117,7 +117,7 @@ class TestNodeOperations:
     
     def test_get_node(self, sample_node):
         """Test retrieving a node by ID."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(sample_node)
         
         retrieved = graph.get_node("node-1")
@@ -126,12 +126,12 @@ class TestNodeOperations:
     
     def test_get_nonexistent_node(self):
         """Test retrieving a non-existent node returns None."""
-        graph = EGS()
+        graph = SGS()
         assert graph.get_node("nonexistent") is None
     
     def test_remove_node(self, sample_node):
         """Test removing a node from the graph."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(sample_node)
         
         removed = graph.remove_node("node-1")
@@ -158,7 +158,7 @@ class TestEdgeOperations:
     
     def test_add_edge(self, sample_metadata, sample_edge_metadata):
         """Test adding an edge to the graph."""
-        graph = EGS()
+        graph = SGS()
         
         # Add nodes first
         node1 = Node(id="node-1", type=NodeType.CONCEPT, metadata=sample_metadata)
@@ -179,7 +179,7 @@ class TestEdgeOperations:
     
     def test_add_edge_invalid_source(self, sample_metadata, sample_edge_metadata):
         """Test that adding an edge with invalid source node fails."""
-        graph = EGS()
+        graph = SGS()
         
         # Add only target node
         node2 = Node(id="node-2", type=NodeType.BEHAVIOR, metadata=sample_metadata)
@@ -198,7 +198,7 @@ class TestEdgeOperations:
     
     def test_add_edge_invalid_target(self, sample_metadata, sample_edge_metadata):
         """Test that adding an edge with invalid target node fails."""
-        graph = EGS()
+        graph = SGS()
         
         # Add only source node
         node1 = Node(id="node-1", type=NodeType.CONCEPT, metadata=sample_metadata)
@@ -281,7 +281,7 @@ class TestConstraintOperations:
     
     def test_add_constraint(self):
         """Test adding a constraint to the graph."""
-        graph = EGS()
+        graph = SGS()
         constraint = Constraint(
             id="c1",
             type=ConstraintType.STRUCTURAL,
@@ -326,7 +326,7 @@ class TestSerialization:
     def test_from_dict(self, sample_graph):
         """Test creating graph from dictionary."""
         data = sample_graph.to_dict()
-        new_graph = EGS.from_dict(data)
+        new_graph = SGS.from_dict(data)
         
         assert len(new_graph.nodes) == 2
         assert len(new_graph.edges) == 1
@@ -337,7 +337,7 @@ class TestSerialization:
         """Test that serialization round-trip preserves data."""
         # Convert to dict and back
         data = sample_graph.to_dict()
-        new_graph = EGS.from_dict(data)
+        new_graph = SGS.from_dict(data)
         
         # Check nodes
         assert len(new_graph.nodes) == len(sample_graph.nodes)
@@ -366,7 +366,7 @@ class TestFileSerialization:
             assert filepath.exists()
             
             # Load graph
-            loaded_graph = EGS.load(filepath)
+            loaded_graph = SGS.load(filepath)
             
             assert len(loaded_graph.nodes) == 2
             assert len(loaded_graph.edges) == 1
@@ -380,7 +380,7 @@ class TestFileSerialization:
             
             # Save and load
             sample_graph.save(filepath)
-            loaded_graph = EGS.load(filepath)
+            loaded_graph = SGS.load(filepath)
             
             # Verify data matches
             original_data = sample_graph.to_dict()
@@ -535,7 +535,7 @@ class TestQueryOperations:
     
     def test_get_neighbors_both(self, sample_metadata, sample_edge_metadata):
         """Test getting neighbors in both directions."""
-        graph = EGS()
+        graph = SGS()
         
         # Create a triangle: 1 -> 2 -> 3 -> 1
         for i in range(1, 4):
@@ -579,7 +579,7 @@ class TestQueryOperations:
     
     def test_get_neighbors_with_relation_filter(self, sample_metadata, sample_edge_metadata):
         """Test getting neighbors with relation filter."""
-        graph = EGS()
+        graph = SGS()
         
         # Create nodes
         node1 = Node(id="node-1", type=NodeType.CONCEPT, data={}, metadata=sample_metadata)
@@ -642,7 +642,7 @@ class TestQueryOperations:
     
     def test_get_summary_empty_graph(self):
         """Test getting summary of empty graph."""
-        graph = EGS()
+        graph = SGS()
         summary = graph.get_summary()
         
         assert summary["total_nodes"] == 0
@@ -666,7 +666,7 @@ class TestQueryOperations:
     
     def test_get_summary_multiple_relations(self, sample_metadata, sample_edge_metadata):
         """Test summary with multiple edge relations."""
-        graph = EGS()
+        graph = SGS()
         
         # Create nodes
         node1 = Node(id="n1", type=NodeType.CONCEPT, data={}, metadata=sample_metadata)

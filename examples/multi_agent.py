@@ -1,4 +1,4 @@
-"""EGS Multi-Agent Coordination Example: buyer/seller negotiation.
+"""SGS Multi-Agent Coordination Example: buyer/seller negotiation.
 
 Two agents share a graph but have different type permissions.
 OPERAND is the shared channel; CONCEPT and RESULT are private.
@@ -8,8 +8,8 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 
 from datetime import datetime, timezone
 
-from egs import EGS, Agent, CoordinationSession
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs import SGS, Agent, CoordinationSession
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
 
 
 def make_meta() -> NodeMetadata:
@@ -18,7 +18,7 @@ def make_meta() -> NodeMetadata:
 
 def main():
     # Shared graph
-    graph = EGS()
+    graph = SGS()
 
     # Buyer sees OPERAND + CONCEPT
     buyer = Agent("buyer", graph, [NodeType.OPERAND, NodeType.CONCEPT])

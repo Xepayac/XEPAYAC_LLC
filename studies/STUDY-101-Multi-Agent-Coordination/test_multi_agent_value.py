@@ -27,8 +27,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from egs import EGS
-from egs.models import Node, Edge, NodeType
+from sgs import SGS
+from sgs.models import Node, Edge, NodeType
 from lab.protocol import load_env, parse_response
 from lab_executable.executor import GraphExecutor
 

@@ -1,6 +1,6 @@
-# EGS Examples
+# SGS Examples
 
-Basic usage examples for the Executable Graph Substrate library.
+Basic usage examples for the Superseding Graph Substrate library.
 
 ## Files
 

@@ -1,6 +1,6 @@
-"""Edge and EdgeMetadata for EGS.
+"""Edge and EdgeMetadata for SGS.
 
-Based on PATENT/LAB/STUDIES/STUDY-106-Serialization/egs.py
+Based on PATENT/LAB/STUDIES/STUDY-106-Serialization/sgs.py
 Converted to Pydantic v2.
 """
 

@@ -14,7 +14,7 @@ Multi-Agent Turn-Based Coordination Protocol
 Demonstrates that multiple LLM agents can coordinate entirely through a shared graph substrate without direct communication channels. Each agent reads the graph, adds contributions, and passes control - proving the graph file itself is the sole coordination mechanism.
 
 ## Patent References
-- **EGS-98-02**: Layer 3 - Multi-Agent Coordination
+- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
 - **Claim 1**: Graph substrate enables multi-agent coordination without direct agent-to-agent communication
 - **Claim 2**: Turn-based access control via graph state enables atomic operations
 - **Claim 3**: Complete audit trail embedded in graph provenance metadata
@@ -27,7 +27,7 @@ Demonstrates that multiple LLM agents can coordinate entirely through a shared g
 Multiple isolated LLM agents can coordinate turn-based collaborative work through a shared JSON graph file, achieving measurable coherence (>50% cross-agent references) without direct inter-process communication, and the embedded provenance metadata enables 100% accurate state reconstruction at any historical point without external logs.
 
 ## Study Date
-**Original Development**: December 2024 (EGS development)  
+**Original Development**: December 2024 (SGS development)  
 **Patent Filing**: January 2026
 
 ## Method
@@ -258,7 +258,7 @@ Here, a **single serialized file** provides all coordination infrastructure.
 
 ## Patent Implications
 
-This study provides laboratory evidence for the following patent claims in EGS-98-02:
+This study provides laboratory evidence for the following patent claims in SGS-98-02:
 
 1. **Graph as Sole Communication Channel (Claim 1)**: Demonstrated through test_coordination.py - agents have no direct communication, only graph file I/O
    - Evidence: 55.6% cross-references between agents prove coordination happened
@@ -303,7 +303,7 @@ echo "ANTHROPIC_API_KEY=your-key-here" > .env
 ### Test 1: Multi-Agent Coordination (Main Demonstration)
 
 ```bash
-cd /home/runner/work/EGS_PATENT_DEVELOPMENT/EGS_PATENT_DEVELOPMENT/PATENT/LAB/STUDIES/STUDY-101-Multi-Agent-Coordination
+cd /home/runner/work/SGS_PATENT_DEVELOPMENT/SGS_PATENT_DEVELOPMENT/PATENT/LAB/STUDIES/STUDY-101-Multi-Agent-Coordination
 
 # Run coordination test (requires API key)
 python test_coordination.py
@@ -450,10 +450,10 @@ KEY FINDINGS:
 ## Date Evidence / GitHub Issue
 
 **Development Timeline**:
-- Original implementation: December 2024 (EGS development)
+- Original implementation: December 2024 (SGS development)
 - Patent study formalization: January 2026
 - Filing deadline: January 2026
 
-**GitHub Repository**: https://github.com/Xepayac/EGS_PATENT_DEVELOPMENT
+**GitHub Repository**: https://github.com/Xepayac/SGS_PATENT_DEVELOPMENT
 
-Files originated from EGS development development (December 2024). See git history for detailed timestamps and commit provenance.
+Files originated from SGS development development (December 2024). See git history for detailed timestamps and commit provenance.

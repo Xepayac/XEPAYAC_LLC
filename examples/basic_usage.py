@@ -1,4 +1,4 @@
-"""Basic EGS usage example.
+"""Basic SGS usage example.
 
 Demonstrates creating a graph, adding nodes and edges,
 querying, and serialization.
@@ -7,12 +7,12 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 """
 from datetime import datetime, timezone
 
-from egs import EGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
+from sgs import SGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
 
 
 def main():
     # Create a graph
-    graph = EGS()
+    graph = SGS()
     now = datetime.now(timezone.utc)
     meta = NodeMetadata(created_by="example", created_at=now)
     edge_meta = EdgeMetadata(created_by="example", created_at=now)
@@ -21,7 +21,7 @@ def main():
     graph.add_node(Node(
         id="query",
         type=NodeType.CONCEPT,
-        data={"content": "What is EGS?"},
+        data={"content": "What is SGS?"},
         metadata=meta,
     ))
     graph.add_node(Node(

@@ -1,4 +1,4 @@
-"""EGS Topological Graph Executor.
+"""SGS Topological Graph Executor.
 
 Executes graph nodes in dependency order using Kahn's algorithm.
 Proves Patent Claims 1-3: topology-driven computation where the
@@ -12,9 +12,9 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-from egs.graph import EGS
-from egs.models import NodeType
-from egs.transform import TransformRegistry
+from sgs.graph import SGS
+from sgs.models import NodeType
+from sgs.transform import TransformRegistry
 
 
 class CycleError(Exception):
@@ -57,7 +57,7 @@ EXECUTABLE_TYPES = {
 }
 
 
-def _topological_sort(graph: EGS) -> list[str]:
+def _topological_sort(graph: SGS) -> list[str]:
     """Sort executable nodes by dependency using Kahn's algorithm.
 
     Returns node IDs in execution order (dependencies first).
@@ -107,7 +107,7 @@ def _topological_sort(graph: EGS) -> list[str]:
 
 
 def _gather_inputs(
-    graph: EGS, node_id: str, outputs: dict[str, Any]
+    graph: SGS, node_id: str, outputs: dict[str, Any]
 ) -> dict[str, Any]:
     """Collect outputs from predecessor nodes via FEEDS edges."""
     inputs: dict[str, Any] = {}
@@ -207,7 +207,7 @@ def _execute_merge(inputs: dict[str, Any]) -> Any:
 class GraphExecutor:
     """Topological graph executor.
 
-    Reads an EGS graph, sorts nodes by dependency edges, and executes
+    Reads an SGS graph, sorts nodes by dependency edges, and executes
     each node step-by-step. The executor does not modify the graph.
 
     Usage:
@@ -216,7 +216,7 @@ class GraphExecutor:
         print(trace.result)
     """
 
-    def __init__(self, graph: EGS, transforms: Optional[TransformRegistry] = None):
+    def __init__(self, graph: SGS, transforms: Optional[TransformRegistry] = None):
         self.graph = graph
         self.transforms = transforms
 

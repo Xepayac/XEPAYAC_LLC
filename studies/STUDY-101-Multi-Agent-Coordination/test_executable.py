@@ -19,8 +19,8 @@ from pathlib import Path
 # Add paths
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from egs import EGS
-from egs.models import Node, Edge, NodeType
+from sgs import SGS
+from sgs.models import Node, Edge, NodeType
 
 try:
     from anthropic import Anthropic

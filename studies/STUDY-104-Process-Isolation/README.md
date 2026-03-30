@@ -14,7 +14,7 @@ Process Isolation via File Coordination
 Demonstrates that multiple isolated processes can coordinate their work through a shared graph file, with each process maintaining complete isolation while contributing to a unified result. This study proves that process-level isolation enforced by the operating system prevents agents from sharing memory or direct communication channels, forcing all coordination through the persistent graph substrate.
 
 ## Patent References
-- **EGS-98-02**: Layer 3 - Multi-Agent Coordination
+- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
   - **Claim 3**: Process isolation mechanism
   - **Claim 4**: File-based coordination protocol
   - **Claim 5**: Crash recovery from persistent state
@@ -151,11 +151,11 @@ Running `python demo_isolated.py` produces:
 
 This study provides evidence for the following patent claims:
 
-1. **EGS-98-02 Claim 3** (Process Isolation): Demonstrates OS-enforced isolation with separate PIDs and memory spaces. Agents cannot share variables or import each other.
+1. **SGS-98-02 Claim 3** (Process Isolation): Demonstrates OS-enforced isolation with separate PIDs and memory spaces. Agents cannot share variables or import each other.
 
-2. **EGS-98-02 Claim 4** (File-Based Coordination): Shows that a shared graph file is sufficient for multi-agent coordination. All communication occurs through load_graph() and save_graph() operations.
+2. **SGS-98-02 Claim 4** (File-Based Coordination): Shows that a shared graph file is sufficient for multi-agent coordination. All communication occurs through load_graph() and save_graph() operations.
 
-3. **EGS-98-02 Claim 5** (Crash Recovery): Proves that persistent graph state enables recovery. If any agent crashes, the graph file remains intact and computation can resume.
+3. **SGS-98-02 Claim 5** (Crash Recovery): Proves that persistent graph state enables recovery. If any agent crashes, the graph file remains intact and computation can resume.
 
 4. **Non-obvious advantage**: Traditional multi-agent systems use message passing, RPC, or shared memory. This approach uses **file-based graph coordination**, which provides:
    - Automatic audit trail (all communications are graph edits)
@@ -167,7 +167,7 @@ This study provides evidence for the following patent claims:
 
 ### Prerequisites
 ```bash
-cd /home/runner/work/EGS_PATENT_DEVELOPMENT/EGS_PATENT_DEVELOPMENT/PATENT/LAB/STUDIES/STUDY-104-Process-Isolation
+cd /home/runner/work/SGS_PATENT_DEVELOPMENT/SGS_PATENT_DEVELOPMENT/PATENT/LAB/STUDIES/STUDY-104-Process-Isolation
 ```
 
 ### Run Process-Isolated Demonstration
@@ -316,7 +316,7 @@ The `output/isolated_graph.json` file contains:
 **Study Created**: January 18, 2026  
 **Git Commit**: 2026-01-18 21:29:06 -0800  
 **Commit Message**: "docs: Efficient development workflow and workspace organization (#143)"  
-**Repository**: EGS_PATENT_DEVELOPMENT  
+**Repository**: SGS_PATENT_DEVELOPMENT  
 **Path**: `/PATENT/LAB/STUDIES/STUDY-104-Process-Isolation/`
 
-Files originated from EGS development development system. Git history provides complete audit trail of all modifications. This study demonstrates prior art and reduction to practice for patent claims related to process-isolated multi-agent coordination via file-based graph substrates.
+Files originated from SGS development development system. Git history provides complete audit trail of all modifications. This study demonstrates prior art and reduction to practice for patent claims related to process-isolated multi-agent coordination via file-based graph substrates.

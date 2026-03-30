@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""EGS Provenance Tracking Example.
+"""SGS Provenance Tracking Example.
 
 Demonstrates the ProvenanceGraph wrapper that logs every graph mutation
 to a tamper-evident hash-chain ledger.
@@ -9,14 +9,14 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 
 from datetime import datetime, timezone
 
-from egs.graph import EGS
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
-from egs.provenance import ProvenanceGraph
+from sgs.graph import SGS
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.provenance import ProvenanceGraph
 
 
 def main():
-    # Create a ProvenanceGraph wrapping an EGS
-    graph = EGS()
+    # Create a ProvenanceGraph wrapping an SGS
+    graph = SGS()
     pg = ProvenanceGraph(graph)
 
     now = datetime.now(timezone.utc)

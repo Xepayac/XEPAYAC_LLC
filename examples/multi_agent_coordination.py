@@ -1,4 +1,4 @@
-"""EGS Multi-Agent Coordination Example.
+"""SGS Multi-Agent Coordination Example.
 
 Agents coordinate through shared graph state.
 
@@ -7,7 +7,7 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 import sys
 sys.path.insert(0, '../src')
 
-from egs import Graph, Node, Edge, NodeType
+from sgs import Graph, Node, Edge, NodeType
 
 
 def main():

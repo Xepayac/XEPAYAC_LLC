@@ -1,4 +1,4 @@
-"""EGS Multi-Agent Coordination.
+"""SGS Multi-Agent Coordination.
 
 Provides Agent (type-scoped graph access) and CoordinationSession.
 
@@ -8,8 +8,8 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 
 from typing import Optional
 
-from egs.graph import EGS
-from egs.models import Node, NodeType, Edge, EdgeMetadata
+from sgs.graph import SGS
+from sgs.models import Node, NodeType, Edge, EdgeMetadata
 
 
 class AccessError(Exception):
@@ -17,13 +17,13 @@ class AccessError(Exception):
 
 
 class Agent:
-    """Type-scoped proxy to a shared EGS graph.
+    """Type-scoped proxy to a shared SGS graph.
 
     Each agent can only read/write nodes whose type is in its allowed_types.
     Metadata created_by is auto-stamped with the agent's ID.
     """
 
-    def __init__(self, agent_id: str, graph: EGS, allowed_types: list[NodeType]):
+    def __init__(self, agent_id: str, graph: SGS, allowed_types: list[NodeType]):
         self.agent_id = agent_id
         self.graph = graph  # shared reference, NOT a copy
         self.allowed_types = set(allowed_types)
@@ -90,7 +90,7 @@ class Agent:
 class CoordinationSession:
     """Tracks multiple agents operating on a shared graph."""
 
-    def __init__(self, graph: EGS):
+    def __init__(self, graph: SGS):
         self.graph = graph
         self.agents: list[Agent] = []
 

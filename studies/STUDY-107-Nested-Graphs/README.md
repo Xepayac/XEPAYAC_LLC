@@ -14,7 +14,7 @@ Nested/Hierarchical Graph Composition
 Demonstrates that graphs can be composed hierarchically, with parent graphs containing references to child subgraphs. Each level maintains scope isolation while enabling cross-level reference resolution.
 
 ## Patent References
-- **EGS-98-01**: Layer 2 - Context Extension
+- **SGS-98-01**: Layer 2 - Context Extension
 - **Claim 1**: Subgraphs as referenceable units
 - **Claim 2**: Scope isolation between levels
 - **Claim 3**: Cross-level edge resolution
@@ -92,7 +92,7 @@ The demonstration successfully proves hierarchical graph composition through 5 c
 
 ## Patent Implications
 
-This study provides critical evidence for **EGS-98-01 Layer 2 Context Extension** claims:
+This study provides critical evidence for **SGS-98-01 Layer 2 Context Extension** claims:
 
 **Claim 1 (Subgraph Referenceable Units)**: The `subgraph_ref` field in SUBGRAPH nodes proves graphs can be composed by reference rather than inline expansion, enabling modular reuse without duplication.
 
@@ -102,7 +102,7 @@ This study provides critical evidence for **EGS-98-01 Layer 2 Context Extension*
 
 **Claim 5 (Atomic Subgraph Replacement)**: Lazy loading via `load_subgraph()` means changing `child_workflow.json` automatically affects all parent graphs referencing it, without modifying parent graph structure.
 
-**Novel Contribution**: Unlike traditional call graphs or nested functions, EGS subgraphs maintain **bidirectional scope traversal** - parent can reference into child scope, child can expose interfaces to parent, all while preserving independent execution contexts. This is essential for the patent's claim of "context extension without context pollution".
+**Novel Contribution**: Unlike traditional call graphs or nested functions, SGS subgraphs maintain **bidirectional scope traversal** - parent can reference into child scope, child can expose interfaces to parent, all while preserving independent execution contexts. This is essential for the patent's claim of "context extension without context pollution".
 
 ## How to Run
 
@@ -145,7 +145,7 @@ Executing hierarchically:
 
 ## Related Studies
 
-- **STUDY-105**: Basic EGS Structure - Provides foundation node types (CONCEPT, PATTERN, TASK) extended here with SUBGRAPH type
+- **STUDY-105**: Basic SGS Structure - Provides foundation node types (CONCEPT, PATTERN, TASK) extended here with SUBGRAPH type
 - **STUDY-106**: Graph Traversal - Topological sort algorithm reused in `_get_execution_order()` for hierarchical execution
 - **STUDY-108**: Cross-Level References - Extends this study's `ScopedNodeId` to support edges spanning hierarchy levels
 - **STUDY-109**: Subgraph Extraction - Demonstrates atomic replacement capability proven by lazy loading mechanism
@@ -154,7 +154,7 @@ Executing hierarchically:
 ## Date Evidence/GitHub Issue
 
 **Date**: December 27, 2025  
-**GitHub Issue**: EGS-98 "Implement Layer 2 Context Extension"  
+**GitHub Issue**: SGS-98 "Implement Layer 2 Context Extension"  
 **Commit Hash**: [To be filled during patent filing]  
 **File Timestamps**: All JSON and Python files dated 2025-12-27 per git log  
 **Lab Notebook Reference**: PATENT/LAB/STUDIES/STUDY-107-Nested-Graphs/

@@ -1,4 +1,4 @@
-"""Tests for EGS self-modification via TransformRegistry.
+"""Tests for SGS self-modification via TransformRegistry.
 
 Covers: registry CRUD, built-in transforms (duplicate, summarize),
 executor integration, backward compatibility, and metadata provenance.
@@ -10,10 +10,10 @@ from datetime import datetime, timezone
 
 import pytest
 
-from egs.graph import EGS
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
-from egs.executor import GraphExecutor
-from egs.transform import TransformRegistry, TransformResult, default_registry
+from sgs.graph import SGS
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.executor import GraphExecutor
+from sgs.transform import TransformRegistry, TransformResult, default_registry
 
 
 def _meta(created_by: str = "test") -> NodeMetadata:
@@ -136,7 +136,7 @@ class TestSummarize:
 
 def _build_transform_graph(transform_fn: str = "summarize"):
     """Build a graph with 3 operands feeding a TRANSFORM node."""
-    graph = EGS()
+    graph = SGS()
     for i, val in enumerate([10, 20, 30]):
         graph.add_node(Node(
             id=f"op{i}",
@@ -242,7 +242,7 @@ class TestExecutorBackwardCompat:
 
     def test_no_transform_fn_in_data_passthrough(self):
         """TRANSFORM node without transform_fn key is passthrough."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(Node(
             id="t1",
             type=NodeType.TRANSFORM,
