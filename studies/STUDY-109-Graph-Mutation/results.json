@@ -1,6 +1,6 @@
 {
   "study": "STUDY-95",
-  "patent": "EGS-71",
+  "patent": "SGS-71",
   "tests": {
     "valid_mutations": "PASS",
     "invalid_mutations": "PASS (correctly rejected)",

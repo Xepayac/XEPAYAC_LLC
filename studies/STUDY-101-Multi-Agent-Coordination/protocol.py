@@ -47,9 +47,9 @@ def load_env():
 
 load_env()
 
-# Import graph infrastructure from EGS
-from egs import EGS
-from egs.models import Node, Edge, NodeType
+# Import graph infrastructure from SGS
+from sgs import SGS
+from sgs.models import Node, Edge, NodeType
 
 
 @dataclass
@@ -99,11 +99,11 @@ Add at least 1 node or edge. Build on what exists. Be concise.
 """
 
 
-def graph_to_context(graph: EGS) -> str:
+def graph_to_context(graph: SGS) -> str:
     """Convert graph to readable context for LLM."""
     lines = []
     
-    # EGS.nodes is a Dict, EGS.edges is a List
+    # SGS.nodes is a Dict, SGS.edges is a List
     nodes = list(graph.nodes.values())
     edges = graph.edges  # Already a list
     
@@ -143,7 +143,7 @@ def parse_response(response_text: str) -> Dict[str, Any]:
         return {"error": str(e), "raw": response_text, "nodes": [], "edges": []}
 
 
-def apply_modifications(graph: EGS, parsed: Dict, llm_name: str) -> Tuple[List[str], List[Tuple[str, str, str]]]:
+def apply_modifications(graph: SGS, parsed: Dict, llm_name: str) -> Tuple[List[str], List[Tuple[str, str, str]]]:
     """Apply parsed modifications to graph. Returns lists of added nodes and edges."""
     nodes_added = []
     edges_added = []
@@ -204,7 +204,7 @@ def apply_modifications(graph: EGS, parsed: Dict, llm_name: str) -> Tuple[List[s
 def llm_turn(
     llm_name: str,
     model: str,
-    graph: EGS,
+    graph: SGS,
     task: str,
     client: Optional[Any] = None
 ) -> Turn:
@@ -257,7 +257,7 @@ def run_conversation(
     llm_b_model: str = "claude-haiku-4-5-20251001",
     turns: int = 3,
     verbose: bool = True
-) -> Tuple[EGS, List[Turn]]:
+) -> Tuple[SGS, List[Turn]]:
     """
     Run a full conversation between two LLMs.
     
@@ -273,7 +273,7 @@ def run_conversation(
     Returns:
         (final_graph, list_of_turns)
     """
-    graph = EGS()
+    graph = SGS()
     turn_history = []
     
     # Initialize client once

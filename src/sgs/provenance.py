@@ -1,4 +1,4 @@
-"""EGS Provenance — hash-chain ledger for graph mutations.
+"""SGS Provenance — hash-chain ledger for graph mutations.
 
 Every mutation (add/remove/update node or edge) is recorded as a
 ProvenanceEntry in a tamper-evident chain. Read operations pass
@@ -13,8 +13,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Optional
 
-from egs.graph import EGS
-from egs.models import Node, Edge
+from sgs.graph import SGS
+from sgs.models import Node, Edge
 
 
 @dataclass
@@ -57,9 +57,9 @@ def _compute_hash(
 
 
 class ProvenanceGraph:
-    """Wrapper around EGS that logs every mutation to a hash-chain ledger."""
+    """Wrapper around SGS that logs every mutation to a hash-chain ledger."""
 
-    def __init__(self, graph: EGS):
+    def __init__(self, graph: SGS):
         self.graph = graph
         self._ledger: list[ProvenanceEntry] = []
         self._sequence = 0

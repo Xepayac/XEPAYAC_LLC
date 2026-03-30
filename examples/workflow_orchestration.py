@@ -1,4 +1,4 @@
-"""EGS Workflow Orchestration Example.
+"""SGS Workflow Orchestration Example.
 
 Parallel and sequential tasks via graph-based execution.
 
@@ -7,7 +7,7 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 import sys
 sys.path.insert(0, '../src')
 
-from egs import Graph, Node, Edge, NodeType
+from sgs import Graph, Node, Edge, NodeType
 
 
 def main():

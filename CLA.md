@@ -1,6 +1,6 @@
 # Contributor License Agreement (CLA)
 
-## Xepayac LLC — EGS (Executable Graph Substrate)
+## Xepayac LLC — SGS (Superseding Graph Substrate)
 
 By submitting a contribution (pull request, patch, or other code submission) to this repository, you agree to the following terms:
 

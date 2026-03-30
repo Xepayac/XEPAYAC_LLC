@@ -19,8 +19,8 @@ Demonstrate how LLM outputs are parsed and applied as graph mutations with:
 - Mutation protocol definition
 
 ## Patent References
-- **EGS-98-01**: Layer 2 - Context Extension
-- **EGS-98-03**: Layer 4 - LLM Orchestration
+- **SGS-98-01**: Layer 2 - Context Extension
+- **SGS-98-03**: Layer 4 - LLM Orchestration
 - **Claim 1**: System for applying LLM-generated mutations to graph
 - **Claim 3**: Structured output parsing
 - **Claim 5**: Validation before application
@@ -180,7 +180,7 @@ SUMMARY: LLM-Directed Graph Mutation Proven
 ✅ Mutation protocol - ADD, UPDATE, DELETE for nodes and edges
 ✅ Atomic rollback - failed batch restores previous state
 
-Evidence supports EGS-71 patent claims.
+Evidence supports SGS-71 patent claims.
 Results saved to results.json
 ```
 
@@ -195,7 +195,7 @@ Results saved to results.json
 
 **Study Date**: December 2024  
 **Last Updated**: January 2026  
-**GitHub Issue**: EGS-71 (LLM-Directed Graph Mutation Protocol)  
-**Related Issues**: EGS-98 (Multi-Layer Architecture)  
+**GitHub Issue**: SGS-71 (LLM-Directed Graph Mutation Protocol)  
+**Related Issues**: SGS-98 (Multi-Layer Architecture)  
 **Git History**: Available in repository commit log  
-**Patent Application**: PROVISIONAL_PATENT_03 (EGS System)
+**Patent Application**: PROVISIONAL_PATENT_03 (SGS System)

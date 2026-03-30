@@ -4,7 +4,7 @@ Technology development, consulting, and licensing.
 
 I started coding in October 2025. I'm building a role-playing game called SaltWind, and along the way I built a graph-based execution engine, a multi-agent orchestration platform, and a chatbot system. I thought this would be helpful to anyone going down the same path.
 
-The graph storage format ([TRUGS](https://github.com/TRUGS-LLC/TRUGS)) is open and free under Apache 2.0. The Executable Graph Substrate (EGS) is available under AGPL 3.0 for open-source use, or under a commercial license from Xepayac LLC for proprietary use. Patent Pending.
+The graph storage format ([TRUGS](https://github.com/TRUGS-LLC/TRUGS)) is open and free under Apache 2.0. The Superseding Graph Substrate (SGS) is available under AGPL 3.0 for open-source use, or under a commercial license from Xepayac LLC for proprietary use. Patent Pending.
 
 ---
 
@@ -18,7 +18,7 @@ Powered by structured knowledge graphs — not vector databases, not RAG pipelin
 **For enterprises:** Multi-agent orchestration across business domains. One chatbot that routes questions to the right department, synthesizes cross-domain answers, and maintains conversation context. Sales, support, HR, engineering — each domain is a knowledge graph. The orchestrator sits on top.
 
 ### Technology Licensing
-The Executable Graph Substrate (EGS) is available for commercial licensing:
+The Superseding Graph Substrate (SGS) is available for commercial licensing:
 
 - **Graph execution** — topology-driven computation where the graph itself is the program
 - **Multi-agent coordination** — agents communicate through shared graph state, not message passing
@@ -32,9 +32,9 @@ SaltWind proves the technology. If our platform can run a role-playing game — 
 
 ---
 
-## Executable Graph Substrate (EGS)
+## Superseding Graph Substrate (SGS)
 
-EGS is the concept of graph-as-executable-program. The graph is not a description of a program — it *is* the program.
+SGS is the concept of graph-as-executable-program. The graph is not a description of a program — it *is* the program.
 
 Three pillars:
 
@@ -42,9 +42,9 @@ Three pillars:
 2. **Self-modification** — the graph transforms itself during execution, enabling adaptive behavior
 3. **Multi-agent coordination** — multiple agents operate on shared graph state, communicating through structure rather than messages
 
-## EGS Studies
+## SGS Studies
 
-This repository contains 16 studies demonstrating that EGS technology exists and works. Each study is an independent proof of a specific capability.
+This repository contains 16 studies demonstrating that SGS technology exists and works. Each study is an independent proof of a specific capability.
 
 | Study | Domain |
 |---|---|
@@ -69,13 +69,13 @@ This repository contains 16 studies demonstrating that EGS technology exists and
 
 ## License
 
-All EGS studies in this repository are licensed under the **GNU General Public License v3.0** (GPL 3.0).
+All SGS studies in this repository are licensed under the **GNU General Public License v3.0** (GPL 3.0).
 
-Commercial use of EGS technology outside the terms of the GPL 3.0 requires a commercial license from Xepayac LLC.
+Commercial use of SGS technology outside the terms of the GPL 3.0 requires a commercial license from Xepayac LLC.
 
 ## Patent
 
-Executable Graph Substrate is the subject of U.S. patent application 19/575,491.
+Superseding Graph Substrate is the subject of U.S. patent application 19/575,491.
 
 ## Contact
 
@@ -85,4 +85,4 @@ Executable Graph Substrate is the subject of U.S. patent application 19/575,491.
 
 ## Related
 
-The **TRUGS Standard** — the open graph storage format used by EGS — is maintained by [TRUGS LLC](https://github.com/TRUGS-LLC/TRUGS) under the Apache License 2.0. Free to use, free to build on.
+The **TRUGS Standard** — the open graph storage format used by SGS — is maintained by [TRUGS LLC](https://github.com/TRUGS-LLC/TRUGS) under the Apache License 2.0. Free to use, free to build on.

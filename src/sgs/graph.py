@@ -1,4 +1,4 @@
-"""EGS - Executable Graph Substrate main class.
+"""SGS - Superseding Graph Substrate main class.
 
 Core graph data structure with CRUD operations, serialization,
 query interface, and constraint validation.
@@ -10,12 +10,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from egs.models import Node, Edge, Constraint, NodeType
+from sgs.models import Node, Edge, Constraint, NodeType
 
 
-class EGS:
+class SGS:
     """
-    Executable Graph Substrate - the core data structure.
+    Superseding Graph Substrate - the core data structure.
 
     This graph stores nodes, edges, and constraints, providing
     CRUD operations and serialization capabilities.
@@ -29,7 +29,7 @@ class EGS:
         metadata: Optional[Dict[str, Any]] = None
     ):
         """
-        Initialize an EGS.
+        Initialize an SGS.
         
         Args:
             nodes: Optional list of nodes to initialize with
@@ -401,7 +401,7 @@ class EGS:
         }
     
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "EGS":
+    def from_dict(cls, data: Dict[str, Any]) -> "SGS":
         """
         Deserialize a graph from a dictionary.
 
@@ -409,7 +409,7 @@ class EGS:
             data: Dictionary representation of the graph
 
         Returns:
-            New EGS instance
+            New SGS instance
         """
         nodes = [Node.model_validate(n) for n in data.get("nodes", [])]
         edges = [Edge.model_validate(e) for e in data.get("edges", [])]
@@ -430,7 +430,7 @@ class EGS:
             json.dump(self.to_dict(), f, indent=2, ensure_ascii=False)
     
     @classmethod
-    def load(cls, filepath: str | Path) -> "EGS":
+    def load(cls, filepath: str | Path) -> "SGS":
         """
         Load a graph from a JSON file.
 
@@ -438,7 +438,7 @@ class EGS:
             filepath: Path to load the file from
 
         Returns:
-            New EGS instance
+            New SGS instance
         """
         filepath = Path(filepath)
         with filepath.open("r", encoding="utf-8") as f:
@@ -447,6 +447,6 @@ class EGS:
     
     def __repr__(self) -> str:
         """String representation of the graph."""
-        return (f"EGS(nodes={len(self._nodes)}, "
+        return (f"SGS(nodes={len(self._nodes)}, "
                 f"edges={len(self._edges)}, "
                 f"constraints={len(self._constraints)})")

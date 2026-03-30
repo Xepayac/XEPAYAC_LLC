@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "egs"
+name = "sgs"
 version = "0.3.0"
-description = "Executable Graph Substrate - A graph-based framework for LLM orchestration"
+description = "Superseding Graph Substrate - A graph-based framework for LLM orchestration"
 readme = "README.md"
 license = {text = "AGPL-3.0"}
 authors = [
@@ -35,8 +35,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Xepayac/EGS"
-Repository = "https://github.com/Xepayac/EGS"
+Homepage = "https://github.com/Xepayac/SGS"
+Repository = "https://github.com/Xepayac/SGS"
 Documentation = "https://github.com/Xepayac/Xepayac_LLC#readme"
 
 [tool.setuptools.packages.find]

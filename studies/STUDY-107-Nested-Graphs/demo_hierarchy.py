@@ -27,7 +27,7 @@ from hierarchy_executor import HierarchyExecutor
 def main():
     print("=" * 70)
     print("  STUDY-93: Nested/Hierarchical Graph Demonstration")
-    print("  Proves EGS-57: Nested/Hierarchical Graphs")
+    print("  Proves SGS-57: Nested/Hierarchical Graphs")
     print("=" * 70)
     
     # Load the parent graph
@@ -143,7 +143,7 @@ def main():
        - Can view entire hierarchy as flat list
        - Scoped IDs prevent conflicts
 
-    This proves EGS-57: Nested/Hierarchical Graphs
+    This proves SGS-57: Nested/Hierarchical Graphs
     """)
     
     print("=" * 70)

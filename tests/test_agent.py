@@ -1,12 +1,12 @@
-"""Tests for EGS multi-agent coordination."""
+"""Tests for SGS multi-agent coordination."""
 
 from datetime import datetime, timezone
 
 import pytest
 
-from egs.graph import EGS
-from egs.agent import Agent, AccessError, CoordinationSession
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.graph import SGS
+from sgs.agent import Agent, AccessError, CoordinationSession
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def edge_meta():
 
 @pytest.fixture
 def graph():
-    return EGS()
+    return SGS()
 
 
 @pytest.fixture

@@ -1,11 +1,11 @@
-"""Tests for the EGS topological executor."""
+"""Tests for the SGS topological executor."""
 
 from datetime import datetime, timezone
 
 import pytest
 
-from egs import EGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
-from egs.executor import GraphExecutor, CycleError, ExecutionTrace
+from sgs import SGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
+from sgs.executor import GraphExecutor, CycleError, ExecutionTrace
 
 
 def _meta(agent: str = "test") -> NodeMetadata:
@@ -39,14 +39,14 @@ def _requires(src: str, tgt: str) -> Edge:
 
 class TestEmptyGraph:
     def test_empty_graph_returns_success(self):
-        graph = EGS()
+        graph = SGS()
         trace = GraphExecutor(graph).execute()
         assert trace.success is True
         assert trace.result is None
         assert trace.steps == []
 
     def test_graph_with_no_executable_nodes(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(Node(id="c1", type=NodeType.CONCEPT, data={}, metadata=_meta()))
         trace = GraphExecutor(graph).execute()
         assert trace.success is True
@@ -55,7 +55,7 @@ class TestEmptyGraph:
 
 class TestSimpleArithmetic:
     def test_add_two_operands(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 3))
         graph.add_node(_operand("b", 5))
         graph.add_node(_result("r", "add"))
@@ -67,7 +67,7 @@ class TestSimpleArithmetic:
         assert trace.result == 8
 
     def test_multiply_two_operands(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 6))
         graph.add_node(_operand("b", 7))
         graph.add_node(_result("r", "multiply"))
@@ -78,7 +78,7 @@ class TestSimpleArithmetic:
         assert trace.result == 42
 
     def test_subtract(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 10))
         graph.add_node(_operand("b", 3))
         graph.add_node(_result("r", "subtract"))
@@ -90,7 +90,7 @@ class TestSimpleArithmetic:
 
     def test_chained_operations(self):
         """3 + 5 = 8, then 8 * 2 = 16."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 3))
         graph.add_node(_operand("b", 5))
         graph.add_node(_operation("add", "add"))
@@ -107,7 +107,7 @@ class TestSimpleArithmetic:
 
 class TestCompare:
     def test_equal_true(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 5))
         graph.add_node(_operand("b", 5))
         graph.add_node(_result("r", "compare"))
@@ -120,7 +120,7 @@ class TestCompare:
         assert trace.result is True
 
     def test_less_than(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 3))
         graph.add_node(_operand("b", 7))
         node = Node(id="r", type=NodeType.RESULT, data={"operation": "compare", "comparator": "lt"}, metadata=_meta())
@@ -132,7 +132,7 @@ class TestCompare:
         assert trace.result is True
 
     def test_greater_than_false(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 3))
         graph.add_node(_operand("b", 7))
         node = Node(id="r", type=NodeType.RESULT, data={"operation": "compare", "comparator": "gt"}, metadata=_meta())
@@ -146,7 +146,7 @@ class TestCompare:
 
 class TestFilter:
     def test_filter_positive_passes(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 5))
         node = Node(id="r", type=NodeType.RESULT, data={"operation": "filter", "condition": "positive"}, metadata=_meta())
         graph.add_node(node)
@@ -156,7 +156,7 @@ class TestFilter:
         assert trace.result == 5
 
     def test_filter_positive_rejects(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", -3))
         node = Node(id="r", type=NodeType.RESULT, data={"operation": "filter", "condition": "positive"}, metadata=_meta())
         graph.add_node(node)
@@ -168,7 +168,7 @@ class TestFilter:
 
 class TestAggregate:
     def test_aggregate_sum(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 1))
         graph.add_node(_operand("b", 2))
         graph.add_node(_operand("c", 3))
@@ -182,7 +182,7 @@ class TestAggregate:
         assert trace.result == 6
 
     def test_aggregate_avg(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 10))
         graph.add_node(_operand("b", 20))
         node = Node(id="r", type=NodeType.RESULT, data={"operation": "aggregate", "method": "avg"}, metadata=_meta())
@@ -194,7 +194,7 @@ class TestAggregate:
         assert trace.result == 15.0
 
     def test_aggregate_min_max(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 5))
         graph.add_node(_operand("b", 2))
         graph.add_node(_operand("c", 8))
@@ -217,7 +217,7 @@ class TestAggregate:
         assert max_step.output == 8
 
     def test_aggregate_count(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 10))
         graph.add_node(_operand("b", 20))
         graph.add_node(_operand("c", 30))
@@ -233,7 +233,7 @@ class TestAggregate:
 
 class TestIdentity:
     def test_identity_passthrough(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 42))
         graph.add_node(_result("r", "identity"))
         graph.add_edge(_feeds("a", "r"))
@@ -244,7 +244,7 @@ class TestIdentity:
 
 class TestBranch:
     def test_branch_true(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("cond", True))
         node = Node(id="br", type=NodeType.BRANCH, data={}, metadata=_meta())
         graph.add_node(node)
@@ -255,7 +255,7 @@ class TestBranch:
         assert br_step.output["condition"] is True
 
     def test_branch_false(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("cond", False))
         node = Node(id="br", type=NodeType.BRANCH, data={}, metadata=_meta())
         graph.add_node(node)
@@ -268,7 +268,7 @@ class TestBranch:
 
 class TestMerge:
     def test_merge_collects_inputs(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 1))
         graph.add_node(_operand("b", 2))
         graph.add_node(_operand("c", 3))
@@ -285,7 +285,7 @@ class TestMerge:
 
 class TestCycleDetection:
     def test_simple_cycle_raises(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operation("a", "add"))
         graph.add_node(_operation("b", "add"))
         graph.add_edge(_feeds("a", "b"))
@@ -296,7 +296,7 @@ class TestCycleDetection:
         assert "Cycle detected" in trace.error
 
     def test_three_node_cycle(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operation("a", "add"))
         graph.add_node(_operation("b", "add"))
         graph.add_node(_operation("c", "add"))
@@ -311,7 +311,7 @@ class TestCycleDetection:
 
 class TestExecutionTrace:
     def test_trace_records_all_steps(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 3))
         graph.add_node(_operand("b", 5))
         graph.add_node(_result("r", "add"))
@@ -326,7 +326,7 @@ class TestExecutionTrace:
         assert trace.steps[2].output == 8
 
     def test_trace_step_order_is_sequential(self):
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 1))
         graph.add_node(_operand("b", 2))
         graph.add_node(_operation("op", "add"))
@@ -341,7 +341,7 @@ class TestExecutionTrace:
 
     def test_requires_edge_enforces_order(self):
         """REQUIRES edges enforce ordering without carrying data."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 10))
         graph.add_node(_operand("b", 20))
         graph.add_node(_result("r", "identity"))
@@ -357,7 +357,7 @@ class TestExecutionTrace:
 class TestComplexGraph:
     def test_diamond_dependency(self):
         """a → op1, a → op2, op1 → r, op2 → r."""
-        graph = EGS()
+        graph = SGS()
         graph.add_node(_operand("a", 5))
         graph.add_node(_operation("op1", "multiply"))
         graph.add_node(_operation("op2", "add"))

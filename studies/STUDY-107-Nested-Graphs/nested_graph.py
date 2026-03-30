@@ -1,7 +1,7 @@
 """
 Nested Graph Data Structures
 
-Extends the basic EGS to support hierarchical composition:
+Extends the basic SGS to support hierarchical composition:
 - SubgraphNode: A node that references another graph
 - NestedGraph: A graph that can contain subgraph references
 - ScopedNodeId: A fully-qualified node reference across hierarchy

@@ -14,7 +14,7 @@ Multi-Party Privacy via Graph Partitions
 Demonstrates a real-world use case where multiple independent parties (sellers and buyers) coordinate complex supply chain negotiations through a shared graph substrate, with each party maintaining full autonomy and private decision-making through graph partitions.
 
 ## Patent References
-- **EGS-98-02**: Layer 3 - Multi-Agent Coordination
+- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
 - **Claim 2**: Multi-agent communication through graph
 - **Claim 3**: Private partitions preserve party autonomy
 - **Claim 4**: Coordination without revealing private state
@@ -25,7 +25,7 @@ Multiple independent parties can negotiate and reach optimal resource allocation
 
 ## Study Date
 **January 2026** (documentation formalized)  
-Origin: December 2024 (EGS development development)
+Origin: December 2024 (SGS development development)
 
 ## Method
 
@@ -146,17 +146,17 @@ The study implements a **partition-based privacy model** where:
 ### Claims Validated
 This study provides **reduction to practice** for:
 
-1. **EGS-98-02 Claim 2** (Multi-agent communication through graph)
+1. **SGS-98-02 Claim 2** (Multi-agent communication through graph)
    - ✓ Three independent parties coordinated via shared graph
    - ✓ No direct inter-process communication
    - ✓ Graph served as sole coordination substrate
 
-2. **EGS-98-02 Claim 3** (Private partitions preserve autonomy)
+2. **SGS-98-02 Claim 3** (Private partitions preserve autonomy)
    - ✓ Each party maintained private data in separate process
    - ✓ Budget/cost data never exposed to graph
    - ✓ Parties made autonomous decisions using LLMs
 
-3. **EGS-98-02 Claim 4** (Coordination without revealing private state)
+3. **SGS-98-02 Claim 4** (Coordination without revealing private state)
    - ✓ Successful allocation achieved without sharing budgets/costs
    - ✓ Only public offers/bids written to graph
    - ✓ Private reasoning stayed in process memory
@@ -249,7 +249,7 @@ Deals Made:
 - **STUDY-112**: Graph-Based Optimization Engine (split from this study)
 
 ## Date Evidence / GitHub Issue
-- **Created**: December 2024 (EGS development development)
+- **Created**: December 2024 (SGS development development)
 - **Documented**: January 18, 2026 (commit d3b0957)
 - **GitHub Commit**: `d3b0957` - "docs: Efficient development workflow and workspace organization (#143)"
 - **Patent Filing**: January 2026 (provisional applications)

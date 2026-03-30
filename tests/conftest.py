@@ -1,4 +1,4 @@
-"""Pytest configuration for EGS tests."""
+"""Pytest configuration for SGS tests."""
 
 import sys
 from pathlib import Path

@@ -2,7 +2,7 @@
 LLM-Directed Graph Mutation Engine
 
 Demonstrates how LLM outputs are parsed and applied as graph mutations.
-This is evidence for EGS-71: LLM-Directed Graph Mutation Protocol.
+This is evidence for SGS-71: LLM-Directed Graph Mutation Protocol.
 """
 
 import json

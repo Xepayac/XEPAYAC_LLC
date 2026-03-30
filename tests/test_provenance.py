@@ -1,15 +1,15 @@
-"""Tests for EGS provenance hash-chain ledger."""
+"""Tests for SGS provenance hash-chain ledger."""
 
 from datetime import datetime, timezone
 
 import pytest
 
-from egs.graph import EGS
-from egs.agent import Agent
-from egs.executor import GraphExecutor
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
-from egs.provenance import ProvenanceGraph, ProvenanceEntry
-from egs.transform import TransformRegistry, TransformResult
+from sgs.graph import SGS
+from sgs.agent import Agent
+from sgs.executor import GraphExecutor
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.provenance import ProvenanceGraph, ProvenanceEntry
+from sgs.transform import TransformRegistry, TransformResult
 
 
 @pytest.fixture
@@ -24,7 +24,7 @@ def edge_meta():
 
 @pytest.fixture
 def graph():
-    return EGS()
+    return SGS()
 
 
 @pytest.fixture
@@ -268,7 +268,7 @@ def test_multiple_operations_chain(pg, meta, edge_meta):
 # --- Integration: Agent writes through ProvenanceGraph ---
 
 def test_agent_writes_through_provenance(meta):
-    graph = EGS()
+    graph = SGS()
     pg = ProvenanceGraph(graph)
     agent = Agent("agent-alpha", pg, [NodeType.OPERAND, NodeType.CONCEPT])
 
@@ -295,7 +295,7 @@ def test_agent_writes_through_provenance(meta):
 # --- Integration: GraphExecutor + TransformRegistry ---
 
 def test_executor_transform_through_provenance():
-    graph = EGS()
+    graph = SGS()
     pg = ProvenanceGraph(graph)
 
     # Register a transform that creates a new node

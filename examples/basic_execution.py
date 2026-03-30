@@ -1,4 +1,4 @@
-"""EGS Basic Execution Example.
+"""SGS Basic Execution Example.
 
 Demonstrates topology-driven computation: the graph structure
 determines execution order. Nodes execute in dependency order
@@ -9,8 +9,8 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 
 from datetime import datetime, timezone
 
-from egs import EGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
-from egs.executor import GraphExecutor
+from sgs import SGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata
+from sgs.executor import GraphExecutor
 
 
 def meta() -> NodeMetadata:
@@ -24,7 +24,7 @@ def edge_meta() -> EdgeMetadata:
 def main():
     """Build and execute: (3 + 5) * 2 = 16"""
 
-    graph = EGS()
+    graph = SGS()
 
     # Leaf nodes — operands hold values
     graph.add_node(Node(id="three", type=NodeType.OPERAND, data={"value": 3}, metadata=meta()))
@@ -48,7 +48,7 @@ def main():
     trace = executor.execute()
 
     # Print trace
-    print("EGS Topological Execution: (3 + 5) * 2")
+    print("SGS Topological Execution: (3 + 5) * 2")
     print("=" * 50)
     for step in trace.steps:
         print(f"  Step {step.order}: {step.node_id} ({step.node_type})")

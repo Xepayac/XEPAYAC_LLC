@@ -14,7 +14,7 @@ Value Exchange via Graph Substrate
 Demonstrates value exchange between agents through graph operations - how agents can transfer, accumulate, and verify value using graph nodes as the medium.
 
 ## Patent References
-- **EGS-98-02**: Layer 3 - Multi-Agent Coordination
+- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
 - **Claim 1**: Graph enables value representation
 - **Claim 2**: Value transfers are graph operations
 - **Claim 3**: Complete audit trail of all transfers
@@ -100,10 +100,10 @@ The study demonstrates three critical outcomes:
 
 This study provides evidence for:
 
-1. **Graph as Value Substrate** (EGS-98-02, Claim 1): Value represented directly as graph nodes (OPERAND type) with numeric data
-2. **Value Transfer via Graph Operations** (EGS-98-02, Claim 2): OPERATION nodes (add, multiply, subtract) perform calculations on value nodes
-3. **Complete Audit Trail** (EGS-98-02, Claim 3): `turns.json` records every agent contribution with timestamps and metadata
-4. **Verification through Graph State** (EGS-98-02, Claim 4): `final_graph.json` provides single source of truth for all value transfers
+1. **Graph as Value Substrate** (SGS-98-02, Claim 1): Value represented directly as graph nodes (OPERAND type) with numeric data
+2. **Value Transfer via Graph Operations** (SGS-98-02, Claim 2): OPERATION nodes (add, multiply, subtract) perform calculations on value nodes
+3. **Complete Audit Trail** (SGS-98-02, Claim 3): `turns.json` records every agent contribution with timestamps and metadata
+4. **Verification through Graph State** (SGS-98-02, Claim 4): `final_graph.json` provides single source of truth for all value transfers
 
 **Key Legal Point**: Demonstrates that isolated data sources (Database A, Database B) can be synthesized via graph substrate to create new knowledge without direct agent communication or centralized data access.
 
@@ -178,5 +178,5 @@ This is exactly like: A knows 3, B knows 5 → Graph: 8
 ## Date Evidence / GitHub Issue
 - **Original Development**: December 2024 - Split from STUDY-87 for conceptual clarity
 - **Source**: Originally part of STUDY-101 (formerly STUDY-87) in LAB/STUDIES/
-- **Repository**: EGS_PATENT_DEVELOPMENT on GitHub
+- **Repository**: SGS_PATENT_DEVELOPMENT on GitHub
 - **Documentation Date**: January 2026 (updated for patent publication standards)

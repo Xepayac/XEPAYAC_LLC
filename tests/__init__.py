@@ -1,1 +1,1 @@
-"""Tests for EGS."""
+"""Tests for SGS."""

@@ -1,4 +1,4 @@
-"""EGS Full Pipeline — All Four Patent Claims in One Execution.
+"""SGS Full Pipeline — All Four Patent Claims in One Execution.
 
 1. Topological execution (Claims 1-3)
 2. Self-modification (Claim 5)
@@ -8,12 +8,12 @@
 AGPL-3.0 | Patent Pending (app 19/575,491)
 """
 from datetime import datetime, timezone
-from egs import (
-    EGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata,
+from sgs import (
+    SGS, Node, NodeType, Edge, EdgeMetadata, NodeMetadata,
     GraphExecutor, TransformRegistry, TransformResult,
     Agent, ProvenanceGraph, ProvenanceEntry,
 )
-from egs.transform import default_registry
+from sgs.transform import default_registry
 
 
 def meta(who: str = "setup") -> NodeMetadata:
@@ -25,8 +25,8 @@ def edge_meta(who: str = "setup") -> EdgeMetadata:
 
 
 def main():
-    # --- Setup: ProvenanceGraph wrapping an EGS ---
-    graph = EGS()
+    # --- Setup: ProvenanceGraph wrapping an SGS ---
+    graph = SGS()
     pg = ProvenanceGraph(graph)
 
     # --- CLAIM 4: Multi-agent coordination ---

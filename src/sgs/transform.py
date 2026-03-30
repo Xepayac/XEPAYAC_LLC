@@ -1,4 +1,4 @@
-"""EGS Transform Registry and built-in transforms.
+"""SGS Transform Registry and built-in transforms.
 
 Provides the TransformRegistry for registering named transform functions,
 and two built-in transforms: duplicate and summarize.
@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Callable
 
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
 
 
 @dataclass

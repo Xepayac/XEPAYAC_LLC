@@ -1,4 +1,4 @@
-"""EGS Self-Modification Example.
+"""SGS Self-Modification Example.
 
 Demonstrates how a TRANSFORM node modifies the graph during execution
 by creating a summary node from numeric operands.
@@ -8,14 +8,14 @@ AGPL-3.0 | Patent Pending (app 19/575,491)
 
 from datetime import datetime, timezone
 
-from egs.graph import EGS
-from egs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
-from egs.executor import GraphExecutor
-from egs.transform import default_registry
+from sgs.graph import SGS
+from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
+from sgs.executor import GraphExecutor
+from sgs.transform import default_registry
 
 
 def main():
-    graph = EGS()
+    graph = SGS()
     meta = NodeMetadata(created_by="user", created_at=datetime.now(timezone.utc))
     edge_meta = EdgeMetadata(created_by="user", created_at=datetime.now(timezone.utc))
 

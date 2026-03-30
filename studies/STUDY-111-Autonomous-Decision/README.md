@@ -14,7 +14,7 @@ LLM Autonomous Decision Protocol
 Demonstrates autonomous LLM decision-making within the graph substrate - how LLMs can make independent decisions based on graph context and output structured responses that become graph mutations.
 
 ## Patent References
-- **EGS-98-03**: Layer 4 - LLM Orchestration
+- **SGS-98-03**: Layer 4 - LLM Orchestration
 - **Claim 1**: LLM acts autonomously within graph context
 - **Claim 2**: Decisions based on graph state
 - **Claim 3**: Structured output becomes mutations
@@ -135,10 +135,10 @@ def decide_bid(graph: SupplyChainGraph, buyer: dict, round_number: int):
 ## Patent Implications
 
 **Claims Validated:**
-1. **Autonomous Operation** (EGS-98-03, Claim 1): LLMs operate independently within graph context without human intervention per decision
-2. **State-Based Reasoning** (EGS-98-03, Claim 2): Decisions derived from reading graph state (supplies, bids, history)
-3. **Structured Mutations** (EGS-98-03, Claim 3): JSON output becomes graph nodes via mutation engine
-4. **Multi-Agent Coordination** (EGS-98-03, Claim 4): Multiple LLMs coordinate through shared graph substrate
+1. **Autonomous Operation** (SGS-98-03, Claim 1): LLMs operate independently within graph context without human intervention per decision
+2. **State-Based Reasoning** (SGS-98-03, Claim 2): Decisions derived from reading graph state (supplies, bids, history)
+3. **Structured Mutations** (SGS-98-03, Claim 3): JSON output becomes graph nodes via mutation engine
+4. **Multi-Agent Coordination** (SGS-98-03, Claim 4): Multiple LLMs coordinate through shared graph substrate
 
 **Differentiation from Prior Art:**
 
@@ -226,6 +226,6 @@ STEP 4: Optimizer computes allocation
 
 **Creation Date:** December 2024  
 **Source:** Split from STUDY-91 (now STUDY-105) for conceptual clarity  
-**GitHub Issues:** Track development in EGS-98 (LLM Orchestration Layer)  
+**GitHub Issues:** Track development in SGS-98 (LLM Orchestration Layer)  
 **Git History:** All changes tracked in `/PATENT/LAB/STUDIES/STUDY-111-Autonomous-Decision/`  
-**Related Work:** Part of EGS Patent Family (EGS-98-03 specifically)
+**Related Work:** Part of SGS Patent Family (SGS-98-03 specifically)
