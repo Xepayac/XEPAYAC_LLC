@@ -69,9 +69,9 @@ This repository contains 16 studies demonstrating that SGS technology exists and
 
 ## License
 
-All SGS studies in this repository are licensed under the **GNU General Public License v3.0** (GPL 3.0).
+Everything in this repository is licensed under the **GNU Affero General Public License v3.0** (AGPL 3.0).
 
-Commercial use of SGS technology outside the terms of the GPL 3.0 requires a commercial license from Xepayac LLC.
+Commercial use of SGS technology outside the terms of the AGPL 3.0 requires a commercial license from Xepayac LLC.
 
 ## Patent
 
