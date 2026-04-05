@@ -1,0 +1,87 @@
+{
+  "name": "XEPAYAC_LLC",
+  "version": "1.0.0",
+  "type": "REPOSITORY",
+  "description": "Superseding Graph Substrate (SGS) — topology-driven computation, self-modification, multi-agent coordination. EGS studies. Patent pending.",
+  "dimensions": {
+    "research": {
+      "description": "Research repository: studies, examples, source code",
+      "base_level": "BASE"
+    }
+  },
+  "capabilities": {
+    "extensions": [],
+    "vocabularies": ["code_v1"],
+    "profiles": []
+  },
+  "meta": {
+    "generated_by": "manual",
+    "last_synced": "2026-04-05",
+    "owner": "Xepayac",
+    "license": "AGPL-3.0",
+    "repository": "https://github.com/Xepayac/XEPAYAC_LLC"
+  },
+  "nodes": [
+    {
+      "id": "repo_root",
+      "type": "REPOSITORY",
+      "properties": {
+        "name": "XEPAYAC_LLC",
+        "description": "SGS research, EGS studies, proprietary computation. AGPL 3.0."
+      },
+      "parent_id": null,
+      "contains": ["comp_src", "comp_studies", "comp_examples", "comp_tests"],
+      "metric_level": "KILO_REPOSITORY",
+      "dimension": "research"
+    },
+    {
+      "id": "comp_src",
+      "type": "MODULE",
+      "properties": {
+        "name": "src/",
+        "description": "Python source — SGS computation engine"
+      },
+      "parent_id": "repo_root",
+      "contains": [],
+      "metric_level": "BASE_MODULE",
+      "dimension": "research"
+    },
+    {
+      "id": "comp_studies",
+      "type": "MODULE",
+      "properties": {
+        "name": "studies/",
+        "description": "EGS capability studies — prior art under GPL"
+      },
+      "parent_id": "repo_root",
+      "contains": [],
+      "metric_level": "BASE_MODULE",
+      "dimension": "research"
+    },
+    {
+      "id": "comp_examples",
+      "type": "MODULE",
+      "properties": {
+        "name": "examples/",
+        "description": "Example TRUGs and usage patterns"
+      },
+      "parent_id": "repo_root",
+      "contains": [],
+      "metric_level": "BASE_MODULE",
+      "dimension": "research"
+    },
+    {
+      "id": "comp_tests",
+      "type": "MODULE",
+      "properties": {
+        "name": "tests/",
+        "description": "Test suite"
+      },
+      "parent_id": "repo_root",
+      "contains": [],
+      "metric_level": "BASE_MODULE",
+      "dimension": "research"
+    }
+  ],
+  "edges": []
+}
