@@ -1,0 +1,42 @@
+{
+  "study_id": "STUDY-202",
+  "title": "Multi-File Graph Substrate",
+  "date": "2026-04-04",
+  "status": "PASS",
+  "tests_run": 12,
+  "tests_passed": 12,
+  "tests_failed": 0,
+  "duration_seconds": 0.04,
+  "scenarios": {
+    "single_file_self_modification": {
+      "result": "PASS",
+      "files": 1,
+      "nodes_before": 3,
+      "nodes_after": 4,
+      "self_modified": true
+    },
+    "spawn_and_supersede": {
+      "result": "PASS",
+      "files": 2,
+      "original_file_unmodified": true,
+      "cross_file_edges": 1,
+      "active_graph": "graph_b",
+      "program_changed": true,
+      "substrate_grew": true
+    },
+    "chain_of_supersessions": {
+      "result": "PASS",
+      "files": 3,
+      "cross_file_edges": 2,
+      "active_graph": "graph_c",
+      "program_changed_twice": true
+    }
+  },
+  "key_findings": [
+    "A graph substrate can span multiple serialized files connected by cross-file edges",
+    "Writing a new file with a SUPERSEDES edge changes which graph governs execution",
+    "The original file is never modified — spawn-and-supersede is self-modification of the substrate, not of any individual file",
+    "Chained supersession (A→B→C) produces unbounded substrate growth with zero file modification",
+    "Single-file self-modification and spawn-and-supersede are functionally equivalent — both change the executing program during runtime"
+  ]
+}
