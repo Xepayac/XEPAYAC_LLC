@@ -35,8 +35,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Xepayac/SGS"
-Repository = "https://github.com/Xepayac/SGS"
+Homepage = "https://github.com/Xepayac/XEPAYAC_LLC"
+Repository = "https://github.com/Xepayac/XEPAYAC_LLC"
 Documentation = "https://github.com/Xepayac/Xepayac_LLC#readme"
 
 [tool.setuptools.packages.find]
