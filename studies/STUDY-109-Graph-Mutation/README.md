@@ -1,5 +1,7 @@
 # STUDY-109: LLM-Directed Graph Mutation
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates the propose-validate-apply pattern for LLM-directed graph mutations, where LLM outputs are parsed as structured JSON instructions, validated against schema rules, and applied atomically with rollback on failure. The mutation engine supports 5 operations (ADD_NODE, ADD_EDGE, UPDATE_NODE, DELETE_NODE, DELETE_EDGE) and validates required fields, node types (TASK, DECISION, CONTEXT, AGENT_OUTPUT, DATA), target existence, and duplicate prevention. Test results show: valid mutations correctly expanded graph (3→4 nodes, 2→3 edges), invalid mutations correctly rejected with detailed errors, and batch failures triggered atomic rollback restoring checkpoint state.
@@ -19,12 +21,12 @@ Demonstrate how LLM outputs are parsed and applied as graph mutations with:
 - Mutation protocol definition
 
 ## Patent References
-- **SGS-98-01**: Layer 2 - Context Extension
-- **SGS-98-03**: Layer 4 - LLM Orchestration
-- **Claim 1**: System for applying LLM-generated mutations to graph
-- **Claim 3**: Structured output parsing
-- **Claim 5**: Validation before application
-- **Claim 7**: Atomic rollback on failure
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 5**: Execution state written into nodes — graph is simultaneously program and execution record
+  - **Claim 6**: Nodes are simultaneously data and executable instructions — writing a node defines and makes it executable
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
 
 ## Hypothesis
 
@@ -196,6 +198,6 @@ Results saved to results.json
 **Study Date**: December 2024  
 **Last Updated**: January 2026  
 **GitHub Issue**: SGS-71 (LLM-Directed Graph Mutation Protocol)  
-**Related Issues**: SGS-98 (Multi-Layer Architecture)  
+**Related Issues**: EGS-979 (Application 19/575,491)  
 **Git History**: Available in repository commit log  
 **Patent Application**: PROVISIONAL_PATENT_03 (SGS System)

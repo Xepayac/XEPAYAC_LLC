@@ -1,5 +1,7 @@
 # STUDY-105: Multi-Party Privacy via Graph Partitions
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates privacy-preserving multi-party coordination through graph partitions in a supply chain negotiation scenario. A seller and two buyers negotiate via a shared graph substrate while keeping private data (cost structure, budget limits) in isolated process memory. Phase 1 negotiation produces successful allocation (Buyer A: 40 units at $0.90, Buyer B: 60 units at $0.75) without any party revealing private constraints. Phase 2 optimization further improves allocation while maintaining privacy boundaries. The structural isolation (separate PIDs, no shared memory) enforces privacy without cryptography or access control policies.
@@ -14,10 +16,11 @@ Multi-Party Privacy via Graph Partitions
 Demonstrates a real-world use case where multiple independent parties (sellers and buyers) coordinate complex supply chain negotiations through a shared graph substrate, with each party maintaining full autonomy and private decision-making through graph partitions.
 
 ## Patent References
-- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
-- **Claim 2**: Multi-agent communication through graph
-- **Claim 3**: Private partitions preserve party autonomy
-- **Claim 4**: Coordination without revealing private state
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 5**: Execution state written into nodes — graph is simultaneously program and execution record
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
 
 ## Hypothesis
 
@@ -146,17 +149,17 @@ The study implements a **partition-based privacy model** where:
 ### Claims Validated
 This study provides **reduction to practice** for:
 
-1. **SGS-98-02 Claim 2** (Multi-agent communication through graph)
+1. **EGS-979 Claim 2** (Multi-agent communication through graph)
    - ✓ Three independent parties coordinated via shared graph
    - ✓ No direct inter-process communication
    - ✓ Graph served as sole coordination substrate
 
-2. **SGS-98-02 Claim 3** (Private partitions preserve autonomy)
+2. **EGS-979 Claim 3** (Private partitions preserve autonomy)
    - ✓ Each party maintained private data in separate process
    - ✓ Budget/cost data never exposed to graph
    - ✓ Parties made autonomous decisions using LLMs
 
-3. **SGS-98-02 Claim 4** (Coordination without revealing private state)
+3. **EGS-979 Claim 4** (Coordination without revealing private state)
    - ✓ Successful allocation achieved without sharing budgets/costs
    - ✓ Only public offers/bids written to graph
    - ✓ Private reasoning stayed in process memory

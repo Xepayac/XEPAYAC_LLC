@@ -15,6 +15,14 @@ Living Graph Pattern for Research Accumulation
 ## Purpose
 Document and validate the pattern of persistent, accumulating graph state for research workflows. Demonstrate that cumulative knowledge representation provides better synthesis than stateless per-query processing.
 
+## Patent References
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
+  - **Claim 9**: Incremental discovery — agent does not require access to complete graph before beginning execution
+  - **Claim 10**: Graph substrate simultaneously serves as input to computation and output of computation
+
 ## Study Date
 **January 2026**
 
@@ -214,6 +222,14 @@ Given only the operations JSONL:
 3. Compare to actual `graph.json`
 
 **Verified**: Operations logged in order, dialogue preserves chronological sequence, query archives created
+
+---
+
+## Key Mechanism
+
+The living graph pattern's core mechanism is that the graph persists as a serialized file and grows across sessions. Each research query triggers search, parsing, and entity extraction — but instead of discarding results, the new entities and edges are merged into the existing graph. Duplicate nodes are skipped by ID, while new nodes and all edges are appended. The graph file simultaneously serves as the input to each synthesis step and the output of each discovery step, creating a feedback loop where accumulated knowledge directly improves subsequent answers.
+
+This means the graph becomes more valuable over time. A third query can synthesize across entities discovered by the first and second queries, enabling cross-query reasoning that stateless systems cannot achieve. Provenance edges record which query and which tool discovered each entity, so every fact in the graph is traceable back to its source. The result is a "living" knowledge substrate that compounds in value with each interaction rather than resetting to zero.
 
 ---
 

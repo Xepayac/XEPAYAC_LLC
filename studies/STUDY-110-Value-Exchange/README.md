@@ -1,5 +1,7 @@
 # STUDY-110: Value Exchange via Graph Substrate
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates value exchange between agents through graph operations, where value is represented AS graph nodes rather than external to them. Agent A with exclusive Database A access contributes Q4 revenue ($47M) as an OPERAND node; Agent B with exclusive Database B access contributes growth rate (1.15) and competitor revenue ($52M). The graph executes OPERATION nodes to compute projected revenue ($54.05M = $47M × 1.15) and advantage ($2.05M = $54.05M − $52M). Neither agent alone could produce this result—the graph substrate synthesizes isolated data sources into new knowledge, with complete audit trail in turns.json.
@@ -14,11 +16,11 @@ Value Exchange via Graph Substrate
 Demonstrates value exchange between agents through graph operations - how agents can transfer, accumulate, and verify value using graph nodes as the medium.
 
 ## Patent References
-- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
-- **Claim 1**: Graph enables value representation
-- **Claim 2**: Value transfers are graph operations
-- **Claim 3**: Complete audit trail of all transfers
-- **Claim 4**: Verification through graph state
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 7**: Self-scheduling — agent determines next node by reading topology without external scheduler
+  - **Claim 10**: Graph substrate simultaneously serves as input to computation and output of computation
 
 ## Hypothesis
 
@@ -100,10 +102,10 @@ The study demonstrates three critical outcomes:
 
 This study provides evidence for:
 
-1. **Graph as Value Substrate** (SGS-98-02, Claim 1): Value represented directly as graph nodes (OPERAND type) with numeric data
-2. **Value Transfer via Graph Operations** (SGS-98-02, Claim 2): OPERATION nodes (add, multiply, subtract) perform calculations on value nodes
-3. **Complete Audit Trail** (SGS-98-02, Claim 3): `turns.json` records every agent contribution with timestamps and metadata
-4. **Verification through Graph State** (SGS-98-02, Claim 4): `final_graph.json` provides single source of truth for all value transfers
+1. **Graph as Value Substrate** (EGS-979, Claim 1): Value represented directly as graph nodes (OPERAND type) with numeric data
+2. **Value Transfer via Graph Operations** (EGS-979, Claim 2): OPERATION nodes (add, multiply, subtract) perform calculations on value nodes
+3. **Complete Audit Trail** (EGS-979, Claim 3): `turns.json` records every agent contribution with timestamps and metadata
+4. **Verification through Graph State** (EGS-979, Claim 4): `final_graph.json` provides single source of truth for all value transfers
 
 **Key Legal Point**: Demonstrates that isolated data sources (Database A, Database B) can be synthesized via graph substrate to create new knowledge without direct agent communication or centralized data access.
 

@@ -1,5 +1,7 @@
 # STUDY-104: Process Isolation via File Coordination
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates that separate operating system processes with exclusive data access can coordinate complex computations through a shared graph file while maintaining complete memory isolation. Agent A (PID X) contributes Q4 revenue ($47M) from its private database, Agent B (PID Y) contributes growth rate (1.15) and competitor data ($52M) from its private database, and an Executor process (PID Z) with no database access computes projected advantage ($2.05M) by reading only the shared graph. Process isolation enforced by the OS prevents any direct memory sharing, proving file-based coordination enables secure multi-party computation.
@@ -14,10 +16,11 @@ Process Isolation via File Coordination
 Demonstrates that multiple isolated processes can coordinate their work through a shared graph file, with each process maintaining complete isolation while contributing to a unified result. This study proves that process-level isolation enforced by the operating system prevents agents from sharing memory or direct communication channels, forcing all coordination through the persistent graph substrate.
 
 ## Patent References
-- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
-  - **Claim 3**: Process isolation mechanism
-  - **Claim 4**: File-based coordination protocol
-  - **Claim 5**: Crash recovery from persistent state
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 7**: Self-scheduling — agent determines next node by reading topology without external scheduler
+  - **Claim 10**: Graph substrate simultaneously serves as input to computation and output of computation
 
 ## Hypothesis
 
@@ -151,11 +154,11 @@ Running `python demo_isolated.py` produces:
 
 This study provides evidence for the following patent claims:
 
-1. **SGS-98-02 Claim 3** (Process Isolation): Demonstrates OS-enforced isolation with separate PIDs and memory spaces. Agents cannot share variables or import each other.
+1. **EGS-979 Claim 3** (Process Isolation): Demonstrates OS-enforced isolation with separate PIDs and memory spaces. Agents cannot share variables or import each other.
 
-2. **SGS-98-02 Claim 4** (File-Based Coordination): Shows that a shared graph file is sufficient for multi-agent coordination. All communication occurs through load_graph() and save_graph() operations.
+2. **EGS-979 Claim 4** (File-Based Coordination): Shows that a shared graph file is sufficient for multi-agent coordination. All communication occurs through load_graph() and save_graph() operations.
 
-3. **SGS-98-02 Claim 5** (Crash Recovery): Proves that persistent graph state enables recovery. If any agent crashes, the graph file remains intact and computation can resume.
+3. **EGS-979 Claim 5** (Crash Recovery): Proves that persistent graph state enables recovery. If any agent crashes, the graph file remains intact and computation can resume.
 
 4. **Non-obvious advantage**: Traditional multi-agent systems use message passing, RPC, or shared memory. This approach uses **file-based graph coordination**, which provides:
    - Automatic audit trail (all communications are graph edits)
