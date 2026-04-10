@@ -18,6 +18,14 @@ Demonstrates a formal protocol for multi-agent negotiation where autonomous agen
 ## Study Date
 **March 2026**
 
+## Patent References
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 5**: Execution state written into nodes — graph is simultaneously program and execution record
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
+  - **Claim 11**: Execution completes when agent reaches node with no traversable outgoing edges — halting via topology
+
 ## Hypothesis
 
 A structured negotiation protocol with typed message actions and deterministic convergence rules enables multiple autonomous agents to reach consensus on a shared plan, with full audit trail, without requiring direct inter-process communication, shared memory, or external orchestration infrastructure.

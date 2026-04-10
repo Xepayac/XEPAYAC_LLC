@@ -1,5 +1,7 @@
 # STUDY-111: LLM Autonomous Decision Protocol
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates autonomous LLM decision-making within graph substrate through the OBSERVE-REASON-DECIDE-APPLY pattern. In a supply chain negotiation scenario, two buyer LLMs (Grocery Chain Alpha, Restaurant Group Beta) and one seller LLM (Apple Farm Co) make independent decisions based on graph context while maintaining private strategies in isolated process memory. Each LLM observes public market state (supplies, bids), reasons against private constraints (max price, budget), decides via structured JSON output, and applies the decision as graph mutations. The graph substrate coordinates multiple autonomous LLM agents without integration code.
@@ -14,11 +16,12 @@ LLM Autonomous Decision Protocol
 Demonstrates autonomous LLM decision-making within the graph substrate - how LLMs can make independent decisions based on graph context and output structured responses that become graph mutations.
 
 ## Patent References
-- **SGS-98-03**: Layer 4 - LLM Orchestration
-- **Claim 1**: LLM acts autonomously within graph context
-- **Claim 2**: Decisions based on graph state
-- **Claim 3**: Structured output becomes mutations
-- **Claim 4**: Multiple LLMs coordinate via graph
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 4**: Edges determine traversal pathways including branching, conditional routing, cycles, and convergence
+  - **Claim 5**: Execution state written into nodes — graph is simultaneously program and execution record
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
 
 ## Hypothesis
 
@@ -135,10 +138,10 @@ def decide_bid(graph: SupplyChainGraph, buyer: dict, round_number: int):
 ## Patent Implications
 
 **Claims Validated:**
-1. **Autonomous Operation** (SGS-98-03, Claim 1): LLMs operate independently within graph context without human intervention per decision
-2. **State-Based Reasoning** (SGS-98-03, Claim 2): Decisions derived from reading graph state (supplies, bids, history)
-3. **Structured Mutations** (SGS-98-03, Claim 3): JSON output becomes graph nodes via mutation engine
-4. **Multi-Agent Coordination** (SGS-98-03, Claim 4): Multiple LLMs coordinate through shared graph substrate
+1. **Autonomous Operation** (EGS-979, Claim 1): LLMs operate independently within graph context without human intervention per decision
+2. **State-Based Reasoning** (EGS-979, Claim 2): Decisions derived from reading graph state (supplies, bids, history)
+3. **Structured Mutations** (EGS-979, Claim 3): JSON output becomes graph nodes via mutation engine
+4. **Multi-Agent Coordination** (EGS-979, Claim 4): Multiple LLMs coordinate through shared graph substrate
 
 **Differentiation from Prior Art:**
 
@@ -226,6 +229,6 @@ STEP 4: Optimizer computes allocation
 
 **Creation Date:** December 2024  
 **Source:** Split from STUDY-91 (now STUDY-105) for conceptual clarity  
-**GitHub Issues:** Track development in SGS-98 (LLM Orchestration Layer)  
+**GitHub Issues:** Track development in EGS-979 (Application 19/575,491)  
 **Git History:** All changes tracked in `/PATENT/LAB/STUDIES/STUDY-111-Autonomous-Decision/`  
-**Related Work:** Part of SGS Patent Family (SGS-98-03 specifically)
+**Related Work:** Part of EGS-979 Patent Family (Application 19/575,491)

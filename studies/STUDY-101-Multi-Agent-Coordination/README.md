@@ -1,5 +1,7 @@
 # STUDY-101: Multi-Agent Turn-Based Coordination Protocol
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates that multiple autonomous LLM agents can coordinate complex collaborative tasks using only a shared graph file as their sole communication medium—no direct messaging, APIs, or shared memory required. Two agents (Alpha and Beta) collaboratively designed a user authentication system over 4 turns, producing 17 nodes and 27 edges with 55.6% cross-agent coherence. State reconstruction tests achieved 100% accuracy at all historical turns using only embedded provenance metadata, proving the graph substrate serves as both coordination mechanism and complete audit trail.
@@ -14,13 +16,11 @@ Multi-Agent Turn-Based Coordination Protocol
 Demonstrates that multiple LLM agents can coordinate entirely through a shared graph substrate without direct communication channels. Each agent reads the graph, adds contributions, and passes control - proving the graph file itself is the sole coordination mechanism.
 
 ## Patent References
-- **SGS-98-02**: Layer 3 - Multi-Agent Coordination
-- **Claim 1**: Graph substrate enables multi-agent coordination without direct agent-to-agent communication
-- **Claim 2**: Turn-based access control via graph state enables atomic operations
-- **Claim 3**: Complete audit trail embedded in graph provenance metadata
-- **Claim 6**: Provenance metadata embedded in graph structure for state reconstruction
-- **Claim 9**: State reconstruction from embedded metadata without external logs
-- **Claim 13**: No external logging system required for complete history
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 5**: Execution state written into nodes — graph is simultaneously program and execution record
+  - **Claim 8**: Modifications include adding nodes/edges, persist in serialized file, affect subsequent traversals
 
 ## Hypothesis
 
@@ -258,7 +258,7 @@ Here, a **single serialized file** provides all coordination infrastructure.
 
 ## Patent Implications
 
-This study provides laboratory evidence for the following patent claims in SGS-98-02:
+This study provides laboratory evidence for the following patent claims in EGS-979 (Application 19/575,491):
 
 1. **Graph as Sole Communication Channel (Claim 1)**: Demonstrated through test_coordination.py - agents have no direct communication, only graph file I/O
    - Evidence: 55.6% cross-references between agents prove coordination happened

@@ -1,5 +1,7 @@
 # STUDY-107: Nested/Hierarchical Graph Composition
 
+## Classification: PUBLIC
+
 ## Abstract
 
 This study demonstrates hierarchical graph composition where parent graphs contain SUBGRAPH nodes that reference external child graph files rather than inlining their contents. A parent graph with 4 nodes (including 2 subgraph references) expands to 9 nodes when flattened across hierarchy levels, while maintaining complete scope isolation—child node IDs like "fetch_data" exist in separate namespaces from parent nodes. The HierarchyExecutor successfully traverses this structure with 9 execution steps, proving graphs can be composed by reference, loaded lazily, and executed with independent scopes per level.
@@ -14,11 +16,11 @@ Nested/Hierarchical Graph Composition
 Demonstrates that graphs can be composed hierarchically, with parent graphs containing references to child subgraphs. Each level maintains scope isolation while enabling cross-level reference resolution.
 
 ## Patent References
-- **SGS-98-01**: Layer 2 - Context Extension
-- **Claim 1**: Subgraphs as referenceable units
-- **Claim 2**: Scope isolation between levels
-- **Claim 3**: Cross-level edge resolution
-- **Claim 5**: Atomic subgraph replacement
+- **EGS-979** (Application 19/575,491): System and Method for Executable Graph-Based Computation with Self-Modification by Autonomous Agents
+  - **Claim 1**: System — graph substrate traversal constitutes execution, self-modification by writing changes to serialized file
+  - **Claim 2**: Method — traversal, execution, and modification during execution
+  - **Claim 4**: Edges determine traversal pathways including branching, conditional routing, cycles, and convergence
+  - **Claim 9**: Incremental discovery — agent does not require access to complete graph before beginning execution
 
 ## Hypothesis
 
@@ -92,7 +94,7 @@ The demonstration successfully proves hierarchical graph composition through 5 c
 
 ## Patent Implications
 
-This study provides critical evidence for **SGS-98-01 Layer 2 Context Extension** claims:
+This study provides critical evidence for **EGS-979 (Application 19/575,491)** claims:
 
 **Claim 1 (Subgraph Referenceable Units)**: The `subgraph_ref` field in SUBGRAPH nodes proves graphs can be composed by reference rather than inline expansion, enabling modular reuse without duplication.
 
@@ -154,7 +156,7 @@ Executing hierarchically:
 ## Date Evidence/GitHub Issue
 
 **Date**: December 27, 2025  
-**GitHub Issue**: SGS-98 "Implement Layer 2 Context Extension"  
+**GitHub Issue**: EGS-979 (Application 19/575,491)  
 **Commit Hash**: [To be filled during patent filing]  
 **File Timestamps**: All JSON and Python files dated 2025-12-27 per git log  
 **Lab Notebook Reference**: PATENT/LAB/STUDIES/STUDY-107-Nested-Graphs/
