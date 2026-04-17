@@ -1,16 +1,21 @@
 # Xepayac LLC
 
-[![PyPI](https://img.shields.io/pypi/v/sgs.svg)](https://pypi.org/project/sgs/)
-[![Python](https://img.shields.io/pypi/pyversions/sgs.svg)](https://pypi.org/project/sgs/)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 [![CI](https://github.com/Xepayac/XEPAYAC_LLC/actions/workflows/compliance.yml/badge.svg)](https://github.com/Xepayac/XEPAYAC_LLC/actions/workflows/compliance.yml)
+[![Patent Pending](https://img.shields.io/badge/Patent-Pending_19%2F575%2C491-orange.svg)](#patent)
 [![Commercial License](https://img.shields.io/badge/Commercial-Available-green.svg)](mailto:xepayacllc@gmail.com?subject=SGS%20Commercial%20License)
 
-Technology development, consulting, and licensing.
+**Research publication and commercial licensing for the Superseding Graph Substrate (SGS).**
 
-I started coding in October 2025. I'm building a role-playing game called SaltWind, and along the way I built a graph-based execution engine, a multi-agent orchestration platform, and a chatbot system. I thought this would be helpful to anyone going down the same path.
+This repository is Xepayac LLC's research publication of SGS. The Python implementation and the research studies in this repo establish the invention publicly. SGS is U.S. patent application **19/575,491**.
 
-The graph storage format ([TRUGS](https://github.com/TRUGS-LLC/TRUGS)) is open and free under Apache 2.0. The Superseding Graph Substrate (SGS) is available under AGPL 3.0 for open-source use, or under a commercial license from Xepayac LLC for proprietary use. Patent Pending.
+- **Reference implementation** (Python, this repo) — available under **AGPL-3.0** for research, evaluation, and open-source use
+- **Commercial deployment** — requires a license from Xepayac LLC ([contact](mailto:xepayacllc@gmail.com?subject=SGS%20Commercial%20License))
+- **Commercial product** (Go, forthcoming) — ships as the performant, enterprise-targeted implementation
+
+The Python code is the *evidence*. The Go product is what you buy.
+
+## SGS in one diagram
 
 ```mermaid
 flowchart LR
@@ -27,15 +32,26 @@ flowchart LR
     E --> P
 ```
 
-**SGS in one diagram:** the graph is the program. The executor walks it topology-first. Agents share state by mutating the graph, not by message passing. Transforms are graph-to-graph rewrites. Provenance records every mutation. One Python package, one abstraction.
+The graph is the program. The executor walks it topology-first. Agents share state by mutating the graph, not by message passing. Transforms are graph-to-graph rewrites. Provenance records every mutation.
 
-## Install
+## Running the reference implementation
+
+The reference code is intentionally not on PyPI. Install from source for research or evaluation:
 
 ```bash
-pip install sgs
+pip install git+https://github.com/Xepayac/XEPAYAC_LLC.git
 ```
 
-Requires Python 3.9+. See [examples/](examples/) for usage patterns.
+Or clone and run the studies directly:
+
+```bash
+git clone https://github.com/Xepayac/XEPAYAC_LLC.git
+cd XEPAYAC_LLC
+pip install -e .
+pytest studies/
+```
+
+Requires Python 3.9+. See [`examples/`](examples/) for API patterns and [`studies/`](studies/) for the capability experiments.
 
 ---
 
