@@ -1,0 +1,55 @@
+name: Compliance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  folder-check:
+    runs-on: ubuntu-latest
+    name: folder.trug.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate folder.trug.json (JSON syntax + basic shape)
+        # Full `trugs-folder-check` awaits trugs-tools PyPI publication
+        # (Xepayac/TRUGS-DEVELOPMENT#1567). Until then, smoke-check JSON
+        # + structural invariants to catch the most common regressions.
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          p = Path("folder.trug.json")
+          if not p.exists():
+              sys.exit("folder.trug.json missing")
+          d = json.loads(p.read_text())
+          for k in ("nodes", "edges"):
+              if k not in d:
+                  sys.exit(f"folder.trug.json missing top-level {k!r}")
+          ids = {n.get("id") for n in d["nodes"]}
+          for e in d["edges"]:
+              if ":" in e.get("from_id", "") or ":" in e.get("to_id", ""):
+                  continue
+              if e["from_id"] not in ids or e["to_id"] not in ids:
+                  sys.exit(f"dangling edge: {e['from_id']} -> {e['to_id']}")
+          print(f"ok: {len(d['nodes'])} nodes, {len(d['edges'])} edges, 0 dangling")
+          PY
+
+  tests:
+    runs-on: ubuntu-latest
+    name: pytest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install
+        run: |
+          pip install -e .
+          pip install pytest
+      - name: Run tests
+        run: pytest tests/ -v

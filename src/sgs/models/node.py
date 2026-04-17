@@ -11,6 +11,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
+# RECORD node_type SHALL DEFINE 'the SET 'of ALL VALID type 'for ANY RECORD node.
 class NodeType(Enum):
     """Types of nodes in the SGS."""
 
@@ -27,6 +28,7 @@ class NodeType(Enum):
     MERGE = "MERGE"          # Combines multiple execution paths
 
 
+# RECORD node_metadata SHALL CAPTURE DATA created_by AND DATA created_at AND DATA status 'for EACH RECORD node.
 class NodeMetadata(BaseModel):
     """Provenance and status information for a node."""
 
@@ -37,6 +39,7 @@ class NodeMetadata(BaseModel):
     status: str = Field(default="draft", description="One of: draft, review, approved, archived")
 
 
+# RECORD node SHALL DEFINE DATA id AND DATA type AND DATA payload AND RECORD metadata 'as 'the ATOMIC UNIT 'of RESOURCE graph.
 class Node(BaseModel):
     """A node in the superseding graph substrate."""
 

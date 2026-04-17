@@ -7,7 +7,7 @@ from sgs.transform import TransformRegistry, TransformResult
 from sgs.agent import Agent, AccessError, CoordinationSession
 from sgs.provenance import ProvenanceEntry, ProvenanceGraph
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __all__ = [
     "SGS", "Node", "NodeMetadata", "NodeType", "Edge", "EdgeMetadata",
     "Constraint", "ConstraintType",

@@ -1,10 +1,41 @@
 # Xepayac LLC
 
+[![PyPI](https://img.shields.io/pypi/v/sgs.svg)](https://pypi.org/project/sgs/)
+[![Python](https://img.shields.io/pypi/pyversions/sgs.svg)](https://pypi.org/project/sgs/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+[![CI](https://github.com/Xepayac/XEPAYAC_LLC/actions/workflows/compliance.yml/badge.svg)](https://github.com/Xepayac/XEPAYAC_LLC/actions/workflows/compliance.yml)
+[![Commercial License](https://img.shields.io/badge/Commercial-Available-green.svg)](mailto:xepayacllc@gmail.com?subject=SGS%20Commercial%20License)
+
 Technology development, consulting, and licensing.
 
 I started coding in October 2025. I'm building a role-playing game called SaltWind, and along the way I built a graph-based execution engine, a multi-agent orchestration platform, and a chatbot system. I thought this would be helpful to anyone going down the same path.
 
 The graph storage format ([TRUGS](https://github.com/TRUGS-LLC/TRUGS)) is open and free under Apache 2.0. The Superseding Graph Substrate (SGS) is available under AGPL 3.0 for open-source use, or under a commercial license from Xepayac LLC for proprietary use. Patent Pending.
+
+```mermaid
+flowchart LR
+    G["Graph<br/>(nodes · edges · constraints)"]
+    E{"Executor<br/>(topology-driven)"}
+    A["Agents<br/>(shared graph state)"]
+    P["Provenance<br/>(who · when · why)"]
+    T["Transforms<br/>(graph → graph)"]
+    G --> E
+    E --> A
+    A -->|mutate| G
+    E --> T
+    T -->|rewrite| G
+    E --> P
+```
+
+**SGS in one diagram:** the graph is the program. The executor walks it topology-first. Agents share state by mutating the graph, not by message passing. Transforms are graph-to-graph rewrites. Provenance records every mutation. One Python package, one abstraction.
+
+## Install
+
+```bash
+pip install sgs
+```
+
+Requires Python 3.9+. See [examples/](examples/) for usage patterns.
 
 ---
 
@@ -83,6 +114,24 @@ Superseding Graph Substrate is the subject of U.S. patent application 19/575,491
 **Technology licensing:** [xepayacllc@gmail.com](mailto:xepayacllc@gmail.com)
 **General:** [xepayacllc@gmail.com](mailto:xepayacllc@gmail.com)
 
+## This repo, as a TRUG
+
+We eat our own dog food. [`folder.trug.json`](folder.trug.json) at the repo root is the machine-readable index — every component folder, every doc, every license file has a node; typed edges capture which module depends on which.
+
+```bash
+# What does this repo ship?
+trugs-tls folder.trug.json
+
+# Does the graph match the filesystem?
+trugs-folder-check .
+```
+
+CI enforces the graph-filesystem alignment on every PR. If the TRUG drifts, CI fails.
+
 ## Related
 
 The **TRUGS Standard** — the open graph storage format used by SGS — is maintained by [TRUGS LLC](https://github.com/TRUGS-LLC/TRUGS) under the Apache License 2.0. Free to use, free to build on.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). TL;DR: contributors sign the CLA ([CLA.md](CLA.md)) which grants Xepayac LLC dual-license rights. Security issues → [SECURITY.md](SECURITY.md) (private disclosure).

@@ -1,87 +1,205 @@
 {
-  "name": "XEPAYAC_LLC",
-  "version": "1.0.0",
+  "name": "Xepayac LLC / SGS",
+  "version": "0.4.0",
   "type": "REPOSITORY",
-  "description": "Superseding Graph Substrate (SGS) — topology-driven computation, self-modification, multi-agent coordination. EGS studies. Patent pending.",
+  "description": "Xepayac LLC company repository — Superseding Graph Substrate (SGS), research studies, examples, tests.",
   "dimensions": {
-    "research": {
-      "description": "Research repository: studies, examples, source code",
+    "folder_structure": {
+      "description": "Top-level repo layout — package, studies, examples, tests, company-facing documentation",
       "base_level": "BASE"
     }
   },
   "capabilities": {
     "extensions": [],
-    "vocabularies": ["code_v1"],
+    "vocabularies": ["folder_v1"],
     "profiles": []
-  },
-  "meta": {
-    "generated_by": "manual",
-    "last_synced": "2026-04-05",
-    "owner": "Xepayac",
-    "license": "AGPL-3.0",
-    "repository": "https://github.com/Xepayac/XEPAYAC_LLC"
   },
   "nodes": [
     {
-      "id": "repo_root",
-      "type": "REPOSITORY",
+      "id": "root",
+      "type": "FOLDER",
+      "parent_id": null,
+      "contains": [
+        "doc_readme",
+        "doc_agent",
+        "doc_contributing",
+        "doc_security",
+        "doc_changelog",
+        "doc_cla",
+        "doc_license",
+        "doc_notice",
+        "doc_pyproject",
+        "doc_manifest",
+        "doc_requirements",
+        "folder_src",
+        "folder_tests",
+        "folder_studies",
+        "folder_examples"
+      ],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure",
       "properties": {
         "name": "XEPAYAC_LLC",
-        "description": "SGS research, EGS studies, proprietary computation. AGPL 3.0."
-      },
-      "parent_id": null,
-      "contains": ["comp_src", "comp_studies", "comp_examples", "comp_tests"],
-      "metric_level": "KILO_REPOSITORY",
-      "dimension": "research"
+        "purpose": "Xepayac LLC company repo — SGS Python library under AGPL-3.0, studies, examples, company-facing docs"
+      }
     },
     {
-      "id": "comp_src",
-      "type": "MODULE",
-      "properties": {
-        "name": "src/",
-        "description": "Python source — SGS computation engine"
-      },
-      "parent_id": "repo_root",
+      "id": "doc_readme",
+      "type": "DOCUMENT",
+      "parent_id": "root",
       "contains": [],
-      "metric_level": "BASE_MODULE",
-      "dimension": "research"
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "README.md", "purpose": "Company-facing landing page — SGS thesis, chatbot offerings, tech licensing, SaltWind RPG", "path": "README.md"}
     },
     {
-      "id": "comp_studies",
-      "type": "MODULE",
-      "properties": {
-        "name": "studies/",
-        "description": "EGS capability studies — prior art under GPL"
-      },
-      "parent_id": "repo_root",
+      "id": "doc_agent",
+      "type": "DOCUMENT",
+      "parent_id": "root",
       "contains": [],
-      "metric_level": "BASE_MODULE",
-      "dimension": "research"
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "AGENT.md", "purpose": "LLM agent guide — conventions, quality gates, reference pointers", "path": "AGENT.md"}
     },
     {
-      "id": "comp_examples",
-      "type": "MODULE",
-      "properties": {
-        "name": "examples/",
-        "description": "Example TRUGs and usage patterns"
-      },
-      "parent_id": "repo_root",
+      "id": "doc_contributing",
+      "type": "DOCUMENT",
+      "parent_id": "root",
       "contains": [],
-      "metric_level": "BASE_MODULE",
-      "dimension": "research"
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "CONTRIBUTING.md", "purpose": "Contribution guide — CLA requirement, branch naming, workflow, CI gates", "path": "CONTRIBUTING.md"}
     },
     {
-      "id": "comp_tests",
-      "type": "MODULE",
-      "properties": {
-        "name": "tests/",
-        "description": "Test suite"
-      },
-      "parent_id": "repo_root",
+      "id": "doc_security",
+      "type": "DOCUMENT",
+      "parent_id": "root",
       "contains": [],
-      "metric_level": "BASE_MODULE",
-      "dimension": "research"
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "SECURITY.md", "purpose": "Security policy — private disclosure via GitHub Security Advisories", "path": "SECURITY.md"}
+    },
+    {
+      "id": "doc_changelog",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "CHANGELOG.md", "purpose": "Keep-a-Changelog format, SemVer-adherent", "path": "CHANGELOG.md"}
+    },
+    {
+      "id": "doc_cla",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "CLA.md", "purpose": "Contributor License Agreement — dual-license grant to Xepayac LLC", "path": "CLA.md"}
+    },
+    {
+      "id": "doc_license",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "LICENSE", "purpose": "Full AGPL-3.0 license text", "path": "LICENSE"}
+    },
+    {
+      "id": "doc_notice",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "NOTICE", "purpose": "AGPL-3.0 attribution notice", "path": "NOTICE"}
+    },
+    {
+      "id": "doc_pyproject",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "pyproject.toml", "purpose": "Python package metadata — name=sgs, version=0.4.0, AGPL-3.0", "path": "pyproject.toml"}
+    },
+    {
+      "id": "doc_manifest",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "MANIFEST.in", "purpose": "setuptools MANIFEST — non-Python files to include in the sdist", "path": "MANIFEST.in"}
+    },
+    {
+      "id": "doc_requirements",
+      "type": "DOCUMENT",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure",
+      "properties": {"name": "requirements.txt", "purpose": "Runtime dependencies (pip install -r)", "path": "requirements.txt"}
+    },
+    {
+      "id": "folder_src",
+      "type": "FOLDER",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure",
+      "properties": {"name": "src", "purpose": "SGS (Superseding Graph Substrate) — src/sgs/ — executor, agent, graph, models, provenance, transform", "path": "src/"}
+    },
+    {
+      "id": "folder_tests",
+      "type": "FOLDER",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure",
+      "properties": {"name": "tests", "purpose": "pytest test suite for SGS", "path": "tests/"}
+    },
+    {
+      "id": "folder_studies",
+      "type": "FOLDER",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure",
+      "properties": {"name": "studies", "purpose": "Research experiments validating SGS capabilities", "path": "studies/"}
+    },
+    {
+      "id": "folder_examples",
+      "type": "FOLDER",
+      "parent_id": "root",
+      "contains": [],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure",
+      "properties": {"name": "examples", "purpose": "Usage patterns demonstrating SGS APIs", "path": "examples/"}
     }
   ],
-  "edges": []
+  "edges": [
+    {"from_id": "root", "to_id": "doc_readme", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_agent", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_contributing", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_security", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_changelog", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_cla", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_license", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_notice", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_pyproject", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_manifest", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "doc_requirements", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "folder_src", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "folder_tests", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "folder_studies", "relation": "contains", "properties": {}},
+    {"from_id": "root", "to_id": "folder_examples", "relation": "contains", "properties": {}},
+    {"from_id": "folder_tests", "to_id": "folder_src", "relation": "tests", "properties": {"scope": "pytest suite exercises the SGS package"}},
+    {"from_id": "folder_studies", "to_id": "folder_src", "relation": "uses", "properties": {"scope": "Studies validate SGS capabilities"}},
+    {"from_id": "folder_examples", "to_id": "folder_src", "relation": "uses", "properties": {"scope": "Examples demonstrate SGS APIs"}},
+    {"from_id": "doc_pyproject", "to_id": "folder_src", "relation": "describes", "properties": {"scope": "Package metadata for the sgs distribution"}},
+    {"from_id": "doc_readme", "to_id": "root", "relation": "describes", "properties": {}},
+    {"from_id": "doc_agent", "to_id": "root", "relation": "governs", "properties": {"scope": "Agent instructions for this repository"}}
+  ]
 }

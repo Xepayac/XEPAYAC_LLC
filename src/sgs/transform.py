@@ -16,6 +16,7 @@ from typing import Any, Callable
 from sgs.models import Node, NodeMetadata, NodeType, Edge, EdgeMetadata
 
 
+# RECORD transform_result SHALL AGGREGATE ALL RECORD node AND ALL RECORD edge 'produced 'by ANY PROCESS transform.
 @dataclass
 class TransformResult:
     """Result of a transform function execution."""
@@ -28,6 +29,7 @@ class TransformResult:
 TransformFn = Callable[[dict[str, Any], dict], TransformResult]
 
 
+# SERVICE transform_registry SHALL BIND DATA name TO PROCESS transform THEN RESOLVE DATA name TO PROCESS transform 'on request.
 class TransformRegistry:
     """Registry of named transform functions.
 
@@ -38,6 +40,7 @@ class TransformRegistry:
     def __init__(self):
         self._transforms: dict[str, TransformFn] = {}
 
+    # PROCESS register SHALL BIND PROCESS transform TO DATA name 'as 'an 'idempotent registration.
     def register(self, name: str):
         """Decorator that registers a function by name.
 
@@ -53,6 +56,7 @@ class TransformRegistry:
             return fn
         return decorator
 
+    # PROCESS get SHALL RESOLVE DATA name TO PROCESS transform OR RETURN NULL.
     def get(self, name: str) -> TransformFn | None:
         """Return the registered function or None."""
         return self._transforms.get(name)
