@@ -17,10 +17,12 @@ from sgs.models import NodeType
 from sgs.transform import TransformRegistry
 
 
+# EXCEPTION cycle SHALL BE THROWN WHEN RESOURCE graph CONTAINS A CYCLE 'in DATA dependency.
 class CycleError(Exception):
     """Raised when the execution graph contains a cycle."""
 
 
+# RECORD step SHALL DEFINE DATA order AND DATA node_id AND DATA inputs AND DATA output 'for EACH RECORD execution.
 @dataclass
 class ExecutionStep:
     """Record of a single node execution."""
@@ -33,6 +35,7 @@ class ExecutionStep:
     skipped: bool = False
 
 
+# RECORD trace SHALL AGGREGATE ALL RECORD step AND DATA result AND BOOLEAN success 'for EACH RESOURCE execution.
 @dataclass
 class ExecutionTrace:
     """Complete record of a graph execution."""
@@ -204,6 +207,7 @@ def _execute_merge(inputs: dict[str, Any]) -> Any:
     return list(inputs.values())
 
 
+# SERVICE executor SHALL SORT ALL RECORD node BY DATA dependency THEN TRANSFORM EACH RECORD node 'in order THEN RETURN RECORD trace.
 class GraphExecutor:
     """Topological graph executor.
 
@@ -220,6 +224,7 @@ class GraphExecutor:
         self.graph = graph
         self.transforms = transforms
 
+    # PROCESS execute SHALL SORT RESOURCE graph 'by DATA dependency THEN MAP EACH RECORD node TO DATA output THEN RETURN RECORD trace.
     def execute(self) -> ExecutionTrace:
         """Execute the graph and return a trace of all steps."""
         trace = ExecutionTrace()

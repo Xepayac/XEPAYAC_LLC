@@ -9,6 +9,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field, field_validator
 
 
+# RECORD edge_metadata SHALL CAPTURE DATA created_by AND DATA created_at 'for EACH RECORD edge.
 class EdgeMetadata(BaseModel):
     """Provenance information for an edge."""
 
@@ -16,6 +17,7 @@ class EdgeMetadata(BaseModel):
     created_at: datetime = Field(..., description="When the edge was created")
 
 
+# RECORD edge SHALL BIND RECORD source TO RECORD target BY DATA relation AND DATA weight.
 class Edge(BaseModel):
     """A directed relationship between two nodes."""
 

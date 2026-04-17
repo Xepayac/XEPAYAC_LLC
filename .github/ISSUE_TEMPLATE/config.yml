@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Xepayac/XEPAYAC_LLC/security/advisories/new
+    about: Report security issues privately — do not open a public issue
+  - name: Commercial licensing inquiry
+    url: mailto:xepayacllc@gmail.com?subject=SGS%20Commercial%20License
+    about: SGS is AGPL-3.0 by default; commercial licenses are available
+  - name: Question or discussion
+    url: https://github.com/Xepayac/XEPAYAC_LLC/discussions
+    about: Ask a question or start a conversation
+  - name: TRUG/L vocabulary question
+    url: https://github.com/TRUGS-LLC/TRUGS/issues/new
+    about: Vocabulary or spec questions go to the TRUGS repo

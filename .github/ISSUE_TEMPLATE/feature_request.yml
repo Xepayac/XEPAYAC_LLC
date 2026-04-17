@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a new SGS feature, study, or example
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Substantive features follow the AAA protocol. Read [`TRUGS-LLC/TRUGS/REFERENCE/PAPER_how_to_code_with_trugs.md`](https://github.com/TRUGS-LLC/TRUGS/blob/main/REFERENCE/PAPER_how_to_code_with_trugs.md) §5 before proposing.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What are you proposing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it matter?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope — what's in, what's out
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: compliance
+    attributes:
+      label: Compliance awareness
+      options:
+        - label: I've read the CLA ([CLA.md](../blob/main/CLA.md)) and understand contributions will be dual-licensed
+          required: true
+        - label: I understand CI must pass before this can merge
+          required: true
+        - label: I understand only humans merge PRs; agents open them and stop
+          required: true

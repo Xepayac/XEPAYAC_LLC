@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from sgs.models import Node, Edge, Constraint, NodeType
 
 
+# RESOURCE graph SHALL CONTAIN ALL RECORD node AND ALL RECORD edge AND ALL RECORD constraint THEN EXPOSE CRUD AND serialization.
 class SGS:
     """
     Superseding Graph Substrate - the core data structure.

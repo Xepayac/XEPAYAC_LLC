@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a problem with SGS, studies, or tooling
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Security vulnerabilities should not be filed here — see [SECURITY.md](../blob/main/SECURITY.md).**
+
+  - type: input
+    id: version
+    attributes:
+      label: SGS version
+      description: Output of `python -c "import sgs; print(sgs.__version__)"` (or commit hash)
+      placeholder: e.g. 0.3.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what did you get?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: The smallest code or input that reproduces the problem
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Python version, OS, install method
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+    validations:
+      required: false

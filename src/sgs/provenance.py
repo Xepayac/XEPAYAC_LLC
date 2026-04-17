@@ -17,6 +17,7 @@ from sgs.graph import SGS
 from sgs.models import Node, Edge
 
 
+# RECORD provenance_entry SHALL CAPTURE DATA sequence AND DATA timestamp AND DATA operation AND DATA agent_id AND DATA hash 'for EACH RECORD mutation.
 @dataclass
 class ProvenanceEntry:
     """Single entry in the provenance hash chain."""
@@ -56,6 +57,7 @@ def _compute_hash(
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
+# SERVICE provenance_graph SHALL LOG EACH RECORD mutation TO RECORD ledger AS TAMPER_EVIDENT chain THEN SHALL_NOT LOG ANY READ.
 class ProvenanceGraph:
     """Wrapper around SGS that logs every mutation to a hash-chain ledger."""
 
