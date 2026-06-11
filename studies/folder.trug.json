@@ -1,0 +1,227 @@
+{
+  "name": "XEPAYAC_LLC Studies",
+  "version": "1.0.0",
+  "type": "PROJECT",
+  "dimension": "folder_structure",
+  "dimensions": {
+    "folder_structure": {
+      "description": "Study folder hierarchy: one folder per public prior-art study + the template"
+    }
+  },
+  "nodes": [
+    {
+      "id": "studies_folder",
+      "type": "FOLDER",
+      "properties": {
+        "name": "studies",
+        "description": "Public prior-art studies for patent application 19/575,491 (EGS)"
+      },
+      "parent_id": null,
+      "contains": [
+        "study_101_multi_agent_coordination",
+        "study_104_process_isolation",
+        "study_105_graph_partitions",
+        "study_107_nested_graphs",
+        "study_109_graph_mutation",
+        "study_110_value_exchange",
+        "study_111_autonomous_decision",
+        "study_140_supersede_operation",
+        "study_180_living_graph",
+        "study_202_multi_file_substrate",
+        "doc_study_template"
+      ],
+      "metric_level": "KILO_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_101_multi_agent_coordination",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-101-Multi-Agent-Coordination",
+        "description": "Multi-agent coordination study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_104_process_isolation",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-104-Process-Isolation",
+        "description": "Process isolation study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_105_graph_partitions",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-105-Graph-Partitions",
+        "description": "Graph partitions study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_107_nested_graphs",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-107-Nested-Graphs",
+        "description": "Nested graphs study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_109_graph_mutation",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-109-Graph-Mutation",
+        "description": "LLM-directed graph mutation + rollback study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_110_value_exchange",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-110-Value-Exchange",
+        "description": "Value exchange study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_111_autonomous_decision",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-111-Autonomous-Decision",
+        "description": "Autonomous LLM decision study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_140_supersede_operation",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-140-Supersede-Operation",
+        "description": "Supersede primitive \u2014 atomic graph self-replacement during execution (issue Xepayac/TRUGS-DEVELOPMENT#1329)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_180_living_graph",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-180-Living-Graph",
+        "description": "Living graph study"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_202_multi_file_substrate",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-202-Multi-File-Substrate",
+        "description": "Multi-file graph substrate \u2014 spawn-and-supersede across files"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "doc_study_template",
+      "type": "DOCUMENT",
+      "properties": {
+        "name": "STUDY_TEMPLATE.md",
+        "purpose": "Canonical study scaffold",
+        "format": "markdown"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_DOCUMENT",
+      "dimension": "folder_structure"
+    }
+  ],
+  "edges": [
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_101_multi_agent_coordination",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_104_process_isolation",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_105_graph_partitions",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_107_nested_graphs",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_109_graph_mutation",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_110_value_exchange",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_111_autonomous_decision",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_140_supersede_operation",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_180_living_graph",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_202_multi_file_substrate",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "doc_study_template",
+      "relation": "contains"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "study_id": "STUDY-140",
+  "title": "Supersede Operation \u2014 Graph Self-Replacement During Execution",
+  "date": "2026-06-11",
+  "status": "PASS",
+  "test_count": 8,
+  "pass_count": 8,
+  "scenarios": {
+    "simple_supersede": {
+      "result": "PASS",
+      "original_status": "stale",
+      "replacement_status": "active",
+      "edges_redirected": 2
+    },
+    "chain_supersede": {
+      "result": "PASS",
+      "chain": [
+        "proc_a",
+        "proc_b",
+        "proc_c"
+      ],
+      "current": "proc_c",
+      "provenance_records": 2
+    },
+    "concurrent_conflict": {
+      "result": "PASS",
+      "conflict_detected": true
+    },
+    "llm_directed": {
+      "result": "PASS",
+      "applied": "proc_a -> proc_a_v2",
+      "authored_by": "llm"
+    }
+  },
+  "key_findings": [
+    "A graph node can be atomically replaced during execution: the replacement activates, the original goes stale, and every incoming edge redirects in a single committed operation",
+    "Chained supersession (A -> B -> C) remains fully traversable; the original id resolves to the current replacement",
+    "Schema type rules reject invalid replacements with the graph unchanged; commit-time failures restore the exact pre-state",
+    "Concurrent supersede attempts on the same node are detected via optimistic versioning \u2014 the second writer applies nothing",
+    "A recorded LLM-authored JSON proposal is validated and applied through the same atomic path as any other writer"
+  ]
+}
