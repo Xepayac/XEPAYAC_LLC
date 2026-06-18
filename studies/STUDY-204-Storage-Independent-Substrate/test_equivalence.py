@@ -171,6 +171,10 @@ class TestSubstrateGoverns:
         assert results["evidence"]["visited_path"] == EXPECTED_PATH
         for cond in ("A", "B", "C", "D"):
             assert results[cond]["topology_determination"] is True, cond
+            # The routing-metric VALUE is load-bearing, not just the mechanism: the
+            # result-driven conditional edge at 'branch' must actually be exercised
+            # (a run that never routed via a condition would leave this False).
+            assert results[cond]["result_dependent_routing"] is True, cond
 
     def test_result_determines_edge(self):
         """An execution result — not a static dispatch table — selects the edge."""
