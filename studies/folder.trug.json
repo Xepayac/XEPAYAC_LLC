@@ -29,6 +29,7 @@
         "study_180_living_graph",
         "study_202_multi_file_substrate",
         "study_207_cross_file_mutation",
+        "study_209_networked_distributed_substrate",
         "doc_study_template"
       ],
       "metric_level": "KILO_FOLDER",
@@ -167,6 +168,18 @@
       "dimension": "folder_structure"
     },
     {
+      "id": "study_209_networked_distributed_substrate",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-209-Networked-Distributed-Substrate",
+        "description": "Networked / distributed substrate — self-modification + structural liveness across a network boundary (issue Xepayac/TRUGS-DEVELOPMENT#2578; EGS-979 CIP claim 9, the Gap-4 networked species)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
       "id": "doc_study_template",
       "type": "DOCUMENT",
       "properties": {
@@ -234,6 +247,11 @@
     {
       "from_id": "studies_folder",
       "to_id": "study_207_cross_file_mutation",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_209_networked_distributed_substrate",
       "relation": "contains"
     },
     {
