@@ -1,0 +1,19 @@
+{
+  "id": "networked_baseline",
+  "description": "Shared deterministic starting substrate for STUDY-209. Branching topology with a result-dependent (conditional) edge at 'gate' and a self-modification trigger at 'mutate' (which, when executed, adds an 'audit' node + the edges that carry traversal through it). Deterministic node ops + primitive vocabulary so functional equivalence across storage loci is a decidable structural diff. The self-modification's effect must be observed by the NEXT traversal step on the persisted-and-modified substrate (this is what must survive the network boundary). Vocabulary is aligned to the STUDY-208 (#2577) substrate contract for cross-study comparability (ADR-003); baseline_authored_by: STUDY-209 (STUDY-208 not committed to main at authoring time, B1).",
+  "nodes": [
+    {"id": "start", "type": "OPERATION", "op": "set:7"},
+    {"id": "gate", "type": "DECISION", "op": "parity"},
+    {"id": "odd_branch", "type": "OPERATION", "op": "add:3"},
+    {"id": "even_branch", "type": "OPERATION", "op": "add:100"},
+    {"id": "mutate", "type": "OPERATION", "op": "self_modify"},
+    {"id": "end", "type": "RESULT", "op": "finalize"}
+  ],
+  "edges": [
+    {"source": "start", "target": "gate", "relation": "THEN", "condition": null},
+    {"source": "gate", "target": "odd_branch", "relation": "COND", "condition": "odd"},
+    {"source": "gate", "target": "even_branch", "relation": "COND", "condition": "even"},
+    {"source": "odd_branch", "target": "mutate", "relation": "THEN", "condition": null},
+    {"source": "even_branch", "target": "mutate", "relation": "THEN", "condition": null}
+  ]
+}
