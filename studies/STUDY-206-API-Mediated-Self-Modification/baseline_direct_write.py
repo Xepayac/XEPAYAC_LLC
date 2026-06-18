@@ -67,40 +67,46 @@ def canonical_state(graph):
     return {"nodes": nodes, "edges": edges}
 
 
-def execute_node(node):
-    """'Executing' a node yields its deterministic emitted result."""
-    return int(node.get("data", {}).get("emit", 0))
+def execute_node(node, state):
+    """Execute a node against the agent's execution state; return the string
+    result that selects the outgoing edge. Op-driven over the shared STUDY-203
+    baseline schema ({id, type, op, data}); the accumulator lives in the agent,
+    not the graph (computation occurs in the agent)."""
+    op = node.get("op")
+    if op == "init":
+        state["acc"] = 0
+        return "ok"
+    if op == "add":
+        state["acc"] = state.get("acc", 0) + int(node.get("data", {}).get("value", 0))
+        return "ok"
+    if op == "classify":
+        return "high" if state.get("acc", 0) >= node["data"]["threshold"] else "low"
+    if op == "finalize":
+        return "done"
+    # self_modify, record, and any other op are pure (no accumulator effect).
+    return "ok"
 
 
-def eval_condition(condition, result):
-    """Evaluate a `result <op> <number>` edge condition without `eval`."""
-    rest = condition.strip()
-    if not rest.startswith("result"):
-        raise ValueError("condition must be over 'result': %r" % condition)
-    rest = rest[len("result"):].strip()
-    for op in (">=", "<=", "==", ">", "<"):
-        if rest.startswith(op):
-            num = int(rest[len(op):].strip())
-            if op == ">=":
-                return result >= num
-            if op == "<=":
-                return result <= num
-            if op == "==":
-                return result == num
-            if op == ">":
-                return result > num
-            return result < num
-    raise ValueError("unparseable condition: %r" % condition)
+def modification_for(node):
+    """The self-modification a node triggers, if any. Data-driven: a `self_modify`
+    node carries the node + edges to add in its own `data`, so the agent decides
+    WHAT to write from the substrate content (not the transport)."""
+    if node.get("op") == "self_modify":
+        data = node.get("data", {})
+        return {"add_node": data["add_node"], "add_edges": data["add_edges"]}
+    return None
 
 
 def select_edge(edges, result):
     """Result-dependent edge selection: choose the first conditioned edge whose
-    condition the execution result satisfies; else the first unconditioned edge."""
+    `condition.result` equals the execution result; else the first unconditioned
+    (THEN) edge. The result — not a static dispatch table — decides the path."""
     for edge in edges:
-        if "condition" in edge and eval_condition(edge["condition"], result):
+        cond = edge.get("condition")
+        if cond is not None and cond.get("result") == result:
             return edge
     for edge in edges:
-        if "condition" not in edge:
+        if edge.get("condition") is None:
             return edge
     raise RuntimeError("no outgoing edge satisfied for result=%r" % result)
 
@@ -117,13 +123,15 @@ def is_edge_walk(path, graph):
 # ---------------------------------------------------------------------------
 
 def run_agent(sub):
-    """Traverse, execute, route by result, and self-modify — through the
-    accessor `sub`. The accessor exposes get_node / outgoing_edges / add_node /
-    add_edge / remove_edge and decides only WHERE a write executes (directly, or
-    across a service / process / store boundary). The agent decides WHAT to
-    modify — here, inserting an `audit` node on the high branch — entirely from
-    the execution result, BEFORE handing a fully-specified write to the accessor.
+    """Traverse, execute, route by result, and self-modify — through the accessor
+    `sub`. The accessor exposes get_node / outgoing_edges / add_node / add_edge /
+    remove_edge and decides only WHERE a write executes (directly, or across a
+    service / process / store boundary). The agent decides WHAT to modify — the
+    data-driven self-modification carried by the `self_modify` node (here, the
+    `grow` node, which adds an `audit` node and its continuation) — entirely
+    agent-side, BEFORE handing fully-specified writes to the accessor.
     """
+    state = {}
     path = []
     routing_result = None
     selfmod_result = None
@@ -133,26 +141,25 @@ def run_agent(sub):
     for _ in range(1000):
         node = sub.get_node(current)
         path.append(current)
-        result = execute_node(node)
+        result = execute_node(node, state)
+        spec = modification_for(node)
+        if spec is not None and not self_modified:
+            # Agent-side decision: WHAT to write comes from the substrate content;
+            # the accessor only transports/applies the requested writes.
+            selfmod_result = result
+            sub.add_node(spec["add_node"])
+            for edge in spec["add_edges"]:
+                sub.add_edge(edge)
+            self_modified = True
+        if node.get("type") == "RESULT":
+            break
         edges = sub.outgoing_edges(current)
         if not edges:
             break
-        if len(edges) == 1 and "condition" not in edges[0]:
-            current = edges[0]["target_id"]
-            continue
         chosen = select_edge(edges, result)
-        routing_result = result
-        routed_via_condition = "condition" in chosen
-        if chosen["target_id"] == "path_high" and not self_modified:
-            # Agent-side decision: from the execution result, decide WHAT to
-            # write. The accessor only transports/applies the requested write.
-            selfmod_result = result
-            sub.add_node(make_node("audit", "OPERATION",
-                                   {"instruction": "audit results", "emit": 0}))
-            sub.remove_edge("path_high", "end", "THEN")
-            sub.add_edge(make_edge("path_high", "audit", "THEN"))
-            sub.add_edge(make_edge("audit", "end", "THEN"))
-            self_modified = True
+        if chosen.get("condition") is not None:
+            routing_result = result
+            routed_via_condition = True
         current = chosen["target_id"]
     else:
         raise RuntimeError("traversal did not terminate")

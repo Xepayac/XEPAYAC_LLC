@@ -27,8 +27,8 @@ from pathlib import Path
 import pytest
 
 _HERE = Path(__file__).parent
-_BASELINE = "STUDY-206"  # this study authored the shared cohort graph_initial.json
-_EXPECTED_PATH = ["start", "decide", "path_high", "audit", "end"]
+_BASELINE = "STUDY-203"  # authoritative author of the shared baseline (adopted byte-identically)
+_EXPECTED_PATH = ["start", "compute", "branch", "grow", "audit", "finalize"]
 _METRIC_KEYS = (
     "topology_determination", "result_dependent_routing", "self_modification",
     "decision_locus", "modification_persistence", "functional_equivalence",
@@ -227,19 +227,20 @@ class TestServiceNoDecide:
 class TestStructuralLiveness:
     def test_modification_is_live_for_the_next_step(self, results):
         initial = _load_initial()
-        # In the ORIGINAL substrate, path_high's only successor is `end`.
-        orig_high = {(e["source_id"], e["target_id"]) for e in initial["edges"]
-                     if e["source_id"] == "path_high"}
-        assert ("path_high", "end") in orig_high
-        assert ("path_high", "audit") not in orig_high
+        # In the ORIGINAL substrate the self-mod node `grow` has NO outgoing edge;
+        # the agent creates its continuation (grow -> audit) live during execution.
+        orig_grow = {(e["source_id"], e["target_id"]) for e in initial["edges"]
+                     if e["source_id"] == "grow"}
+        assert orig_grow == set()
+        assert ("grow", "audit") not in orig_grow
         for cond in "ABCD":
             path = results[cond]["metrics"]["evidence"]["path"]
             # Single continuous traversal — no restart between add and traverse.
             assert path == _EXPECTED_PATH, "%s path: %s" % (cond, path)
-            # The agent followed path_high -> audit, an edge that did NOT exist
-            # until it was written mid-traversal: the write was structurally live
-            # for the very next step, across the boundary, with no recompile.
-            i = path.index("path_high")
+            # The agent followed grow -> audit, an edge that did NOT exist until it
+            # was written mid-traversal: the write was structurally live for the
+            # very next step, across the boundary, with no recompile.
+            i = path.index("grow")
             assert path[i + 1] == "audit", cond
 
 
@@ -267,9 +268,9 @@ class TestCrossStudy:
         cohort = (_HERE.parent / "STUDY-204-Storage-Independent-Substrate"
                   / "graph_initial.json")
         if not cohort.exists():
-            pytest.skip("B1: cohort sibling baseline not yet on disk in "
-                        "XEPAYAC_LLC; STUDY-206 authored the canonical baseline "
-                        "and the siblings conform (ADR-003).")
+            pytest.skip("Cohort sibling STUDY-204 baseline not on disk in this "
+                        "checkout. STUDY-203 is the authoritative author of the "
+                        "shared baseline; STUDY-206 adopts it byte-identically.")
         mine = a.canonical_state(_load_initial())
         theirs = a.canonical_state(a.load_graph(cohort))
         assert mine == theirs

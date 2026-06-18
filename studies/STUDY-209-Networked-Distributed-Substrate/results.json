@@ -1,0 +1,84 @@
+{
+  "study_id": "STUDY-209",
+  "title": "Networked / Distributed Substrate \u2014 Self-Modification and Structural Liveness Across a Network Boundary",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 22,
+  "tests_passed": 22,
+  "tests_failed": 0,
+  "baseline_authored_by": "STUDY-209",
+  "baseline_aligned_to": "STUDY-208 substrate contract (cross-study comparability, ADR-003 / B1; STUDY-208 not yet on main)",
+  "condition_c": "built",
+  "conditions": {
+    "A": {
+      "condition": "A",
+      "locus": "local in-process (single address space)",
+      "topology_determination": true,
+      "result_driven_routing": true,
+      "in_traversal_self_modification": 1,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "persistence_affects_subsequent_traversal": true,
+      "sequence": [
+        "start",
+        "gate",
+        "odd_branch",
+        "mutate",
+        "audit",
+        "end"
+      ],
+      "final_acc": 15,
+      "structural_liveness_across_boundary": "n/a (local baseline)",
+      "functional_equivalence_to_A": "reference"
+    },
+    "B": {
+      "condition": "B",
+      "locus": "networked store (separate process, 127.0.0.1 loopback socket)",
+      "topology_determination": true,
+      "result_driven_routing": true,
+      "in_traversal_self_modification": 1,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "persistence_affects_subsequent_traversal": true,
+      "sequence": [
+        "start",
+        "gate",
+        "odd_branch",
+        "mutate",
+        "audit",
+        "end"
+      ],
+      "final_acc": 15,
+      "structural_liveness_across_boundary": true,
+      "functional_equivalence_to_A": true
+    },
+    "C": {
+      "condition": "C",
+      "locus": "distributed across 2 store services (separate processes, 127.0.0.1 loopback)",
+      "topology_determination": true,
+      "result_driven_routing": true,
+      "in_traversal_self_modification": 1,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "persistence_affects_subsequent_traversal": true,
+      "sequence": [
+        "start",
+        "gate",
+        "odd_branch",
+        "mutate",
+        "audit",
+        "end"
+      ],
+      "final_acc": 15,
+      "structural_liveness_across_boundary": true,
+      "functional_equivalence_to_A": true
+    }
+  },
+  "key_findings": [
+    "The self-superseding mechanism (topology-is-execution, result-driven edge selection, in-traversal persisted self-modification) is locus-independent across a real network boundary: Condition B (networked store on a separate process over a loopback socket) and Condition C (substrate sharded across two store services) each produce a final graph state structurally identical to the local baseline A.",
+    "Structural liveness survives the boundary: the modification written over the wire is immediately live \u2014 the agent re-reads the outgoing edges from the remote store and the next traversal step walks the freshly-persisted edge, with no recompile, redeploy, or restart between the remote write and its effect.",
+    "The shift is embodiment-only: the store is a dumb persistence locus exposing only read/write commands (no routing, no execution, no edge selection), and the agent class is byte-for-byte identical across all three conditions \u2014 only the storage locus changed.",
+    "Per-condition node/edge-count deltas are nonzero (+1 node, +2 edges), confirming the self-modification was applied and persisted in every locus.",
+    "Anti-tautology: a suppressed-propagation control (the across-boundary write dropped) makes the agent diverge from the baseline and the equivalence/liveness check go RED \u2014 the green result is therefore not vacuous."
+  ]
+}

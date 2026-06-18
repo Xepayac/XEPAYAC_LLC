@@ -72,7 +72,7 @@ The final graph state (node identity + type + content, and edge topology) of Con
 | **Decision locus** | **agent** | **agent** | **agent** | **agent** |
 | Modification persistence | Yes | Yes | Yes | Yes |
 | Functional equivalence to A | baseline | Yes | Yes | Yes |
-| Node / edge count delta | +1 / +1 | +1 / +1 | +1 / +1 | +1 / +1 |
+| Node / edge count delta | +1 / +2 | +1 / +2 | +1 / +2 | +1 / +2 |
 
 **Result**: PASS — the decision-locus is the agent in every condition; every condition self-modifies the live topology and the modification persists.
 
@@ -82,7 +82,7 @@ A request that attempts to smuggle an execution result or a routing decision int
 **Result**: PASS — the services are dumb transports; the decision cannot migrate off the agent.
 
 ### Test 4: Structural-liveness across the boundary
-In every condition the agent follows the `path_high → audit` edge, which did not exist until it was written mid-traversal — proving the write is live for the very next step with no recompile or restart, including across the process boundary (C) and the persistent store (D).
+In every condition the agent follows the `grow → audit` edge, which did not exist until it was written mid-traversal — proving the write is live for the very next step with no recompile or restart, including across the process boundary (C) and the persistent store (D).
 
 **Result**: PASS.
 
@@ -114,4 +114,4 @@ Condition C runs the service in a process with a different PID than the agent; C
 - **STUDY-204** (Storage-Independent Substrate): closes the *storage-independence* vector (where the graph is stored). STUDY-206 reuses its mediation flavor but keeps every assertion and the narrative on **decision-locus** (where the modification decision and boundary sit), not storage.
 - **STUDY-203** (Decomposed Agent Systems): the deployment-detail framing this study extends to the API boundary.
 - **STUDY-205** (Re-render): the sibling claim-scope dodge.
-- **Baseline ownership (B1 / ADR-003)**: `graph_initial.json` is the **shared STUDY-203/204/206 cohort baseline**. At authoring time the sibling baselines were not yet on disk, so **STUDY-206 authored the canonical fixture** (recorded in `results.json` as `baseline_authored_by`); the sibling studies conform to it byte-identically. The cross-study equivalence check downgrades to "structurally comparable" until at least two cohort studies are built.
+- **Baseline ownership (ADR-003)**: `graph_initial.json` is the **shared STUDY-203/204/206 cohort baseline**. **STUDY-203 is the authoritative author** (recorded in `results.json` as `baseline_authored_by: "STUDY-203"`); **STUDY-206 adopts it byte-identically**. The cross-study equivalence check (`test_cross_study_baseline_or_b1_skip`) actively verifies that STUDY-206's baseline is canonically identical to STUDY-204's (≡ STUDY-203's), so the cohort's combined-evidence claim is auditable and confirmed.

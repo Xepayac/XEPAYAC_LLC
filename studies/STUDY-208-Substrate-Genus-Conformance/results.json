@@ -1,0 +1,74 @@
+{
+  "study_id": "STUDY-208",
+  "title": "Substrate-Genus Conformance",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 34,
+  "tests_passed": 34,
+  "tests_failed": 0,
+  "baseline_authored_by": "STUDY-208",
+  "backends": {
+    "A": {
+      "store": "serialized file",
+      "result": "PASS",
+      "topology_determination": true,
+      "result_dependent_routing": 3,
+      "self_modification": 2,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 2,
+      "edge_count_delta": 5
+    },
+    "B": {
+      "store": "multi-file",
+      "result": "PASS",
+      "topology_determination": true,
+      "result_dependent_routing": 3,
+      "self_modification": 2,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 2,
+      "edge_count_delta": 5
+    },
+    "C": {
+      "store": "relational store",
+      "result": "PASS",
+      "topology_determination": true,
+      "result_dependent_routing": 3,
+      "self_modification": 2,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 2,
+      "edge_count_delta": 5
+    },
+    "D": {
+      "store": "key-value store",
+      "result": "PASS",
+      "topology_determination": true,
+      "result_dependent_routing": 3,
+      "self_modification": 2,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 2,
+      "edge_count_delta": 5
+    },
+    "E": {
+      "store": "in-memory store",
+      "result": "PASS",
+      "topology_determination": true,
+      "result_dependent_routing": 3,
+      "self_modification": 2,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 2,
+      "edge_count_delta": 5
+    }
+  },
+  "key_findings": [
+    "One substrate contract (read_node / get_outgoing_edges / write_modification / persist) suffices for the whole persistent-store genus: serialized file, multi-file, relational, key-value, in-memory.",
+    "The identical self-superseding mechanism and the identical conformance corpus run UNCHANGED across all five backends.",
+    "Every backend's final substrate state is structurally equivalent to the file baseline (B==A, C==A, D==A, E==A) \u2014 the mechanism does the work, the storage does not.",
+    "All three never-broadened mechanism properties hold per backend: topology-as-program, result-driven edge selection, and structural-liveness (an in-traversal persisted self-modification incl. a supersede step is immediately live).",
+    "The networked/distributed species is NOT reduced to practice here (owed to STUDY-209); this artifact is a dated RTP of the genus, not the patent's enabling disclosure."
+  ]
+}

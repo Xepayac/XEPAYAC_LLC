@@ -30,33 +30,34 @@ class SqliteWriteService:
     def __init__(self, graph):
         self._conn = sqlite3.connect(":memory:")
         self._conn.execute(
-            "CREATE TABLE nodes (id TEXT PRIMARY KEY, type TEXT, data TEXT)")
+            "CREATE TABLE nodes (id TEXT PRIMARY KEY, type TEXT, op TEXT, data TEXT)")
         self._conn.execute(
             "CREATE TABLE edges (source_id TEXT, target_id TEXT, "
             "relation TEXT, condition TEXT)")
         for n in graph["nodes"]:
             self._conn.execute(
-                "INSERT INTO nodes VALUES (?, ?, ?)",
-                (n["id"], n["type"], json.dumps(n.get("data", {}))))
+                "INSERT INTO nodes VALUES (?, ?, ?, ?)",
+                (n["id"], n["type"], n.get("op"), json.dumps(n.get("data", {}))))
         for e in graph["edges"]:
             self._conn.execute(
                 "INSERT INTO edges VALUES (?, ?, ?, ?)",
-                (e["source_id"], e["target_id"], e["relation"], e.get("condition")))
+                (e["source_id"], e["target_id"], e["relation"],
+                 json.dumps(e["condition"]) if e.get("condition") is not None else None))
         self._conn.commit()
 
     def _row_to_edge(self, row):
         edge = {"source_id": row[0], "target_id": row[1], "relation": row[2]}
         if row[3] is not None:
-            edge["condition"] = row[3]
+            edge["condition"] = json.loads(row[3])
         return edge
 
     # --- read surface (via SQL queries, not file parsing) ---
     def read_node(self, node_id):
         row = self._conn.execute(
-            "SELECT id, type, data FROM nodes WHERE id = ?", (node_id,)).fetchone()
+            "SELECT id, type, op, data FROM nodes WHERE id = ?", (node_id,)).fetchone()
         if row is None:
             return None
-        return {"id": row[0], "type": row[1], "data": json.loads(row[2])}
+        return {"id": row[0], "type": row[1], "op": row[2], "data": json.loads(row[3])}
 
     def read_outgoing_edges(self, node_id):
         rows = self._conn.execute(
@@ -66,8 +67,8 @@ class SqliteWriteService:
 
     def snapshot(self):
         nodes = [
-            {"id": r[0], "type": r[1], "data": json.loads(r[2])}
-            for r in self._conn.execute("SELECT id, type, data FROM nodes")
+            {"id": r[0], "type": r[1], "op": r[2], "data": json.loads(r[3])}
+            for r in self._conn.execute("SELECT id, type, op, data FROM nodes")
         ]
         edges = [
             self._row_to_edge(r) for r in self._conn.execute(
@@ -87,13 +88,13 @@ class SqliteWriteService:
         op = request.get("op")
         if op == "add_node":
             n = request["node"]
-            self._conn.execute("INSERT INTO nodes VALUES (?, ?, ?)",
-                               (n["id"], n["type"], json.dumps(n.get("data", {}))))
+            self._conn.execute("INSERT INTO nodes VALUES (?, ?, ?, ?)",
+                               (n["id"], n["type"], n.get("op"), json.dumps(n.get("data", {}))))
         elif op == "add_edge":
             e = request["edge"]
             self._conn.execute("INSERT INTO edges VALUES (?, ?, ?, ?)",
                                (e["source_id"], e["target_id"], e["relation"],
-                                e.get("condition")))
+                                json.dumps(e["condition"]) if e.get("condition") is not None else None))
         elif op == "remove_edge":
             self._conn.execute(
                 "DELETE FROM edges WHERE source_id = ? AND target_id = ? "

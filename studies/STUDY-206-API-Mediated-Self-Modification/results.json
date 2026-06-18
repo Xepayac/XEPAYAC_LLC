@@ -6,7 +6,7 @@
   "tests_run": 29,
   "tests_passed": 29,
   "tests_failed": 0,
-  "baseline_authored_by": "STUDY-206",
+  "baseline_authored_by": "STUDY-203",
   "conditions": {
     "A": {
       "topology_determination": true,
@@ -16,13 +16,14 @@
       "modification_persistence": true,
       "functional_equivalence": true,
       "node_count_delta": 1,
-      "edge_count_delta": 1,
+      "edge_count_delta": 2,
       "path": [
         "start",
-        "decide",
-        "path_high",
+        "compute",
+        "branch",
+        "grow",
         "audit",
-        "end"
+        "finalize"
       ]
     },
     "B": {
@@ -33,13 +34,14 @@
       "modification_persistence": true,
       "functional_equivalence": true,
       "node_count_delta": 1,
-      "edge_count_delta": 1,
+      "edge_count_delta": 2,
       "path": [
         "start",
-        "decide",
-        "path_high",
+        "compute",
+        "branch",
+        "grow",
         "audit",
-        "end"
+        "finalize"
       ]
     },
     "C": {
@@ -50,14 +52,15 @@
       "modification_persistence": true,
       "functional_equivalence": true,
       "node_count_delta": 1,
-      "edge_count_delta": 1,
+      "edge_count_delta": 2,
       "process_boundary_crossed": true,
       "path": [
         "start",
-        "decide",
-        "path_high",
+        "compute",
+        "branch",
+        "grow",
         "audit",
-        "end"
+        "finalize"
       ]
     },
     "D": {
@@ -68,14 +71,15 @@
       "modification_persistence": true,
       "functional_equivalence": true,
       "node_count_delta": 1,
-      "edge_count_delta": 1,
+      "edge_count_delta": 2,
       "persistent_store": "relational (sqlite, in-memory)",
       "path": [
         "start",
-        "decide",
-        "path_high",
+        "compute",
+        "branch",
+        "grow",
         "audit",
-        "end"
+        "finalize"
       ]
     }
   },
