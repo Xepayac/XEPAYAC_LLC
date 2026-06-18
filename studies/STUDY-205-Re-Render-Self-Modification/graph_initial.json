@@ -1,0 +1,25 @@
+{
+  "id": "graph_initial",
+  "schema_version": "1.0",
+  "description": "Shared deterministic baseline graph for STUDY-203 (decomposed agent systems) and reused by STUDY-204 (storage independence). One branching topology containing a result-dependent (conditional) edge at 'branch' and a self-modification trigger at 'grow'. Generic schema: every node carries {id, type}; every edge carries {source_id, target_id, relation}. Domain extras (node 'op'/'data', edge 'condition') are optional and are ignored by a generic graph loader, so the fixture parses without any STUDY-203-only key.",
+  "entry": "start",
+  "nodes": [
+    { "id": "start",    "type": "OPERATION", "op": "init",        "data": {} },
+    { "id": "compute",  "type": "OPERATION", "op": "add",         "data": { "value": 5 } },
+    { "id": "branch",   "type": "BRANCH",    "op": "classify",    "data": { "threshold": 5 } },
+    { "id": "grow",     "type": "OPERATION", "op": "self_modify", "data": {
+        "add_node":  { "id": "audit", "type": "OPERATION", "op": "record", "data": {} },
+        "add_edges": [
+          { "source_id": "grow",  "target_id": "audit",    "relation": "THEN" },
+          { "source_id": "audit", "target_id": "finalize", "relation": "THEN" }
+        ]
+      } },
+    { "id": "finalize", "type": "RESULT",    "op": "finalize",    "data": {} }
+  ],
+  "edges": [
+    { "source_id": "start",   "target_id": "compute",  "relation": "THEN" },
+    { "source_id": "compute", "target_id": "branch",   "relation": "THEN" },
+    { "source_id": "branch",  "target_id": "grow",     "relation": "BRANCH", "condition": { "result": "high" } },
+    { "source_id": "branch",  "target_id": "finalize", "relation": "BRANCH", "condition": { "result": "low" } }
+  ]
+}
