@@ -1,0 +1,37 @@
+{
+  "id": "pipeline_a",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "pipeline",
+      "type": "PIPELINE",
+      "data": {"name": "data_pipeline"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    },
+    {
+      "id": "stage_1",
+      "type": "STAGE",
+      "data": {"op": "ingest"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    },
+    {
+      "id": "stage_2",
+      "type": "STAGE",
+      "data": {"op": "transform"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    },
+    {
+      "id": "stage_3",
+      "type": "STAGE",
+      "data": {"op": "emit"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    }
+  ],
+  "edges": [
+    {"source_id": "pipeline", "target_id": "stage_1", "relation": "CONTAINS", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}},
+    {"source_id": "stage_1", "target_id": "stage_2", "relation": "THEN", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}},
+    {"source_id": "stage_2", "target_id": "stage_3", "relation": "THEN", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}},
+    {"source_id": "stage_3", "target_id": "file_b.json:results_root", "relation": "DEPENDS_ON", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}},
+    {"source_id": "pipeline", "target_id": "file_b.json:report_v1", "relation": "DEPENDS_ON", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}}
+  ]
+}
