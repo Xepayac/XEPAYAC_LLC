@@ -31,7 +31,10 @@
         "study_207_cross_file_mutation",
         "study_203_decomposed_agent_systems",
         "doc_study_template",
-        "study_204_storage_independent_substrate"
+        "study_204_storage_independent_substrate",
+        "study_205_rerender_self_modification",
+        "study_208_substrate_genus_conformance",
+        "study_209_networked_distributed_substrate"
       ],
       "metric_level": "KILO_FOLDER",
       "dimension": "folder_structure"
@@ -204,6 +207,42 @@
       "contains": [],
       "metric_level": "BASE_FOLDER",
       "dimension": "folder_structure"
+    },
+    {
+      "id": "study_205_rerender_self_modification",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-205-Re-Render-Self-Modification",
+        "description": "Re-render self-modification \u2014 wholesale re-rendering vs in-place mutation; topological-not-byte equivalence (issue Xepayac/TRUGS-DEVELOPMENT#2569)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_208_substrate_genus_conformance",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-208-Substrate-Genus-Conformance",
+        "description": "Substrate-genus conformance \u2014 one substrate contract + the identical self-superseding mechanism + one conformance corpus run unchanged across a representative persistent-store genus spread (serialized file / multi-file / relational / key-value / in-memory), all structurally equivalent to the file baseline (issue Xepayac/TRUGS-DEVELOPMENT#2577)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
+      "id": "study_209_networked_distributed_substrate",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-209-Networked-Distributed-Substrate",
+        "description": "Networked / distributed substrate \u2014 self-modification + structural liveness across a network boundary (issue Xepayac/TRUGS-DEVELOPMENT#2578; EGS-979 CIP claim 9, the Gap-4 networked species)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
     }
   ],
   "edges": [
@@ -275,6 +314,21 @@
     {
       "from_id": "studies_folder",
       "to_id": "study_204_storage_independent_substrate",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_205_rerender_self_modification",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_208_substrate_genus_conformance",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_209_networked_distributed_substrate",
       "relation": "contains"
     }
   ]
