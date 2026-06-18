@@ -1,0 +1,24 @@
+{
+  "id": "genus_baseline",
+  "description": "Shared deterministic starting substrate for STUDY-208. Branching topology with a result-dependent (conditional) edge at 'gate', a self-modification trigger at 'mutate', and a supersede step at 'supersede'. Deterministic node ops + primitive vocabulary so functional equivalence across backends is a decidable structural diff. baseline_authored_by: STUDY-208 (siblings STUDY-203/204 unbuilt at authoring time).",
+  "nodes": [
+    {"id": "start", "type": "OPERATION", "op": "set:7"},
+    {"id": "gate", "type": "DECISION", "op": "parity"},
+    {"id": "odd_branch", "type": "OPERATION", "op": "add:3"},
+    {"id": "even_branch", "type": "OPERATION", "op": "add:100"},
+    {"id": "mutate", "type": "OPERATION", "op": "self_modify"},
+    {"id": "supersede", "type": "OPERATION", "op": "supersede:compute_v1"},
+    {"id": "compute_v1", "type": "OPERATION", "op": "compute:old"},
+    {"id": "end", "type": "RESULT", "op": "finalize"}
+  ],
+  "edges": [
+    {"source": "start", "target": "gate", "relation": "THEN", "condition": null},
+    {"source": "gate", "target": "odd_branch", "relation": "COND", "condition": "odd"},
+    {"source": "gate", "target": "even_branch", "relation": "COND", "condition": "even"},
+    {"source": "odd_branch", "target": "mutate", "relation": "THEN", "condition": null},
+    {"source": "even_branch", "target": "mutate", "relation": "THEN", "condition": null},
+    {"source": "mutate", "target": "end", "relation": "COND", "condition": "done"},
+    {"source": "supersede", "target": "compute_v1", "relation": "COND", "condition": "v1"},
+    {"source": "compute_v1", "target": "end", "relation": "THEN", "condition": null}
+  ]
+}
