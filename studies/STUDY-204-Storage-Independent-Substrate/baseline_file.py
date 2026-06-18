@@ -9,6 +9,11 @@ behavioural difference between conditions would be a difference of *storage*, ne
 of *mechanism*. That is the load-bearing structure of the proof: the embodiment
 (where/how the graph is stored or accessed) moves; the mechanism does not.
 
+Baseline schema (shared with STUDY-203 — the authoritative author of the fixture):
+every node carries ``{id, type, op, data}``; every edge carries
+``{source_id, target_id, relation}`` with an optional ``condition`` (``{"result": ...}``).
+Execution state (the accumulator) lives in the agent; the topology lives in the store.
+
 The mechanism axis demonstrated here (and held fixed across all conditions):
   - topology-as-program: traversal IS execution; the edges determine the sequence.
   - result-driven edge selection: an execution result chooses the outgoing edge.
@@ -21,13 +26,15 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 GRAPH_INITIAL_PATH = Path(__file__).resolve().parent / "graph_initial.json"
 
-# The node the agent injects into the substrate during execution. It does not
-# exist in the baseline graph; the 'grow' node creates it (and its edges) live.
-INJECTED_NODE_ID = "injected"
+# The node the agent injects into the substrate during execution. It does not exist
+# in the baseline graph; the 'grow' (self_modify) node creates it (and its edges)
+# live, data-driven from the grow node's own ``data``. In the shared STUDY-203
+# baseline this is the 'audit' node.
+INJECTED_NODE_ID = "audit"
 
 
 # ---------------------------------------------------------------------------
@@ -35,7 +42,7 @@ INJECTED_NODE_ID = "injected"
 # ---------------------------------------------------------------------------
 
 def load_baseline(path: str | Path = GRAPH_INITIAL_PATH) -> dict:
-    """Load the shared baseline graph (nodes + edges + start marker)."""
+    """Load the shared baseline graph (nodes + edges + entry marker)."""
     with Path(path).open("r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -44,20 +51,25 @@ def baseline_counts(baseline: dict) -> dict[str, int]:
     return {"nodes": len(baseline["nodes"]), "edges": len(baseline["edges"])}
 
 
+def entry_id(baseline: dict) -> str:
+    """The traversal entry node: the declared ``entry`` (the shared schema's key)."""
+    return baseline.get("entry", baseline.get("start", "start"))
+
+
 # ---------------------------------------------------------------------------
 # Canonical snapshot — the structure-only view used for cross-condition equality
 # ---------------------------------------------------------------------------
 
 def canonical_node(node: dict) -> dict:
-    return {"id": node["id"], "type": node["type"], "content": node["content"]}
+    return {"id": node["id"], "type": node["type"], "op": node.get("op")}
 
 
 def canonical_edge(edge: dict) -> dict:
     return {
-        "source": edge["source"],
-        "target": edge["target"],
+        "source_id": edge["source_id"],
+        "target_id": edge["target_id"],
         "relation": edge["relation"],
-        "condition": edge.get("condition", {"when": "always"}),
+        "condition": edge.get("condition"),
     }
 
 
@@ -66,12 +78,12 @@ def canonical_snapshot(nodes: list[dict], edges: list[dict]) -> dict:
 
     Two conditions are *functionally equivalent* iff their canonical snapshots are
     deep-equal. Sorting removes any storage-imposed ordering so the comparison is
-    over structure alone.
+    over structure alone (node id/type/op and edge source/target/relation/condition).
     """
     snap_nodes = sorted((canonical_node(n) for n in nodes), key=lambda n: n["id"])
     snap_edges = sorted(
         (canonical_edge(e) for e in edges),
-        key=lambda e: (e["source"], e["target"], e["relation"]),
+        key=lambda e: (e["source_id"], e["target_id"], e["relation"]),
     )
     return {"nodes": snap_nodes, "edges": snap_edges}
 
@@ -81,69 +93,78 @@ def canonical_snapshot(nodes: list[dict], edges: list[dict]) -> dict:
 # implementing read_node / has_node / get_outgoing_edges / write_node / add_edge.
 # ---------------------------------------------------------------------------
 
-def _condition_satisfied(condition: dict, result: int) -> bool:
-    when = condition.get("when", "always")
-    if when == "always":
-        return True
-    if when == "result_gte":
-        return result >= condition["value"]
-    if when == "result_lt":
-        return result < condition["value"]
-    return False
-
-
-def select_edge(edges: list[dict], result: int) -> dict | None:
-    """Result-driven edge selection: return the first outgoing edge whose condition
-    property is satisfied by the execution result. The result — not a static
-    dispatch table — decides control flow over the live topology."""
+def select_edge(edges: list[dict], result: str) -> dict | None:
+    """Result-driven edge selection: an unconditional (THEN) edge is always eligible;
+    a conditional edge is eligible iff its ``condition.result`` equals the execution
+    result. The result — not a static dispatch table — decides control flow over the
+    live topology. Deterministic tie-break by target id."""
+    eligible = []
     for edge in edges:
-        if _condition_satisfied(edge.get("condition", {"when": "always"}), result):
-            return edge
+        cond = edge.get("condition")
+        if cond is None:
+            eligible.append(edge)
+        elif cond.get("result") == result:
+            eligible.append(edge)
+    if not eligible:
+        return None
+    eligible.sort(key=lambda e: e["target_id"])
+    return eligible[0]
+
+
+def modification_for(node: dict) -> Optional[dict]:
+    """The self-modification a node triggers, if any. Data-driven: a ``self_modify``
+    node carries the node + edges to add in its own ``data``, so the engine is
+    content-agnostic and the modification is deterministic."""
+    if node.get("op") == "self_modify":
+        data = node.get("data", {})
+        return {"add_node": data["add_node"], "add_edges": data["add_edges"]}
     return None
 
 
-def execute(node: dict, acc: int, store: Any) -> tuple[int, bool]:
-    """Execute a node's content against the accumulator, returning (new_acc, did_self_modify).
+def execute(node: dict, state: dict, store: Any) -> tuple[str, bool]:
+    """Execute a node against the agent's execution state; return (result, did_self_modify).
 
-    The 'grow' node self-modifies the substrate *during execution*: it writes a new
-    node and the edges that continue the path. Because the store is live, the very
-    next ``get_outgoing_edges`` call in the traversal loop sees the new edge — there
-    is no compile/parse/deploy boundary between the write and its effect.
+    The execution *result* (a string) is what later selects the outgoing edge. A
+    ``self_modify`` node modifies the substrate *during execution*: it writes a new
+    node and the edges that continue the path, data-driven from its own ``data``.
+    Because the store is live, the very next ``get_outgoing_edges`` call in the
+    traversal loop sees the new edge — there is no compile/parse/deploy boundary
+    between the write and its effect.
     """
-    content = node.get("content", {})
-    op = content.get("op", "noop")
-    if op == "add":
-        acc = acc + int(content.get("value", 0))
-    elif op == "noop":
-        pass
+    op = node.get("op")
+    if op == "init":
+        state["acc"] = 0
+        result = "ok"
+    elif op == "add":
+        state["acc"] = state.get("acc", 0) + int(node.get("data", {}).get("value", 0))
+        result = "ok"
+    elif op == "classify":
+        result = "high" if state.get("acc", 0) >= node["data"]["threshold"] else "low"
+    elif op == "self_modify":
+        result = "ok"
+    elif op == "record":
+        result = "ok"
+    elif op == "finalize":
+        result = "done"
     else:
-        raise ValueError(f"unknown op: {op!r}")
+        result = "ok"
 
     did_self_modify = False
-    if node["id"] == "grow" and not store.has_node(INJECTED_NODE_ID):
-        store.write_node(
-            {
-                "id": INJECTED_NODE_ID,
-                "type": "OPERATION",
-                "content": {"op": "add", "value": 100, "label": "node injected during execution"},
-            }
-        )
+    spec = modification_for(node)
+    if spec is not None and not store.has_node(spec["add_node"]["id"]):
+        store.write_node(spec["add_node"])
         # The continuation that did not exist until the agent created it, live:
-        store.add_edge(
-            {"source": "grow", "target": INJECTED_NODE_ID, "relation": "THEN", "condition": {"when": "always"}}
-        )
-        store.add_edge(
-            {"source": INJECTED_NODE_ID, "target": "finalize", "relation": "THEN", "condition": {"when": "always"}}
-        )
+        for e in spec["add_edges"]:
+            store.add_edge(e)
         did_self_modify = True
-    return acc, did_self_modify
+    return result, did_self_modify
 
 
-def traverse(store: Any, start_id: str = "start", max_steps: int = 1000) -> dict:
+def traverse(store: Any, start: str = "start", max_steps: int = 1000) -> dict:
     """Traverse-and-execute the substrate held by ``store``. Returns an execution
     record (final accumulator, visited order, routing decisions, self-mod flag)."""
-    acc = 0
-    current: str | None = start_id
+    state: dict[str, Any] = {}
+    current: str | None = start
     visited: list[str] = []
     routing: list[dict] = []
     self_modified = False
@@ -154,27 +175,30 @@ def traverse(store: Any, start_id: str = "start", max_steps: int = 1000) -> dict
         node = store.read_node(current)  # live read from the store
         if node is None:
             break
-        acc, did_mod = execute(node, acc, store)  # may self-modify the store
+        result, did_mod = execute(node, state, store)  # may self-modify the store
         self_modified = self_modified or did_mod
         visited.append(current)
 
+        if node.get("type") == "RESULT":
+            break
+
         edges = store.get_outgoing_edges(current)  # live re-read — sees any self-mod
-        chosen = select_edge(edges, acc)
+        chosen = select_edge(edges, result)
         if chosen is None:
             break
         routing.append(
             {
                 "from": current,
-                "to": chosen["target"],
-                "condition": chosen.get("condition", {}).get("when", "always"),
-                "result": acc,
+                "to": chosen["target_id"],
+                "conditional": chosen.get("condition") is not None,
+                "result": result,
                 "candidates": len(edges),
             }
         )
-        current = chosen["target"]
+        current = chosen["target_id"]
 
     return {
-        "final_acc": acc,
+        "final_acc": state.get("acc"),
         "visited": visited,
         "routing": routing,
         "self_modified": self_modified,
@@ -202,7 +226,7 @@ def compute_metrics(store: Any, record: dict, initial: dict[str, int],
         "topology_determination": len(visited) > 1 and len(routing) == len(visited) - 1,
         # 2. result-dependent routing: at least one edge was chosen by evaluating a
         #    non-trivial condition against the execution result.
-        "result_dependent_routing": any(r["condition"] != "always" for r in routing),
+        "result_dependent_routing": any(r["conditional"] for r in routing),
         # 3. self-modification during execution.
         "self_modification": bool(record["self_modified"]),
         # 4. modification persistence: the injected node persisted in the store AND
@@ -239,7 +263,7 @@ class DictStore:
         return node_id in self._nodes
 
     def get_outgoing_edges(self, node_id: str) -> list[dict]:
-        return [dict(e) for e in self._edges if e["source"] == node_id]
+        return [dict(e) for e in self._edges if e["source_id"] == node_id]
 
     def write_node(self, node: dict) -> None:
         if node["id"] not in self._nodes:
@@ -254,7 +278,7 @@ class DictStore:
         self._node_order = [n for n in self._node_order if n != node_id]
 
     def remove_edge(self, source: str, target: str) -> None:
-        self._edges = [e for e in self._edges if not (e["source"] == source and e["target"] == target)]
+        self._edges = [e for e in self._edges if not (e["source_id"] == source and e["target_id"] == target)]
 
     def node_count(self) -> int:
         return len(self._nodes)
@@ -311,7 +335,7 @@ class FileStore:
         return any(n["id"] == node_id for n in self._load()["nodes"])
 
     def get_outgoing_edges(self, node_id: str) -> list[dict]:
-        return [e for e in self._load()["edges"] if e["source"] == node_id]
+        return [e for e in self._load()["edges"] if e["source_id"] == node_id]
 
     def write_node(self, node: dict) -> None:
         graph = self._load()
@@ -330,7 +354,7 @@ class FileStore:
 
     def remove_edge(self, source: str, target: str) -> None:
         graph = self._load()
-        graph["edges"] = [e for e in graph["edges"] if not (e["source"] == source and e["target"] == target)]
+        graph["edges"] = [e for e in graph["edges"] if not (e["source_id"] == source and e["target_id"] == target)]
         self._save(graph)
 
     def node_count(self) -> int:
@@ -355,7 +379,7 @@ def run_condition_a(workdir: str | Path, graph_initial: str | Path = GRAPH_INITI
     initial = baseline_counts(baseline)
     work_path = Path(workdir) / "substrate_a.json"
     store = FileStore.from_baseline(baseline, work_path)
-    record = traverse(store, baseline.get("start", "start"))
+    record = traverse(store, entry_id(baseline))
     snapshot = store.snapshot()
     return {"condition": "A", "store": store, "record": record,
             "snapshot": snapshot, "initial": initial}
@@ -380,7 +404,7 @@ if __name__ == "__main__":
         print(f"  {k}: {v}")
 
     ok = (
-        rec["visited"] == ["start", "branch", "grow", "injected", "finalize"]
+        rec["visited"] == ["start", "compute", "branch", "grow", "audit", "finalize"]
         and metrics["self_modification"]
         and metrics["modification_persistence"]
         and metrics["node_count_delta"] == 1

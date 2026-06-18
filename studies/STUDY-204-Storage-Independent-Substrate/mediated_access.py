@@ -23,6 +23,7 @@ from baseline_file import (
     DictStore,
     baseline_counts,
     compute_metrics,
+    entry_id,
     load_baseline,
     traverse,
     GRAPH_INITIAL_PATH,
@@ -108,7 +109,7 @@ def run_condition_c(graph_initial: str = GRAPH_INITIAL_PATH) -> dict:
     initial = baseline_counts(baseline)
     backing = DictStore(baseline)          # in-memory backing — neither file nor DB
     mediator = GraphMediator(backing)      # the agent will receive ONLY this
-    record = traverse(mediator, baseline.get("start", "start"))
+    record = traverse(mediator, entry_id(baseline))
     snapshot = mediator.snapshot()
     return {"condition": "C", "store": mediator, "record": record,
             "snapshot": snapshot, "initial": initial}

@@ -43,7 +43,7 @@ mechanism unchanged, foreclosing the "it is no longer a file" design-around.
   - **Claim 5**: result-driven selection of an outgoing edge — exercised at the
     `branch` node (the result selects the edge).
   - **Claim 8**: modifications add nodes and edges that persist and affect subsequent
-    traversals — exercised by the live `injected` node and its edges.
+    traversals — exercised by the live `audit` node and its edges.
   - **Claim 10**: continued traversal over the modified substrate.
 
 > **Priority discipline (read with the claim mapping below).** This study feeds a
@@ -77,7 +77,7 @@ Only the *store* differs between conditions, so any divergence would be a differ
 of storage, never of mechanism.
 
 The baseline's `grow` node has **no outgoing edge**: during execution it
-self-modifies the substrate, creating the `injected` node and the edges that continue
+self-modifies the substrate, creating the `audit` node and the edges that continue
 the path. The agent then traverses the topology it just created — demonstrating
 structural liveness (the modification is live on the very next step, with no compile
 or redeploy).
@@ -114,7 +114,7 @@ delta.
 
 | File | Purpose |
 |------|---------|
-| `graph_initial.json` | Shared baseline substrate (authored by STUDY-204; see Related Studies) |
+| `graph_initial.json` | Shared baseline substrate (authored by STUDY-203, the authoritative author; adopted byte-identically — see Related Studies) |
 | `baseline_file.py` | Condition A + the single shared agent, router, metrics, and stores |
 | `persistent_store.py` | Condition B — relational store (rows; SQL read/write) |
 | `mediated_access.py` | Condition C — `GraphMediator`; agent holds no storage handle |
@@ -157,8 +157,8 @@ and D are each structurally equal to baseline A.
 graph-file parses during traversal. Conditions C and D report the agent held **no
 storage handle**. Condition D's backing store served the traversal entirely via SQL.
 
-**Traversal path (all conditions):** `start → branch → grow → injected → finalize`
-(the `injected` node is created during execution, then traversed).
+**Traversal path (all conditions):** `start → compute → branch → grow → audit → finalize`
+(the `audit` node is created during execution, then traversed).
 
 **Result:** changing the storage medium (B), interposing a mediation layer (C), or
 both (D) does not change the computational outcome. The substrate is
@@ -246,12 +246,13 @@ is likewise counsel's work.
 
 ## Related Studies
 - **STUDY-203** (Decomposed Agent Systems): co-owns the shared `graph_initial.json`
-  baseline (ADR-003). Per the **B1 contingency**, STUDY-203 was unbuilt when this study
-  landed, so **STUDY-204 authored the canonical baseline** (`baseline_authored_by:
-  "STUDY-204"` in `results.json`); STUDY-203 will conform to it **byte-identically**
-  when built. Until both exist, the cross-study equivalence check skips with this
-  rationale; the authoring record is recorded so the combined-evidence claim is
-  auditable.
+  baseline (ADR-003). **STUDY-203 is the authoritative author** of the shared fixture
+  (`baseline_authored_by: "STUDY-203"` in `results.json`); **STUDY-204 adopts it
+  byte-identically**. The cross-study equivalence check
+  (`test_condition_a_equals_study_203_baseline`) actively verifies that the two
+  studies' baselines are canonically identical, so the combined-evidence claim — one
+  shared corpus exercised across two embodiment axes (agent-count in STUDY-203,
+  storage/access here) — is auditable and confirmed.
 - **STUDY-202** (Multi-File Substrate): the adjacent embodiment broadening (file →
   multi-file connected set); this study continues the chain to *any persistent store*.
 

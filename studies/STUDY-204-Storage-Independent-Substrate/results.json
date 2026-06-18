@@ -6,7 +6,7 @@
   "tests_run": 17,
   "tests_passed": 17,
   "tests_failed": 0,
-  "baseline_authored_by": "STUDY-204",
+  "baseline_authored_by": "STUDY-203",
   "conditions": {
     "A": {
       "topology_determination": true,
@@ -48,17 +48,18 @@
   "access_evidence": {
     "visited_path": [
       "start",
+      "compute",
       "branch",
       "grow",
-      "injected",
+      "audit",
       "finalize"
     ],
-    "B_sql_query_count": 15,
+    "B_sql_query_count": 16,
     "B_file_parses": 0,
     "C_agent_has_storage_handle": false,
     "D_agent_has_storage_handle": false,
     "D_composes_b_and_c": true,
-    "D_backing_sql_query_count": 15
+    "D_backing_sql_query_count": 16
   },
   "key_findings": [
     "A graph substrate stored in a relational store (B), accessed through a mediation layer (C), or both (D) produces a final state structurally identical to the serialized-file baseline (A).",

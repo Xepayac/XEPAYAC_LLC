@@ -1,0 +1,83 @@
+{
+  "acceptance": {
+    "B_equals_A": true,
+    "C_equals_A": true,
+    "baseline_condition": "A",
+    "baseline_graph_hash": "699ee2391ac5dcf6a5402f0e6af9d95a6483c01a91e592675b25cdd43962f8eb"
+  },
+  "broadening": "CIP Broadening #2 (multi-process / decomposed agents)",
+  "conditions": {
+    "A": {
+      "edge_count_delta": 2,
+      "embodiment": "single_process",
+      "final_graph_hash": "699ee2391ac5dcf6a5402f0e6af9d95a6483c01a91e592675b25cdd43962f8eb",
+      "functional_equivalence": true,
+      "modification_persistence": true,
+      "node_count_delta": 1,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "topology_determination": true,
+      "visited": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    },
+    "B": {
+      "edge_count_delta": 2,
+      "embodiment": "three_processes",
+      "final_graph_hash": "699ee2391ac5dcf6a5402f0e6af9d95a6483c01a91e592675b25cdd43962f8eb",
+      "functional_equivalence": true,
+      "modification_persistence": true,
+      "node_count_delta": 1,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "topology_determination": true,
+      "visited": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    },
+    "C": {
+      "edge_count_delta": 2,
+      "embodiment": "external_dispatch",
+      "final_graph_hash": "699ee2391ac5dcf6a5402f0e6af9d95a6483c01a91e592675b25cdd43962f8eb",
+      "functional_equivalence": true,
+      "modification_persistence": true,
+      "node_count_delta": 1,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "topology_determination": true,
+      "visited": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    }
+  },
+  "date": "2026-06-18",
+  "key_findings": [
+    "A graph substrate governs traversal, result-dependent routing, and in-execution self-modification identically whether one process, three decomposed processes, or an externally-dispatched agent performs the work.",
+    "Conditions B and C produce a final graph state functionally equivalent to the single-process baseline A (identical canonical graph and hash).",
+    "In every condition the on-disk serialized graph file is the shared executed medium; the IPC/dispatch channels carry coordination messages only, never the substrate as an in-memory object (limitation L1/L3 survive the decomposition).",
+    "Condition B routes every write through a single sole-modifier process with an atomic replace; repeated runs are bit-for-bit deterministic, demonstrating the multi-writer-consistency discipline (not merely that B happened to equal A).",
+    "In Condition C the external dispatcher schedules WHO/WHEN but never evaluates an edge condition; the execution result against the substrate's edge conditions selects the next node."
+  ],
+  "patent": "19/575,491",
+  "status": "PASS",
+  "study_id": "STUDY-203",
+  "tests": {
+    "functions": 10
+  },
+  "title": "Decomposed Agent Systems - Multi-Process Graph Substrate Execution"
+}

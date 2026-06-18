@@ -23,6 +23,7 @@ from baseline_file import (
     INJECTED_NODE_ID,
     canonical_snapshot,
     compute_metrics,
+    entry_id,
     load_baseline,
     run_condition_a,
     select_edge,
@@ -39,8 +40,9 @@ RESULTS_PATH = HERE / "results.json"
 STUDY_ID = "STUDY-204"
 STUDY_TITLE = "Storage-Independent Graph Substrate — Database and Mediated Access"
 STUDY_DATE = "2026-06-18"
-# B1 / ADR-003: STUDY-203 is unbuilt, so STUDY-204 authors the canonical baseline.
-BASELINE_AUTHORED_BY = "STUDY-204"
+# ADR-003 / reconciliation (2026-06-18): STUDY-203 landed first and is the authoritative
+# author of the shared graph_initial.json; STUDY-204 adopts it byte-identically.
+BASELINE_AUTHORED_BY = "STUDY-203"
 THE_SEVEN_METRICS = (
     "topology_determination",
     "result_dependent_routing",
@@ -50,7 +52,7 @@ THE_SEVEN_METRICS = (
     "node_count_delta",
     "edge_count_delta",
 )
-EXPECTED_PATH = ["start", "branch", "grow", "injected", "finalize"]
+EXPECTED_PATH = ["start", "compute", "branch", "grow", "audit", "finalize"]
 
 # Vendor/product/framework denylist — prose must name none of these (RISK-2).
 VENDOR_DENYLIST = (
@@ -173,13 +175,13 @@ class TestSubstrateGoverns:
     def test_result_determines_edge(self):
         """An execution result — not a static dispatch table — selects the edge."""
         edges = [
-            {"source": "branch", "target": "grow", "relation": "THEN",
-             "condition": {"when": "result_gte", "value": 5}},
-            {"source": "branch", "target": "finalize", "relation": "THEN",
-             "condition": {"when": "always"}},
+            {"source_id": "branch", "target_id": "grow", "relation": "BRANCH",
+             "condition": {"result": "high"}},
+            {"source_id": "branch", "target_id": "finalize", "relation": "BRANCH",
+             "condition": {"result": "low"}},
         ]
-        assert select_edge(edges, 7)["target"] == "grow"      # result >= 5
-        assert select_edge(edges, 3)["target"] == "finalize"  # result < 5 -> different edge
+        assert select_edge(edges, "high")["target_id"] == "grow"      # result "high"
+        assert select_edge(edges, "low")["target_id"] == "finalize"   # result "low" -> different edge
 
     def test_self_modification_occurs_during_execution(self, tmp_path):
         """The injected node does not exist at start; it is created mid-traversal and
@@ -187,7 +189,7 @@ class TestSubstrateGoverns:
         baseline = load_baseline()
         store = DictStore(baseline)
         assert store.has_node(INJECTED_NODE_ID) is False  # absent in the baseline
-        record = traverse(store, baseline.get("start", "start"))
+        record = traverse(store, entry_id(baseline))
         assert store.has_node(INJECTED_NODE_ID) is True            # created live
         assert INJECTED_NODE_ID in record["visited"]               # and traversed
         # 'grow' is reached before 'injected' exists — the agent built its own path.
@@ -265,9 +267,9 @@ class TestCrossStudy:
         other = self._study_203_baseline()
         if other is None:
             pytest.skip(
-                "B1/ADR-003: STUDY-203 is unbuilt — no shared baseline to compare. "
-                "STUDY-204 authored graph_initial.json (baseline_authored_by=STUDY-204); "
-                "STUDY-203 will conform to it byte-identically when built."
+                "STUDY-203 baseline directory not present in this checkout. STUDY-203 is "
+                "the authoritative author of the shared graph_initial.json; STUDY-204 "
+                "adopts it byte-identically."
             )
         ours = load_baseline()
         theirs = load_baseline(other)
