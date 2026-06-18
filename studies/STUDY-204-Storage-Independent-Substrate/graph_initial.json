@@ -1,0 +1,17 @@
+{
+  "baseline_id": "shared-substrate-baseline-v1",
+  "authored_by": "STUDY-204",
+  "description": "Shared executable-graph baseline for the storage-independent substrate study. Nodes carry executable content (an accumulator operation); directional edges carry condition properties for result-dependent routing. The 'grow' node has NO outgoing edge in the baseline: the agent grows the substrate's continuation by self-modifying it during execution, then traverses the newly created topology. This same baseline is the shared fixture for STUDY-203 (ADR-003); whichever study lands first authors it byte-identically.",
+  "start": "start",
+  "nodes": [
+    { "id": "start", "type": "OPERATION", "content": { "op": "add", "value": 3, "label": "initialize accumulator" } },
+    { "id": "branch", "type": "OPERATION", "content": { "op": "add", "value": 4, "label": "compute routing value" } },
+    { "id": "grow", "type": "OPERATION", "content": { "op": "add", "value": 10, "label": "grow the substrate (self-modify during execution)" } },
+    { "id": "finalize", "type": "RESULT", "content": { "op": "noop", "value": 0, "label": "finalize" } }
+  ],
+  "edges": [
+    { "source": "start", "target": "branch", "relation": "THEN", "condition": { "when": "always" } },
+    { "source": "branch", "target": "grow", "relation": "THEN", "condition": { "when": "result_gte", "value": 5 } },
+    { "source": "branch", "target": "finalize", "relation": "THEN", "condition": { "when": "always" } }
+  ]
+}
