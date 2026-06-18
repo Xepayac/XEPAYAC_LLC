@@ -30,6 +30,7 @@
         "study_202_multi_file_substrate",
         "study_207_cross_file_mutation",
         "study_203_decomposed_agent_systems",
+        "study_206_api_mediated_self_modification",
         "doc_study_template"
       ],
       "metric_level": "KILO_FOLDER",
@@ -180,6 +181,18 @@
       "dimension": "folder_structure"
     },
     {
+      "id": "study_206_api_mediated_self_modification",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-206-API-Mediated-Self-Modification",
+        "description": "API-mediated self-modification across a service boundary — the result-driven modification decision-locus stays at the agent regardless of where the write executes; EGS-979 CIP circumvention-vector-5 prior-art (issue Xepayac/TRUGS-DEVELOPMENT#2570)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
+    },
+    {
       "id": "doc_study_template",
       "type": "DOCUMENT",
       "properties": {
@@ -252,6 +265,11 @@
     {
       "from_id": "studies_folder",
       "to_id": "study_203_decomposed_agent_systems",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_206_api_mediated_self_modification",
       "relation": "contains"
     },
     {

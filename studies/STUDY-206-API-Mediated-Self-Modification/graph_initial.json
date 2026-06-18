@@ -1,0 +1,18 @@
+{
+  "id": "graph_206",
+  "description": "Shared STUDY-203/204/206 cohort baseline. A deterministic branching graph with one result-dependent (conditional) edge pair (decide -> path_high | path_low) and one self-modification trigger (the agent inserts an audit node on the high branch when the execution result routes high). Authored by STUDY-206 under symmetric cohort ownership; the sibling studies conform to this byte-identical fixture.",
+  "nodes": [
+    {"id": "start", "type": "OPERATION", "data": {"instruction": "initialize", "emit": 1}},
+    {"id": "decide", "type": "OPERATION", "data": {"instruction": "evaluate the execution result and route", "emit": 7}},
+    {"id": "path_high", "type": "OPERATION", "data": {"instruction": "process the high branch", "emit": 0}},
+    {"id": "path_low", "type": "OPERATION", "data": {"instruction": "process the low branch", "emit": 0}},
+    {"id": "end", "type": "RESULT", "data": {"instruction": "finalize", "emit": 0}}
+  ],
+  "edges": [
+    {"source_id": "start", "target_id": "decide", "relation": "THEN"},
+    {"source_id": "decide", "target_id": "path_high", "relation": "THEN", "condition": "result >= 5"},
+    {"source_id": "decide", "target_id": "path_low", "relation": "THEN", "condition": "result < 5"},
+    {"source_id": "path_high", "target_id": "end", "relation": "THEN"},
+    {"source_id": "path_low", "target_id": "end", "relation": "THEN"}
+  ]
+}
