@@ -1,0 +1,93 @@
+{
+  "study_id": "STUDY-206",
+  "title": "API-Mediated Self-Modification \u2014 Modification Across a Service Boundary",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 29,
+  "tests_passed": 29,
+  "tests_failed": 0,
+  "baseline_authored_by": "STUDY-203",
+  "conditions": {
+    "A": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "decision_locus": "agent",
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "path": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    },
+    "B": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "decision_locus": "agent",
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "path": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    },
+    "C": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "decision_locus": "agent",
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "process_boundary_crossed": true,
+      "path": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    },
+    "D": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "decision_locus": "agent",
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2,
+      "persistent_store": "relational (sqlite, in-memory)",
+      "path": [
+        "start",
+        "compute",
+        "branch",
+        "grow",
+        "audit",
+        "finalize"
+      ]
+    }
+  },
+  "key_findings": [
+    "An interposed API/service boundary is a transport detail, not a relocation of the inventive locus: B, C and D produce a final graph state structurally identical to the direct-write baseline A.",
+    "The decision-locus is the agent in every condition \u2014 the result-driven modification is decided agent-side, regardless of where the write physically executes.",
+    "The write services are dumb transports: they apply the requested write and have no path to the execution result or the routing decision (adversarially verified).",
+    "The modification is structurally live across the boundary: a write issued mid-traversal governs the very next step with no parse, compile, deploy or restart boundary.",
+    "Condition C crosses a genuine operating-system process boundary and Condition D composes the boundary over a relational persistent store, yet both remain functionally equivalent to the baseline."
+  ]
+}

@@ -34,7 +34,8 @@
         "study_204_storage_independent_substrate",
         "study_205_rerender_self_modification",
         "study_208_substrate_genus_conformance",
-        "study_209_networked_distributed_substrate"
+        "study_209_networked_distributed_substrate",
+        "study_206_api_mediated_self_modification"
       ],
       "metric_level": "KILO_FOLDER",
       "dimension": "folder_structure"
@@ -243,6 +244,18 @@
       "contains": [],
       "metric_level": "BASE_FOLDER",
       "dimension": "folder_structure"
+    },
+    {
+      "id": "study_206_api_mediated_self_modification",
+      "type": "FOLDER",
+      "properties": {
+        "name": "STUDY-206-API-Mediated-Self-Modification",
+        "description": "API-mediated self-modification \u2014 result-driven graph self-modification across a service boundary (issue Xepayac/TRUGS-DEVELOPMENT#2570)"
+      },
+      "parent_id": "studies_folder",
+      "contains": [],
+      "metric_level": "BASE_FOLDER",
+      "dimension": "folder_structure"
     }
   ],
   "edges": [
@@ -329,6 +342,11 @@
     {
       "from_id": "studies_folder",
       "to_id": "study_209_networked_distributed_substrate",
+      "relation": "contains"
+    },
+    {
+      "from_id": "studies_folder",
+      "to_id": "study_206_api_mediated_self_modification",
       "relation": "contains"
     }
   ]
