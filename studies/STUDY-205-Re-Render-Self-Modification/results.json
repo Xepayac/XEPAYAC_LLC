@@ -1,0 +1,101 @@
+{
+  "study_id": "STUDY-205",
+  "title": "Re-Render Self-Modification \u2014 Wholesale Re-Rendering vs In-Place Mutation",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 21,
+  "tests_passed": 21,
+  "tests_failed": 0,
+  "baseline_authored_by": "STUDY-203",
+  "conditions": {
+    "A": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "representation_divergence": {
+        "bytes_differ_from_A": false,
+        "topology_matches_A": true
+      },
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "B": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "representation_divergence": {
+        "bytes_differ_from_A": true,
+        "topology_matches_A": true
+      },
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "C": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "representation_divergence": {
+        "bytes_differ_from_A": true,
+        "topology_matches_A": true
+      },
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "D": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "representation_divergence": {
+        "bytes_differ_from_A": true,
+        "topology_matches_A": true
+      },
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    }
+  },
+  "materialization_evidence": {
+    "visited_path": [
+      "start",
+      "compute",
+      "branch",
+      "grow",
+      "audit",
+      "finalize"
+    ],
+    "A_materialization": [
+      "in_place",
+      "in_place",
+      "in_place"
+    ],
+    "B_materialization": [
+      "rerender",
+      "rerender",
+      "rerender"
+    ],
+    "C_active_path_is_new": true,
+    "C_prior_file_intact": true,
+    "C_has_superseded_by_edge": false,
+    "C_emitted_file_count": 4,
+    "D_strategies_used": [
+      "in_place",
+      "rerender"
+    ],
+    "D_mixes_in_place_and_rerender": true
+  },
+  "key_findings": [
+    "A graph substrate self-modified by wholesale re-render to the same file (B), by re-render as a new-file emission (C), or by a hybrid of in-place edit and re-render (D) produces a final graph TOPOLOGY structurally identical to the in-place mutation baseline (A).",
+    "Across B, C, and D the on-disk serialized REPRESENTATION diverges from A (the bytes differ) while the topology matches \u2014 proving the re-render is a real re-emit, not a no-op: representation differs, topology does not.",
+    "Equivalence is decided by a topological structural diff, never a byte/file hash; the comparator carries an anti-tautology negative test.",
+    "Result-driven edge selection and in-traversal self-modification (one node + two edges, live) drive the same topology evolution in every condition; the modified, persisted topology governs the subsequent traversal.",
+    "HONEST SCOPE: this proves materialization-strategy-equivalence, NOT that re-render preserves structural-liveness. Wholesale re-render is a generation step and surrenders the L5/no-compile distinction; the study rests its weight on topology-as-program + result-driven edge selection + persistence only.",
+    "Shared baseline reused byte-identical from STUDY-203 (the merged canonical), so materialization-independence (205) and agent-decomposition (203) are proven against the same baseline."
+  ]
+}
