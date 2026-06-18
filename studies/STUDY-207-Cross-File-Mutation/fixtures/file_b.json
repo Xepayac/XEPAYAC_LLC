@@ -1,0 +1,22 @@
+{
+  "id": "results_b",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "results_root",
+      "type": "RESULTS",
+      "data": {"name": "results_collection"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    },
+    {
+      "id": "report_v1",
+      "type": "REPORT",
+      "data": {"title": "summary", "rev": 1},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    }
+  ],
+  "edges": [
+    {"source_id": "results_root", "target_id": "report_v1", "relation": "CONTAINS", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}},
+    {"source_id": "results_root", "target_id": "file_c.json:archive_root", "relation": "CONTAINS", "metadata": {"created_at": "2026-05-11T00:00:00+00:00"}}
+  ]
+}
