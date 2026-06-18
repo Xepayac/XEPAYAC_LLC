@@ -260,12 +260,10 @@ baseline, so a byte-identical no-op masquerading as a re-render is caught.
   check passes (not skipped).
 - **STUDY-204** (Storage-Independent Graph Substrate): the closest structural sibling and
   the source of the topological `canonical_snapshot` comparator idiom this study adapts.
-  At the time STUDY-205 was authored, STUDY-204 was **unmerged** and carried a
-  **divergent** baseline (a different schema and node set) from the merged STUDY-203
-  canonical; STUDY-205 therefore conforms to STUDY-203's merged baseline rather than
-  STUDY-204's. Cross-study byte-identity with STUDY-204 is in the **structural-comparability
-  downgrade** until STUDY-204 reconciles to the canonical baseline (a sibling-side task);
-  the authoring record (`baseline_authored_by`) keeps the combined-evidence claim auditable.
+  STUDY-204 has since been reconciled to the canonical baseline and is now **byte-identical**
+  to STUDY-203's `graph_initial.json` — the same fixture STUDY-205 uses — so STUDY-203,
+  STUDY-204, and STUDY-205 are all proven against the **same** baseline; the
+  combined-evidence claim is auditable via `baseline_authored_by`.
 - **STUDY-140 / issue #1329** (Supersede Operation): re-render is the whole-graph
   limit-case of supersede. Supersede preserves topology **and** writes a persisted
   provenance link; Condition C's *pure* re-render preserves neither — which is why
