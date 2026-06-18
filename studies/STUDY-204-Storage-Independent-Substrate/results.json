@@ -1,0 +1,71 @@
+{
+  "study_id": "STUDY-204",
+  "title": "Storage-Independent Graph Substrate \u2014 Database and Mediated Access",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 17,
+  "tests_passed": 17,
+  "tests_failed": 0,
+  "baseline_authored_by": "STUDY-203",
+  "conditions": {
+    "A": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "B": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "C": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    },
+    "D": {
+      "topology_determination": true,
+      "result_dependent_routing": true,
+      "self_modification": true,
+      "modification_persistence": true,
+      "functional_equivalence": true,
+      "node_count_delta": 1,
+      "edge_count_delta": 2
+    }
+  },
+  "access_evidence": {
+    "visited_path": [
+      "start",
+      "compute",
+      "branch",
+      "grow",
+      "audit",
+      "finalize"
+    ],
+    "B_sql_query_count": 16,
+    "B_file_parses": 0,
+    "C_agent_has_storage_handle": false,
+    "D_agent_has_storage_handle": false,
+    "D_composes_b_and_c": true,
+    "D_backing_sql_query_count": 16
+  },
+  "key_findings": [
+    "A graph substrate stored in a relational store (B), accessed through a mediation layer (C), or both (D) produces a final state structurally identical to the serialized-file baseline (A).",
+    "The agent reads the relational store via SQL queries, not by parsing a serialized file; the mediated agent holds no storage handle at all.",
+    "Topology-as-program, result-driven edge selection, and in-traversal self-modification (no compile/deploy boundary) are preserved unchanged across every storage/access embodiment.",
+    "The self-modification adds one node and two edges live during execution and the new topology is traversed on the next step (nonzero deltas in every condition).",
+    "Storage format and access path are deployment details; the substrate mechanism is storage-independent."
+  ]
+}
