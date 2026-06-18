@@ -1,0 +1,13 @@
+{
+  "id": "archive_c",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "archive_root",
+      "type": "ARCHIVE",
+      "data": {"name": "cold_archive"},
+      "metadata": {"created_by": "system", "created_at": "2026-05-11T00:00:00+00:00", "status": "active"}
+    }
+  ],
+  "edges": []
+}

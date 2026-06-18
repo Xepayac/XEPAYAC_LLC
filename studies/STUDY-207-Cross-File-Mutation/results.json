@@ -1,0 +1,55 @@
+{
+  "study_id": "STUDY-207",
+  "title": "Multi-File Substrate Mutation \u2014 Cross-File Graph Self-Modification",
+  "date": "2026-06-18",
+  "status": "PASS",
+  "tests_run": 9,
+  "tests_passed": 9,
+  "tests_failed": 0,
+  "duration_seconds": 0.0059,
+  "scenarios": {
+    "cross_file_node_spawn": {
+      "result": "PASS",
+      "files": 2,
+      "nodes_in_b_after": 3,
+      "cross_file_edges": 1,
+      "feeds_edge_present": true
+    },
+    "cross_file_supersede": {
+      "result": "PASS",
+      "files": 2,
+      "v1_stale": true,
+      "v2_active": true,
+      "superseded_by_edge": 1,
+      "audit_trail_traversable": true,
+      "file_b_content_changed": true
+    },
+    "atomic_rollback": {
+      "result": "PASS",
+      "both_files_rolled_back": true,
+      "no_dangling_edge": true,
+      "no_partial_node": true
+    },
+    "substrate_discovery": {
+      "result": "PASS",
+      "files_discovered": 3,
+      "manifest_used": false
+    },
+    "multi_agent_cross_file": {
+      "result": "PASS",
+      "provenance_creator": "agent_one",
+      "conflicts": 0,
+      "concurrent_conflict": {
+        "succeeded": 1,
+        "conflicted": 1
+      }
+    }
+  },
+  "key_findings": [
+    "An agent executing in File A modifies File B's contents in place (creates a RESULT node, supersedes a node, redirects an edge) \u2014 the fourth flavor of self-modification, cross-file in-place mutation.",
+    "Both files commit atomically or neither does: an injected mid-transaction failure leaves both files byte-identical (WAL rollback), with no dangling edge and no partial node.",
+    "The substrate boundary is discovered by following cross-file edges transitively (3 files, A->B->C), with no manifest or registry.",
+    "A cross-file mutation is immediately live for traversal across the file boundary \u2014 no parse/compile/deploy step (structural liveness).",
+    "Demonstrated for 2-3 files; the WAL primitive is N-file-shaped but unbounded-N is not proven here (that is the CIP spec's burden)."
+  ]
+}
